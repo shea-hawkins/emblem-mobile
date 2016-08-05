@@ -5,6 +5,7 @@ use_frameworks!
 
 target 'Emblem' do
   pod 'GoogleMaps'
+  pod 'SwiftyJSON'
 end
 
 target 'EmblemTests' do

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="rq9-EC-Xsf">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -21,6 +22,51 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+        </scene>
+        <!--Map View Controller-->
+        <scene sceneID="P0d-CC-WrF">
+            <objects>
+                <viewController id="rq9-EC-Xsf" customClass="MapViewController" customModule="Emblem" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="I5F-Vl-Z8b"/>
+                        <viewControllerLayoutGuide type="bottom" id="D0A-PA-bn2"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="SDD-hw-LJI">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ytj-s9-ZYr" customClass="GMSMapView">
+                                <rect key="frame" x="0.0" y="20" width="600" height="580"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Ytj-s9-ZYr" firstAttribute="top" secondItem="I5F-Vl-Z8b" secondAttribute="bottom" id="3Ar-tG-RR8"/>
+                            <constraint firstItem="Ytj-s9-ZYr" firstAttribute="leading" secondItem="SDD-hw-LJI" secondAttribute="leadingMargin" constant="-20" id="62m-fd-PsD"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Ytj-s9-ZYr" secondAttribute="trailing" id="MFc-e6-GDl"/>
+                            <constraint firstItem="Ytj-s9-ZYr" firstAttribute="top" secondItem="I5F-Vl-Z8b" secondAttribute="bottom" id="aeU-XA-unH"/>
+                            <constraint firstItem="D0A-PA-bn2" firstAttribute="top" secondItem="Ytj-s9-ZYr" secondAttribute="bottom" id="h3z-Xg-NIP"/>
+                            <constraint firstItem="Ytj-s9-ZYr" firstAttribute="trailing" secondItem="SDD-hw-LJI" secondAttribute="trailingMargin" constant="20" id="oSf-e1-LCf"/>
+                            <constraint firstItem="D0A-PA-bn2" firstAttribute="top" secondItem="Ytj-s9-ZYr" secondAttribute="bottom" id="rV1-TW-3vC"/>
+                            <constraint firstItem="Ytj-s9-ZYr" firstAttribute="leading" secondItem="SDD-hw-LJI" secondAttribute="leadingMargin" id="vTb-nv-ZRo"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="3Ar-tG-RR8"/>
+                                <exclude reference="MFc-e6-GDl"/>
+                                <exclude reference="vTb-nv-ZRo"/>
+                                <exclude reference="h3z-Xg-NIP"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <connections>
+                        <outlet property="mapView" destination="Ytj-s9-ZYr" id="cJt-MF-OJZ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hJf-XZ-8ZX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1121" y="261"/>
         </scene>
     </scenes>
 </document>
