@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Emblem/MapViewController.swift"
-            timestampString = "492048846.000084"
+            timestampString = "492109810.619287"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "51"
-            endingLineNumber = "51"
+            startingLineNumber = "82"
+            endingLineNumber = "82"
             landmarkName = "MapViewController"
             landmarkType = "3">
          </BreakpointContent>
