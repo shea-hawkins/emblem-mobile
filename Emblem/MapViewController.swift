@@ -7,9 +7,10 @@
 //
 
 import UIKit
+import SwiftyJSON
 
 class MapViewController: UIViewController {
-
+    
     @IBOutlet weak var mapView: GMSMapView!
     
     let locationManager = CLLocationManager()
@@ -20,41 +21,92 @@ class MapViewController: UIViewController {
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
         
+        
         let marker = GMSMarker()
         marker.position = CLLocationCoordinate2DMake(37.7836883,-122.4111727)
         marker.appearAnimation = kGMSMarkerAnimationPop
         marker.map = mapView
         
-        let scriptURL = "http://www.stackoverflow.com"
+        let scriptURL = "http://138.68.23.39:3000/place"
         let myUrl = NSURL(string: scriptURL)
-        let request = NSMutableURLRequest(URL: myUrl!)
-        request.HTTPMethod = "GET"
         
-        let task = NSURLSession.sharedSession().dataTaskWithURL(myUrl!) {(data, response, error) in
-            print("intask")
-            print(NSString(data: data!, encoding: NSUTF8StringEncoding))
+        //        post(["lat": "3", "long": "3"], url: "http://138.68.23.39:3000/place"){(suceeded, msg) in
+        //
+        //        }
+        
+        get(scriptURL){(succeeded, data) in
             
+            if succeeded {
+                let json = JSON(data:data)
+                print(json)
+                dispatch_async(dispatch_get_main_queue()) {
+                    for (key, subJson):(String, JSON) in json {
+                        let marker = GMSMarker()
+                        marker.position = CLLocationCoordinate2DMake(CLLocationDegrees(subJson["long"].stringValue)!, CLLocationDegrees(subJson["lat"].stringValue)!)
+                        marker.appearAnimation = kGMSMarkerAnimationPop
+                        marker.map = self.mapView
+                    }
+                    
+                }
+            }
+        }
+    }
+    
+    
+    func get(urlStr:String, getCompleted: (succeeded: Bool, data: NSData) -> ()) {
+        
+        let myUrl = NSURL(string: urlStr)
+        let task = NSURLSession.sharedSession().dataTaskWithURL(myUrl!) {(data, response, error) in
+            
+            if error != nil {
+                print("Get Request Error: \(error!)")
+            } else {
+                getCompleted(succeeded: true, data: data!)
+            }
         }
         task.resume()
         
+    }
+    
+    func post(params: Dictionary<String, String>, url: String, postCompleted: (succeeded: Bool, msg: String) -> ()){
+        let request = NSMutableURLRequest(URL: NSURL(string: url)!)
+        let session = NSURLSession.sharedSession()
+        request.HTTPMethod = "POST"
         
-//        let task = NSURLSession.sharedSession().dataTaskWithRequest(request) {
-//            (data, response, error) in
-//            
-//            if error != nil {
-//                print("error=\(error)")
-//                return
-//            }
-//            
-//            let responseString = NSString(data: data!, encoding: NSUTF8StringEncoding)
-//            print("reponseString: \(responseString)")
-//            
-//            do {
-//                if let convertedJSONIntoDict = try NSJSONSerialization.JSONObjectWithData(data!, options: []) as? NSDictionary {
-//                    print(convertedJSONIntoDict)
-//                }
-//            }
-//        }
+        do {
+            
+            let json = try NSJSONSerialization.dataWithJSONObject(params, options: [])
+            print(json.dynamicType)
+            request.HTTPBody = json
+        } catch {
+            print("HTTPBody set error: \(error)")
+        }
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        
+        let task = session.dataTaskWithRequest(request) { (data, response, error) in
+            print("Response: \(response)")
+            let strData = NSString(data: data!, encoding: NSUTF8StringEncoding)
+            print("Body: \(strData)")
+            
+            do {
+                let json = try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.AllowFragments)
+                print("POST RESPONSE: \(json)")
+                let parseJSON = json
+                if let success = parseJSON["success"] as? Bool {
+                    postCompleted(succeeded: success, msg: "Post Successful")
+                    print("Success: \(success)")
+                }
+                
+            } catch{
+                print("JSON POST parse error: \(error)")
+            }
+            
+            
+            
+        }
+        
+        task.resume()
         
     }
     
@@ -69,7 +121,7 @@ extension MapViewController: CLLocationManagerDelegate {
             locationManager.startUpdatingLocation()
             mapView.myLocationEnabled = true
             mapView.settings.myLocationButton = true
-            print("authorized")
+            print("location authorized")
             
         }
     }

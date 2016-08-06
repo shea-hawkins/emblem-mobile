@@ -12,7 +12,7 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    let googleMapsApiKey = "AIzaSyBhbImmbdPRDy2v2167s9tx0XFCUlJF2vo"
+    let googleMapsApiKey = "AIzaSyB sK1ijPzneTx74rKUSRVugnB1mF8Q6d8"
     
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
