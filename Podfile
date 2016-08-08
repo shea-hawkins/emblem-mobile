@@ -4,14 +4,17 @@
 use_frameworks!
 
 target 'Emblem' do
-  pod 'GoogleMaps'
-  pod 'SwiftyJSON'
+    pod 'GoogleMaps'
+    pod 'SwiftyJSON'
+    pod 'FacebookCore'
+    pod 'FacebookLogin'
+    pod 'FacebookShare'
 end
 
 target 'EmblemTests' do
-
+    
 end
 
 target 'EmblemUITests' do
-
+    
 end

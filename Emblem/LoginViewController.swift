@@ -1,4 +1,4 @@
-//
+    //
 //  LoginViewController.swift
 //  Emblem
 //
@@ -32,9 +32,13 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         
         FBSDKGraphRequest.init(graphPath: "me", parameters: ["fields":"first_name, email, last_name, picture.type(large)"]).startWithCompletionHandler { (connection, result, error) -> Void in
             
+            if error != nil {
+                print("FBLogin Error: \(error)")
+            } else {
+                print("in result", result)
+            }
             
             //Result Object Here
-            print("in result", result)
             
             //            let strFirstName: String = (result.objectForKey("first_name") as? String)!
             //            let strLastName: String = (result.objectForKey("last_name") as? String)!
