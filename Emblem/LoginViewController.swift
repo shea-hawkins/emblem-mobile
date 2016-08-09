@@ -13,6 +13,8 @@ import FBSDKShareKit
 
 class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     
+    var user:User!
+    
     @IBOutlet weak var FBLoginButton: FBSDKLoginButton!
     
     
@@ -21,9 +23,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         configureFacebook()
         if FBSDKAccessToken.currentAccessToken() != nil {
             print("loggedInAlready")
-            //User is logged in
-        } else {
-            //log user in
+            self.performSegueWithIdentifier(MapViewController.getEntrySegueFromLogin(), sender:nil )
         }
     }
     
@@ -36,6 +36,8 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
                 print("FBLogin Error: \(error)")
             } else {
                 print("in result", result)
+                self.user = User(name: result["first_name"] as! String, email: result["email"] as! String, fbID: result["id"] as! String, imgURL: result["picture"]!["data"]!["url"] as! String)
+                self.performSegueWithIdentifier(MapViewController.getEntrySegueFromLogin(), sender: self.user)
             }
             
             //Result Object Here
@@ -60,4 +62,12 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         super.didReceiveMemoryWarning()
     }
     
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == MapViewController.getEntrySegueFromLogin() {
+            let dest = segue.destinationViewController as! MapViewController
+            if let user = sender as? User {
+                dest.user = user
+            }
+        }
+    }
 }

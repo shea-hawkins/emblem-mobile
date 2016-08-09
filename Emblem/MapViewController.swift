@@ -11,6 +11,8 @@ import SwiftyJSON
 
 class MapViewController: UIViewController {
     
+    var user:User?
+    
     @IBOutlet weak var mapView: GMSMapView!
     
     let locationManager = CLLocationManager()
@@ -18,6 +20,11 @@ class MapViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+                self.navigationItem.hidesBackButton = true
+                if let _ = self.navigationController {
+                    navigationController?.navigationBarHidden = true
+                }
+    
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
         
@@ -52,6 +59,9 @@ class MapViewController: UIViewController {
         }
     }
     
+    class func getEntrySegueFromLogin() -> String {
+        return "MapViewControllerSegue"
+    }
     
     func get(urlStr:String, getCompleted: (succeeded: Bool, data: NSData) -> ()) {
         

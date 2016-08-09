@@ -14,6 +14,7 @@
 		35A87DF81D52B998004E739E /* EmblemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35A87DF71D52B998004E739E /* EmblemTests.swift */; };
 		35A87E031D52B998004E739E /* EmblemUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35A87E021D52B998004E739E /* EmblemUITests.swift */; };
 		35A87E111D52BA28004E739E /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35A87E101D52BA28004E739E /* LoginViewController.swift */; };
+		35BD88A21D59536300A409D6 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35BD88A11D59536300A409D6 /* User.swift */; };
 		35FA710E1D542EFF00F54CBC /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35FA710D1D542EFF00F54CBC /* MapViewController.swift */; };
 		55CB9937DFC26F85914C1C66 /* Pods_EmblemTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93A26ACF62EF8EADDFE28128 /* Pods_EmblemTests.framework */; };
 		80FE0960445486837F57694A /* Pods_EmblemUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CB9D30DE3991C7F8BB8ADAB /* Pods_EmblemUITests.framework */; };
@@ -51,6 +52,7 @@
 		35A87E021D52B998004E739E /* EmblemUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmblemUITests.swift; sourceTree = "<group>"; };
 		35A87E041D52B998004E739E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		35A87E101D52BA28004E739E /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		35BD88A11D59536300A409D6 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		35FA710C1D542EFF00F54CBC /* Emblem-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Emblem-Bridging-Header.h"; sourceTree = "<group>"; };
 		35FA710D1D542EFF00F54CBC /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		5A976B07605230728311C182 /* Pods_Emblem.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Emblem.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -130,6 +132,7 @@
 		35A87DE11D52B997004E739E /* Emblem */ = {
 			isa = PBXGroup;
 			children = (
+				35BD889E1D5952FE00A409D6 /* Models */,
 				35FA710C1D542EFF00F54CBC /* Emblem-Bridging-Header.h */,
 				35FA710D1D542EFF00F54CBC /* MapViewController.swift */,
 				35A87DE21D52B997004E739E /* AppDelegate.swift */,
@@ -158,6 +161,14 @@
 				35A87E041D52B998004E739E /* Info.plist */,
 			);
 			path = EmblemUITests;
+			sourceTree = "<group>";
+		};
+		35BD889E1D5952FE00A409D6 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				35BD88A11D59536300A409D6 /* User.swift */,
+			);
+			name = Models;
 			sourceTree = "<group>";
 		};
 		DE59BFB1C6BC0733D112633F /* Frameworks */ = {
@@ -432,6 +443,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				35BD88A21D59536300A409D6 /* User.swift in Sources */,
 				35A87E111D52BA28004E739E /* LoginViewController.swift in Sources */,
 				35FA710E1D542EFF00F54CBC /* MapViewController.swift in Sources */,
 				35A87DE31D52B997004E739E /* AppDelegate.swift in Sources */,
