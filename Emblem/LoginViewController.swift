@@ -25,6 +25,10 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
             print("loggedInAlready")
             self.performSegueWithIdentifier(MapViewController.getEntrySegueFromLogin(), sender:nil )
         }
+        
+        let env = NSProcessInfo.processInfo().environment
+        
+        print("Env variables: \(env["DEV_SERVER"]! as String)")
     }
     
     func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!){
@@ -37,6 +41,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
             } else {
                 print("in result", result)
                 self.user = User(name: result["first_name"] as! String, email: result["email"] as! String, fbID: result["id"] as! String, imgURL: result["picture"]!["data"]!["url"] as! String)
+                print(self.user as User)
                 self.performSegueWithIdentifier(MapViewController.getEntrySegueFromLogin(), sender: self.user)
             }
             
@@ -50,6 +55,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     }
     
     func configureFacebook(){
+//        [[PFFacebookUtils facebookLoginManager] setLoginBehavior:FBSDKLoginBehaviorSystemAccount]
         FBLoginButton.readPermissions = ["public_profile", "email", "user_friends"]
         FBLoginButton.delegate = self
     }
