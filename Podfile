@@ -11,10 +11,10 @@ target 'Emblem' do
     pod 'FacebookShare'
 end
 
+use_frameworks!
+
 target 'EmblemTests' do
-    
 end
 
 target 'EmblemUITests' do
-    
 end

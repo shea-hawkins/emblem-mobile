@@ -11,45 +11,64 @@ import SwiftyJSON
 
 class MapViewController: UIViewController {
     
+    
+    var serverUrl:NSURL?
     var user:User?
+    let locationManager = CLLocationManager()
     
     @IBOutlet weak var mapView: GMSMapView!
     
-    let locationManager = CLLocationManager()
-    
+    @IBAction func addMarkerPressed(sender: AnyObject) {
+        if let location = mapView.myLocation {
+            let x = String(location.coordinate.latitude)
+            let y = String(location.coordinate.longitude)
+            post(["lat": x, "long": y], url: serverUrl!, postCompleted: { (succeeded, msg) in
+                print("Post Complete \(msg)")
+            })
+            
+            //TODO: Replace with websockets
+            getMarkers(serverUrl!)
+            
+        }
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        let env = NSProcessInfo.processInfo().environment
+        if let server = env["DEV_SERVER"]! as String? {
+            self.serverUrl = NSURL(string: server)!
+            
+        } else {
+            self.serverUrl = NSURL(string: "http://138.68.23.39:3000/place")!
+        }
+
+        initLocationServices()
+        getMarkers(self.serverUrl!)
         
-                self.navigationItem.hidesBackButton = true
-                if let _ = self.navigationController {
-                    navigationController?.navigationBarHidden = true
-                }
+    }
     
+    class func getEntrySegueFromLogin() -> String {
+        return "MapViewControllerSegue"
+    }
+    
+    func initLocationServices() {
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
-        
-        
-        let marker = GMSMarker()
-        marker.position = CLLocationCoordinate2DMake(37.7836883,-122.4111727)
-        marker.appearAnimation = kGMSMarkerAnimationPop
-        marker.map = mapView
-        
-        let scriptURL = "http://138.68.23.39:3000/place"
-        let myUrl = NSURL(string: scriptURL)
-        
-        //        post(["lat": "3", "long": "3"], url: "http://138.68.23.39:3000/place"){(suceeded, msg) in
-        //
-        //        }
-        
+        locationManager.startUpdatingLocation()
+        mapView.myLocationEnabled = true
+        mapView.settings.myLocationButton = true
+    }
+    
+    func getMarkers(scriptURL: NSURL) {
         get(scriptURL){(succeeded, data) in
             
             if succeeded {
                 let json = JSON(data:data)
                 print(json)
                 dispatch_async(dispatch_get_main_queue()) {
-                    for (key, subJson):(String, JSON) in json {
+                    for (_, subJson):(String, JSON) in json {
                         let marker = GMSMarker()
-                        marker.position = CLLocationCoordinate2DMake(CLLocationDegrees(subJson["long"].stringValue)!, CLLocationDegrees(subJson["lat"].stringValue)!)
+                        marker.position = CLLocationCoordinate2DMake(CLLocationDegrees(subJson["lat"].stringValue)!, CLLocationDegrees(subJson["long"].stringValue)!)
                         marker.appearAnimation = kGMSMarkerAnimationPop
                         marker.map = self.mapView
                     }
@@ -59,14 +78,9 @@ class MapViewController: UIViewController {
         }
     }
     
-    class func getEntrySegueFromLogin() -> String {
-        return "MapViewControllerSegue"
-    }
-    
-    func get(urlStr:String, getCompleted: (succeeded: Bool, data: NSData) -> ()) {
+    func get(url:NSURL, getCompleted: (succeeded: Bool, data: NSData) -> ()) {
         
-        let myUrl = NSURL(string: urlStr)
-        let task = NSURLSession.sharedSession().dataTaskWithURL(myUrl!) {(data, response, error) in
+        let task = NSURLSession.sharedSession().dataTaskWithURL(url) {(data, response, error) in
             
             if error != nil {
                 print("Get Request Error: \(error!)")
@@ -78,8 +92,9 @@ class MapViewController: UIViewController {
         
     }
     
-    func post(params: Dictionary<String, String>, url: String, postCompleted: (succeeded: Bool, msg: String) -> ()){
-        let request = NSMutableURLRequest(URL: NSURL(string: url)!)
+    func post(params: Dictionary<String, String>, url: NSURL, postCompleted: (succeeded: Bool, msg: String) -> ()){
+        
+        let request = NSMutableURLRequest(URL: url)
         let session = NSURLSession.sharedSession()
         request.HTTPMethod = "POST"
         
@@ -107,17 +122,11 @@ class MapViewController: UIViewController {
                     postCompleted(succeeded: success, msg: "Post Successful")
                     print("Success: \(success)")
                 }
-                
             } catch{
                 print("JSON POST parse error: \(error)")
             }
-            
-            
-            
         }
-        
         task.resume()
-        
     }
     
     override func didReceiveMemoryWarning() {
@@ -135,10 +144,14 @@ extension MapViewController: CLLocationManagerDelegate {
             
         }
     }
+    func locationManagerDidResumeLocationUpdates(manager: CLLocationManager) {
+        print("resuming location updates")
+    }
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.first {
             mapView.camera = GMSCameraPosition(target: location.coordinate, zoom: 15, bearing: 0, viewingAngle: 0)
             locationManager.stopUpdatingLocation()
+
         }
     }
 }
