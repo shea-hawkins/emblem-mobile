@@ -10,47 +10,37 @@ import UIKit
 import FBSDKCoreKit
 import FBSDKLoginKit
 import FBSDKShareKit
-import SafariServices
+import SwiftyJSON
     
 
-class LoginViewController: UIViewController, SFSafariViewControllerDelegate, FBSDKLoginButtonDelegate {
+class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     
     var user:User!
-    var serverUrl:NSURL?
+    let deployedServerString:String = "http://138.68.23.39:3000"
+
     let env = NSProcessInfo.processInfo().environment
+    
+    @IBOutlet weak var fbLoginButton: FBSDKLoginButton!
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
-//        configureFacebook()
-//        if FBSDKAccessToken.currentAccessToken() != nil {
-//            print("loggedInAlready")
-//            self.performSegueWithIdentifier(MapViewController.getEntrySegueFromLogin(), sender:nil )
-//        }
+        configureFacebook()
+        if FBSDKAccessToken.currentAccessToken() != nil {
+            print("loggedInAlready")
+            //self.performSegueWithIdentifier(MapViewController.getEntrySegueFromLogin(), sender:nil )
+        }
         
         
         print("Env variables: \(env["DEV_SERVER"]! as String)")
     }
-    
-    @IBAction func loginPressed(sender: AnyObject) {
-        if let server = env["DEV_SERVER"]! as String? {
-            self.serverUrl = NSURL(string: server)!
-            
-        } else {
-            self.serverUrl = NSURL(string: "http://138.68.23.39:3000/place")!
-        }
-        
-        let url = NSURL(string: (env["DEV_SERVER/LOGIN"]! as String?)!)
-        
-        let sfvc = SFSafariViewController(URL: url!, entersReaderIfAvailable: true)
-        sfvc.delegate = self
-        self.presentViewController(sfvc, animated: true, completion: nil)
-    }
+
     
     func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!){
         
         
         FBSDKGraphRequest.init(graphPath: "me", parameters: ["fields":"first_name, email, last_name, picture.type(large)"]).startWithCompletionHandler { (connection, result, error) -> Void in
+            
             
             if error != nil {
                 print("FBLogin Error: \(error)")
@@ -58,7 +48,22 @@ class LoginViewController: UIViewController, SFSafariViewControllerDelegate, FBS
                 print("in result", result)
                 self.user = User(name: result["first_name"] as! String, email: result["email"] as! String, fbID: result["id"] as! String, imgURL: result["picture"]!["data"]!["url"] as! String)
                 print(self.user as User)
-                self.performSegueWithIdentifier(MapViewController.getEntrySegueFromLogin(), sender: self.user)
+                
+                var url = NSURL()
+                if let server = self.env["DEV_SERVER"] as String? {
+                    url = NSURL(string: "\(server)auth/facebook/token?access_token=\(FBSDKAccessToken.currentAccessToken().tokenString)")!
+                } else {
+                    url = NSURL(string: "\(self.deployedServerString)/auth/facebook/token?access_token=\(FBSDKAccessToken.currentAccessToken().tokenString)")!
+                }
+                
+                HTTPRequest.get(url, getCompleted: { (response, data) in
+                    if response.statusCode == 200 {
+                        self.performSegueWithIdentifier(MapViewController.getEntrySegueFromLogin(), sender: self.user)
+                    } else {
+                        print("FB Authentication Falure: \(response)")
+                    }
+                })
+                
             }
             
             //Result Object Here
@@ -70,18 +75,13 @@ class LoginViewController: UIViewController, SFSafariViewControllerDelegate, FBS
         
     }
     
-//    func configureFacebook(){
-//        FBLoginButton.readPermissions = ["public_profile", "email", "user_friends"]
-//        FBLoginButton.delegate = self
-//    }
+    func configureFacebook(){
+        fbLoginButton.readPermissions = ["public_profile", "email", "user_friends"]
+        fbLoginButton.delegate = self
+    }
     func loginButtonDidLogOut(loginButton: FBSDKLoginButton!){
         let loginManager: FBSDKLoginManager = FBSDKLoginManager()
         loginManager.logOut()
-    }
-    
-    func safariViewControllerDidFinish(controller: SFSafariViewController) {
-        controller.dismissViewControllerAnimated(true, completion: nil)
-        print("login complete")
     }
     
     override func didReceiveMemoryWarning() {

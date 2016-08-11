@@ -38,7 +38,7 @@ class MapViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        if let server = env["DEV_SERVER/PLACE"]! as String? {
+        if let server = env["DEV_SERVER/PLACE"] as String? {
             self.serverUrl = NSURL(string: server)!
             
         } else {
@@ -75,9 +75,9 @@ class MapViewController: UIViewController {
     }
     
     func getMarkers(scriptURL: NSURL) {
-        HTTPRequest.get(scriptURL){(succeeded, data) in
-            
-            if succeeded {
+        HTTPRequest.get(scriptURL){(response, data) in
+            print("GetMarkers: \(response.statusCode)")
+            if response.statusCode == 200 {
                 let json = JSON(data:data)
                 print(json)
                 dispatch_async(dispatch_get_main_queue()) {

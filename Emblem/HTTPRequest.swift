@@ -10,14 +10,17 @@ import Foundation
 
 class HTTPRequest {
 
-    class func get(url:NSURL, getCompleted: (succeeded: Bool, data: NSData) -> ()) {
+    class func get(url:NSURL, getCompleted: (response: NSHTTPURLResponse, data: NSData) -> ()) {
         
         let task = NSURLSession.sharedSession().dataTaskWithURL(url) {(data, response, error) in
             
+            let httpresponse = response as! NSHTTPURLResponse
+
             if error != nil {
                 print("Get Request Error: \(error!)")
             } else {
-                getCompleted(succeeded: true, data: data!)
+                print("Server Response: \(httpresponse.allHeaderFields)")
+                getCompleted(response: httpresponse, data: data!)
             }
         }
         task.resume()
