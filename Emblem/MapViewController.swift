@@ -30,7 +30,7 @@ class MapViewController: UIViewController {
             })
             
             //TODO: Replace with websockets
-            getMarkers(serverUrl!)
+//            getMarkers(serverUrl!)
             
         }
     }
@@ -53,12 +53,17 @@ class MapViewController: UIViewController {
         }
         
         socket.on("place/createPlace") {data, ack in
-            print("socket place received")
+
+            if let dataDict = data[0] as? NSDictionary {
+                let lat = String(dataDict["lat"]!)
+                let long = String(dataDict["long"]!)
+                self.createMarker(lat, longitude: long)
+            }
         }
         
         socket.connect()
 
-//        getMarkers(self.serverUrl!)
+        getMarkers(self.serverUrl!)
         
     }
     
@@ -80,16 +85,19 @@ class MapViewController: UIViewController {
             if response.statusCode == 200 {
                 let json = JSON(data:data)
                 print(json)
-                dispatch_async(dispatch_get_main_queue()) {
-                    for (_, subJson):(String, JSON) in json {
-                        let marker = GMSMarker()
-                        marker.position = CLLocationCoordinate2DMake(CLLocationDegrees(subJson["lat"].stringValue)!, CLLocationDegrees(subJson["long"].stringValue)!)
-                        marker.appearAnimation = kGMSMarkerAnimationPop
-                        marker.map = self.mapView
-                    }
-                    
+                for(_, subJSON):(String, JSON) in json {
+                    self.createMarker(subJSON["lat"].stringValue, longitude: subJSON["long"].stringValue)
                 }
             }
+        }
+    }
+    
+    func createMarker(latitude: String, longitude: String) {
+        dispatch_async(dispatch_get_main_queue()) {
+            let marker = GMSMarker()
+            marker.position = CLLocationCoordinate2DMake(CLLocationDegrees(latitude)!, CLLocationDegrees(longitude)!)
+            marker.appearAnimation = kGMSMarkerAnimationPop
+            marker.map = self.mapView
         }
     }
     

@@ -27,12 +27,9 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         super.viewDidLoad()
         configureFacebook()
         if FBSDKAccessToken.currentAccessToken() != nil {
-            print("loggedInAlready")
-            //self.performSegueWithIdentifier(MapViewController.getEntrySegueFromLogin(), sender:nil )
+            self.performSegueWithIdentifier(MapViewController.getEntrySegueFromLogin(), sender:nil )
         }
         
-        
-        print("Env variables: \(env["DEV_SERVER"]! as String)")
     }
 
     
