@@ -26,8 +26,7 @@ class MapViewController: UIViewController {
                 print("Post Complete \(msg)")
             })
             
-            //TODO: Replace with websockets's
-            
+            //TODO: Replace with websockets
             getMarkers(serverUrl!)
             
         }
@@ -43,15 +42,13 @@ class MapViewController: UIViewController {
             self.serverUrl = NSURL(string: "http://138.68.23.39:3000/place")!
         }
 
-        //initLocationServices()
-        let markerData = ["item1": 5];
-        self.performSegueWithIdentifier(SimpleViewController.getEntrySegueFromMapView(), sender: markerData)
-        //getMarkers(self.serverUrl!)
+        initLocationServices()
+        getMarkers(self.serverUrl!)
         
     }
     
     class func getEntrySegueFromLogin() -> String {
-        return "LoginToMapViewSegue"
+        return "MapViewControllerSegue"
     }
     
     func initLocationServices() {
@@ -134,15 +131,6 @@ class MapViewController: UIViewController {
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-    }
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == SimpleViewController.getEntrySegueFromMapView() {
-            
-            let vc = segue.destinationViewController as! SimpleViewController
-            if let dest = sender {
-                vc.data = dest as! [NSObject : AnyObject];
-            }
-        }
     }
 }
 

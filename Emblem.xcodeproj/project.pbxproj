@@ -17,8 +17,8 @@
 		35BD88A21D59536300A409D6 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35BD88A11D59536300A409D6 /* User.swift */; };
 		35BD88A61D597F3500A409D6 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35BD88A51D597F3500A409D6 /* MapViewController.swift */; };
 		55CB9937DFC26F85914C1C66 /* Pods_EmblemTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93A26ACF62EF8EADDFE28128 /* Pods_EmblemTests.framework */; };
+		718E640C1D5E30B50023B860 /* SimpleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 718E640B1D5E30B50023B860 /* SimpleViewController.m */; };
 		71A490261D5D429200497B28 /* lib in Resources */ = {isa = PBXBuildFile; fileRef = 71A490251D5D429200497B28 /* lib */; };
-		71AB3EDA1D5D265D00A4BD23 /* components in Resources */ = {isa = PBXBuildFile; fileRef = 71AB3ED91D5D265D00A4BD23 /* components */; };
 		71AB3EDC1D5D287100A4BD23 /* libVuforia.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 71AB3EDB1D5D287100A4BD23 /* libVuforia.a */; settings = {ATTRIBUTES = (Required, ); }; };
 		80FE0960445486837F57694A /* Pods_EmblemUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CB9D30DE3991C7F8BB8ADAB /* Pods_EmblemUITests.framework */; };
 		D5C1AA5F6BACC53824E8D303 /* Pods_Emblem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A976B07605230728311C182 /* Pods_Emblem.framework */; };
@@ -62,8 +62,9 @@
 		600D4A85AE037D048F0AA4C0 /* Pods-EmblemUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EmblemUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EmblemUITests/Pods-EmblemUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		67770561255CFF1F85E4316B /* Pods-EmblemUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EmblemUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-EmblemUITests/Pods-EmblemUITests.release.xcconfig"; sourceTree = "<group>"; };
 		679B4FD6FEAE7FBD70BF8A6B /* Pods-EmblemTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EmblemTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-EmblemTests/Pods-EmblemTests.release.xcconfig"; sourceTree = "<group>"; };
+		718E640A1D5E30B50023B860 /* SimpleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SimpleViewController.h; path = components/ar/SimpleViewController.h; sourceTree = "<group>"; };
+		718E640B1D5E30B50023B860 /* SimpleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SimpleViewController.m; path = components/ar/SimpleViewController.m; sourceTree = "<group>"; };
 		71A490251D5D429200497B28 /* lib */ = {isa = PBXFileReference; lastKnownFileType = folder; path = lib; sourceTree = "<group>"; };
-		71AB3ED91D5D265D00A4BD23 /* components */ = {isa = PBXFileReference; lastKnownFileType = folder; path = components; sourceTree = "<group>"; };
 		71AB3EDB1D5D287100A4BD23 /* libVuforia.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libVuforia.a; path = "lib/vuforia-sdk-ios-6-0-112/build/lib/arm/libVuforia.a"; sourceTree = "<group>"; };
 		7EDE38068E97E3DD01296F43 /* Pods-EmblemTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EmblemTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EmblemTests/Pods-EmblemTests.debug.xcconfig"; sourceTree = "<group>"; };
 		8CB9D30DE3991C7F8BB8ADAB /* Pods_EmblemUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EmblemUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -140,10 +141,11 @@
 		35A87DE11D52B997004E739E /* Emblem */ = {
 			isa = PBXGroup;
 			children = (
-				71AB3ED91D5D265D00A4BD23 /* components */,
 				35FA710C1D542EFF00F54CBC /* Emblem-Bridging-Header.h */,
 				35A87DE21D52B997004E739E /* AppDelegate.swift */,
 				35A87DE61D52B997004E739E /* Main.storyboard */,
+				718E640A1D5E30B50023B860 /* SimpleViewController.h */,
+				718E640B1D5E30B50023B860 /* SimpleViewController.m */,
 				35BD88A71D597F4000A409D6 /* Controllers */,
 				35BD889E1D5952FE00A409D6 /* Models */,
 				35A87DE91D52B998004E739E /* Assets.xcassets */,
@@ -312,7 +314,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				71AB3EDA1D5D265D00A4BD23 /* components in Resources */,
 				71A490261D5D429200497B28 /* lib in Resources */,
 				35A87DED1D52B998004E739E /* LaunchScreen.storyboard in Resources */,
 				35A87DEA1D52B998004E739E /* Assets.xcassets in Resources */,
@@ -467,6 +468,7 @@
 				35BD88A21D59536300A409D6 /* User.swift in Sources */,
 				35A87E111D52BA28004E739E /* LoginViewController.swift in Sources */,
 				35A87DE31D52B997004E739E /* AppDelegate.swift in Sources */,
+				718E640C1D5E30B50023B860 /* SimpleViewController.m in Sources */,
 				35BD88A61D597F3500A409D6 /* MapViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
