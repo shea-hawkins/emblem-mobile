@@ -11,7 +11,7 @@
 
 #import <GoogleMaps/GoogleMaps.h>
 //#import "components/ar/ImageTargetsViewController.h"
-#import "SimpleViewController.h"
+#import "components/ar/ARViewController.h"
 
 
 #endif /* Emblem_Bridging_Header_h */
