@@ -9,6 +9,7 @@ target 'Emblem' do
     pod 'FacebookCore'
     pod 'FacebookLogin'
     pod 'FacebookShare'
+    pod 'Socket.IO-Client-Swift', '~> 6.1.6'
 end
 
 use_frameworks!

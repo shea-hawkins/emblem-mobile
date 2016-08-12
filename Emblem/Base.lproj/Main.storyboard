@@ -34,8 +34,8 @@
                     </view>
                     <navigationItem key="navigationItem" id="xO8-N4-cXS"/>
                     <connections>
-                        <outlet property="FBLoginButton" destination="7XN-Xy-8ar" id="hM8-Sh-4YV"/>
-                        <segue destination="rq9-EC-Xsf" kind="show" identifier="MapViewControllerSegue" id="sBc-6e-mOO"/>
+                        <outlet property="fbLoginButton" destination="7XN-Xy-8ar" id="1PP-65-Y4a"/>
+                        <segue destination="rq9-EC-Xsf" kind="show" identifier="MapViewControllerSegue" id="SgE-Bc-jvw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -97,7 +97,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hJf-XZ-8ZX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1933" y="261"/>
+            <point key="canvasLocation" x="1943" y="268"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Fw7-Sj-f7y">
