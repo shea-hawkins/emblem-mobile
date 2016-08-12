@@ -10,5 +10,6 @@
 #define Emblem_Bridging_Header_h
 
 #import <GoogleMaps/GoogleMaps.h>
+#import "components/ar/ImageTargetsViewController.h"
 
 #endif /* Emblem_Bridging_Header_h */
