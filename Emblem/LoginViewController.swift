@@ -7,8 +7,8 @@
 //
 
 import UIKit
-import FBSDKCoreKit
 import FBSDKLoginKit
+import FBSDKCoreKit
 import FBSDKShareKit
 
 class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
@@ -20,6 +20,21 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        
+        let vc = storyboard.instantiateViewControllerWithIdentifier("ImageTargetsViewController")
+        self.presentViewController(vc, animated:true, completion: nil)
+        
+        
+        
+        
+        
+        
+        
+        
+        
         configureFacebook()
         if FBSDKAccessToken.currentAccessToken() != nil {
             print("loggedInAlready")
