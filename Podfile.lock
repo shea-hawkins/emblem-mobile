@@ -29,6 +29,7 @@ PODS:
   - GoogleMaps/Base (2.0.1)
   - GoogleMaps/Maps (2.0.1):
     - GoogleMaps/Base (= 2.0.1)
+  - Socket.IO-Client-Swift (6.1.6)
   - SwiftyJSON (2.3.2)
 
 DEPENDENCIES:
@@ -36,6 +37,7 @@ DEPENDENCIES:
   - FacebookLogin
   - FacebookShare
   - GoogleMaps
+  - Socket.IO-Client-Swift (~> 6.1.6)
   - SwiftyJSON
 
 SPEC CHECKSUMS:
@@ -47,8 +49,9 @@ SPEC CHECKSUMS:
   FBSDKLoginKit: da563567a108050ef83739c8c8c001ee9e25fa13
   FBSDKShareKit: e8e5d4ccef69b41132fe33acda26db1e33143e33
   GoogleMaps: f09da64fc987c1aa29394567c3cab5a3df83c402
+  Socket.IO-Client-Swift: 5eddbfafd3c035a77d365d5b58da93cc488af11f
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
 
-PODFILE CHECKSUM: 07e57766765d911f9578457b264254cc2dc504fa
+PODFILE CHECKSUM: 155f2eb9a13d593b7a91b98f0f0a6fd905cddeff
 
 COCOAPODS: 1.0.1

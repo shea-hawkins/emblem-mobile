@@ -10,32 +10,35 @@ import UIKit
 import FBSDKLoginKit
 import FBSDKCoreKit
 import FBSDKShareKit
+import SwiftyJSON
+    
 
 class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     
     var user:User!
+    let deployedServerString:String = "http://138.68.23.39:3000"
+
+    let env = NSProcessInfo.processInfo().environment
     
-    @IBOutlet weak var FBLoginButton: FBSDKLoginButton!
+    @IBOutlet weak var fbLoginButton: FBSDKLoginButton!
     
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         configureFacebook()
         if FBSDKAccessToken.currentAccessToken() != nil {
-            print("loggedInAlready")
             self.performSegueWithIdentifier(MapViewController.getEntrySegueFromLogin(), sender:nil )
             //self.performSegueWithIdentifier(SimpleViewController.getEntrySegueFromMapView(), sender:nil )
         }
         
-        let env = NSProcessInfo.processInfo().environment
-        
-        print("Env variables: \(env["DEV_SERVER"]! as String)")
     }
+
     
     func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!){
         
         
         FBSDKGraphRequest.init(graphPath: "me", parameters: ["fields":"first_name, email, last_name, picture.type(large)"]).startWithCompletionHandler { (connection, result, error) -> Void in
+            
             
             if error != nil {
                 print("FBLogin Error: \(error)")
@@ -43,7 +46,22 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
                 print("in result", result)
                 self.user = User(name: result["first_name"] as! String, email: result["email"] as! String, fbID: result["id"] as! String, imgURL: result["picture"]!["data"]!["url"] as! String)
                 print(self.user as User)
-                self.performSegueWithIdentifier(MapViewController.getEntrySegueFromLogin(), sender: self.user)
+                
+                var url = NSURL()
+                if let server = self.env["DEV_SERVER"] as String? {
+                    url = NSURL(string: "\(server)auth/facebook/token?access_token=\(FBSDKAccessToken.currentAccessToken().tokenString)")!
+                } else {
+                    url = NSURL(string: "\(self.deployedServerString)/auth/facebook/token?access_token=\(FBSDKAccessToken.currentAccessToken().tokenString)")!
+                }
+                
+                HTTPRequest.get(url, getCompleted: { (response, data) in
+                    if response.statusCode == 200 {
+                        self.performSegueWithIdentifier(MapViewController.getEntrySegueFromLogin(), sender: self.user)
+                    } else {
+                        print("FB Authentication Falure: \(response)")
+                    }
+                })
+                
             }
             
             //Result Object Here
@@ -56,9 +74,8 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     }
     
     func configureFacebook(){
-//        [[PFFacebookUtils facebookLoginManager] setLoginBehavior:FBSDKLoginBehaviorSystemAccount]
-        FBLoginButton.readPermissions = ["public_profile", "email", "user_friends"]
-        FBLoginButton.delegate = self
+        fbLoginButton.readPermissions = ["public_profile", "email", "user_friends"]
+        fbLoginButton.delegate = self
     }
     func loginButtonDidLogOut(loginButton: FBSDKLoginButton!){
         let loginManager: FBSDKLoginManager = FBSDKLoginManager()
