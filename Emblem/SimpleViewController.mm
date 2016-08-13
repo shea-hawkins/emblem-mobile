@@ -1,4 +1,5 @@
 #import "SimpleViewController.h"
+#import "ARImageView.h"
 
 @implementation SimpleViewController
 

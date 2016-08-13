@@ -19,9 +19,9 @@
 		35BD88A61D597F3500A409D6 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35BD88A51D597F3500A409D6 /* MapViewController.swift */; };
 		55CB9937DFC26F85914C1C66 /* Pods_EmblemTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93A26ACF62EF8EADDFE28128 /* Pods_EmblemTests.framework */; };
 		718E64131D5E971E0023B860 /* lib in Resources */ = {isa = PBXBuildFile; fileRef = 718E64121D5E971E0023B860 /* lib */; };
-		718E64161D5E97B30023B860 /* SimpleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 718E64151D5E97B30023B860 /* SimpleViewController.m */; };
+		718E64161D5E97B30023B860 /* SimpleViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 718E64151D5E97B30023B860 /* SimpleViewController.mm */; };
 		718E64181D5E98100023B860 /* components in Resources */ = {isa = PBXBuildFile; fileRef = 718E64171D5E98100023B860 /* components */; };
-		718E641C1D5EB9690023B860 /* ARView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 718E641B1D5EB9690023B860 /* ARView.mm */; };
+		718E641C1D5EB9690023B860 /* ARImageView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 718E641B1D5EB9690023B860 /* ARImageView.mm */; };
 		71AB3EDC1D5D287100A4BD23 /* libVuforia.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 71AB3EDB1D5D287100A4BD23 /* libVuforia.a */; settings = {ATTRIBUTES = (Required, ); }; };
 		80FE0960445486837F57694A /* Pods_EmblemUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CB9D30DE3991C7F8BB8ADAB /* Pods_EmblemUITests.framework */; };
 		D5C1AA5F6BACC53824E8D303 /* Pods_Emblem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A976B07605230728311C182 /* Pods_Emblem.framework */; };
@@ -68,10 +68,10 @@
 		679B4FD6FEAE7FBD70BF8A6B /* Pods-EmblemTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EmblemTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-EmblemTests/Pods-EmblemTests.release.xcconfig"; sourceTree = "<group>"; };
 		718E64121D5E971E0023B860 /* lib */ = {isa = PBXFileReference; lastKnownFileType = folder; path = lib; sourceTree = SOURCE_ROOT; };
 		718E64141D5E97B30023B860 /* SimpleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimpleViewController.h; sourceTree = "<group>"; };
-		718E64151D5E97B30023B860 /* SimpleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimpleViewController.m; sourceTree = "<group>"; };
+		718E64151D5E97B30023B860 /* SimpleViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SimpleViewController.mm; sourceTree = "<group>"; };
 		718E64171D5E98100023B860 /* components */ = {isa = PBXFileReference; lastKnownFileType = folder; path = components; sourceTree = "<group>"; };
-		718E641A1D5EB9400023B860 /* ARView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ARView.h; sourceTree = "<group>"; };
-		718E641B1D5EB9690023B860 /* ARView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ARView.mm; sourceTree = "<group>"; };
+		718E641A1D5EB9400023B860 /* ARImageView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ARImageView.h; sourceTree = "<group>"; };
+		718E641B1D5EB9690023B860 /* ARImageView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ARImageView.mm; sourceTree = "<group>"; };
 		71AB3EDB1D5D287100A4BD23 /* libVuforia.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libVuforia.a; path = "lib/vuforia-sdk-ios-6-0-112/build/lib/arm/libVuforia.a"; sourceTree = "<group>"; };
 		7EDE38068E97E3DD01296F43 /* Pods-EmblemTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EmblemTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EmblemTests/Pods-EmblemTests.debug.xcconfig"; sourceTree = "<group>"; };
 		8CB9D30DE3991C7F8BB8ADAB /* Pods_EmblemUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EmblemUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -192,11 +192,11 @@
 			isa = PBXGroup;
 			children = (
 				718E64141D5E97B30023B860 /* SimpleViewController.h */,
-				718E64151D5E97B30023B860 /* SimpleViewController.m */,
+				718E64151D5E97B30023B860 /* SimpleViewController.mm */,
 				35A87E101D52BA28004E739E /* LoginViewController.swift */,
 				35BD88A51D597F3500A409D6 /* MapViewController.swift */,
-				718E641A1D5EB9400023B860 /* ARView.h */,
-				718E641B1D5EB9690023B860 /* ARView.mm */,
+				718E641A1D5EB9400023B860 /* ARImageView.h */,
+				718E641B1D5EB9690023B860 /* ARImageView.mm */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -477,11 +477,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				718E64161D5E97B30023B860 /* SimpleViewController.m in Sources */,
+				718E64161D5E97B30023B860 /* SimpleViewController.mm in Sources */,
 				35BD88A21D59536300A409D6 /* User.swift in Sources */,
 				35A87E111D52BA28004E739E /* LoginViewController.swift in Sources */,
 				351F47EC1D5B9FAD0093578B /* HTTPRequest.swift in Sources */,
-				718E641C1D5EB9690023B860 /* ARView.mm in Sources */,
+				718E641C1D5EB9690023B860 /* ARImageView.mm in Sources */,
 				35A87DE31D52B997004E739E /* AppDelegate.swift in Sources */,
 				35BD88A61D597F3500A409D6 /* MapViewController.swift in Sources */,
 			);
