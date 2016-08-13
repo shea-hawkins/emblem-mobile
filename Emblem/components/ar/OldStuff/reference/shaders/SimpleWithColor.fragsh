@@ -11,6 +11,7 @@ varying vec2 texCoord;
 uniform sampler2D texSampler2D;
 uniform float calpha;
 
+
 void main()
 {
     vec4 col = vec4(0.0, 1.0, 1.0, 0.8); // texture2D(texSampler2D, texCoord);

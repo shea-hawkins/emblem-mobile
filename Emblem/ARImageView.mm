@@ -19,6 +19,7 @@
 #import <Vuforia/VideoBackgroundConfig.h>
 
 #import "ARImageView.h"
+#import "ShaderUtils.h"
 
 
 // Here is where we define the private methods of this class
@@ -122,8 +123,7 @@
 
 #pragma mark - OpenGL ES management
 - (void)initShaders {
-//    shaderProgramID = [SampleApplicationShaderUtils createProgramWithVertexShaderFileName:@"Simple.vertsh" fragmentShaderFileName:@"Simple.fragsh"];
-    GLuint shaderProgramID = -10;
+    shaderProgramID = [ShaderUtils createProgramWithVertexShaderFileName:@"Simple.vertsh" fragmentShaderFileName:@"Simple.fragsh"];
     if (0 < shaderProgramID) {
         vertexHandle = glGetAttribLocation(shaderProgramID, "vertexPosition");
         normalHandle = glGetAttribLocation(shaderProgramID, "vertexNormal");

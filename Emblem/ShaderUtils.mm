@@ -1,14 +1,15 @@
-/*===============================================================================
- Copyright (c) 2012-2015 Qualcomm Connected Experiences, Inc. All Rights Reserved.
- 
- Vuforia is a trademark of PTC Inc., registered in the United States and other
- countries.
- ===============================================================================*/
+//
+//  ShaderUtils.m
+//  Emblem
+//
+//  Created by Humanity on 8/13/16.
+//  Copyright © 2016 Hadashco. All rights reserved.
+//
 
-#import "SampleApplicationShaderUtils.h"
+#import "ShaderUtils.h"
 #import <OpenGLES/ES2/glext.h>
 
-@implementation SampleApplicationShaderUtils
+@implementation ShaderUtils
 
 + (GLuint)compileShader:(NSString*)shaderFileName withDefs:(NSString *) defs withType:(GLenum)shaderType {
     NSString* shaderName = [[shaderFileName lastPathComponent] stringByDeletingPathExtension];
@@ -60,10 +61,10 @@
 
 + (int)createProgramWithVertexShaderFileName:(NSString*) vertexShaderFileName
                       fragmentShaderFileName:(NSString *) fragmentShaderFileName {
-    return [SampleApplicationShaderUtils createProgramWithVertexShaderFileName:vertexShaderFileName
-                                          withVertexShaderDefs:nil
-                                        fragmentShaderFileName:fragmentShaderFileName
-                                        withFragmentShaderDefs:nil];
+    return [ShaderUtils createProgramWithVertexShaderFileName:vertexShaderFileName
+                                                          withVertexShaderDefs:nil
+                                                        fragmentShaderFileName:fragmentShaderFileName
+                                                        withFragmentShaderDefs:nil];
 }
 
 + (int)createProgramWithVertexShaderFileName:(NSString*) vertexShaderFileName
@@ -99,6 +100,5 @@
     }
     return programHandle;
 }
-
 
 @end

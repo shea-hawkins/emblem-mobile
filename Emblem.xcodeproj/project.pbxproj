@@ -22,6 +22,14 @@
 		718E64161D5E97B30023B860 /* SimpleViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 718E64151D5E97B30023B860 /* SimpleViewController.mm */; };
 		718E64181D5E98100023B860 /* components in Resources */ = {isa = PBXBuildFile; fileRef = 718E64171D5E98100023B860 /* components */; };
 		718E641C1D5EB9690023B860 /* ARImageView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 718E641B1D5EB9690023B860 /* ARImageView.mm */; };
+		718E64201D5FA2BD0023B860 /* ShaderUtils.mm in Sources */ = {isa = PBXBuildFile; fileRef = 718E641F1D5FA2BD0023B860 /* ShaderUtils.mm */; };
+		718E642B1D5FBDE50023B860 /* Background.fragsh in Resources */ = {isa = PBXBuildFile; fileRef = 718E64241D5FBDE50023B860 /* Background.fragsh */; };
+		718E642C1D5FBDE50023B860 /* Background.vertsh in Resources */ = {isa = PBXBuildFile; fileRef = 718E64251D5FBDE50023B860 /* Background.vertsh */; };
+		718E642D1D5FBDE50023B860 /* Line.fragsh in Resources */ = {isa = PBXBuildFile; fileRef = 718E64261D5FBDE50023B860 /* Line.fragsh */; };
+		718E642E1D5FBDE50023B860 /* Line.vertsh in Resources */ = {isa = PBXBuildFile; fileRef = 718E64271D5FBDE50023B860 /* Line.vertsh */; };
+		718E642F1D5FBDE50023B860 /* Simple.fragsh in Resources */ = {isa = PBXBuildFile; fileRef = 718E64281D5FBDE50023B860 /* Simple.fragsh */; };
+		718E64301D5FBDE50023B860 /* Simple.vertsh in Resources */ = {isa = PBXBuildFile; fileRef = 718E64291D5FBDE50023B860 /* Simple.vertsh */; };
+		718E64311D5FBDE50023B860 /* SimpleWithColor.fragsh in Resources */ = {isa = PBXBuildFile; fileRef = 718E642A1D5FBDE50023B860 /* SimpleWithColor.fragsh */; };
 		71AB3EDC1D5D287100A4BD23 /* libVuforia.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 71AB3EDB1D5D287100A4BD23 /* libVuforia.a */; settings = {ATTRIBUTES = (Required, ); }; };
 		80FE0960445486837F57694A /* Pods_EmblemUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CB9D30DE3991C7F8BB8ADAB /* Pods_EmblemUITests.framework */; };
 		D5C1AA5F6BACC53824E8D303 /* Pods_Emblem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A976B07605230728311C182 /* Pods_Emblem.framework */; };
@@ -72,6 +80,15 @@
 		718E64171D5E98100023B860 /* components */ = {isa = PBXFileReference; lastKnownFileType = folder; path = components; sourceTree = "<group>"; };
 		718E641A1D5EB9400023B860 /* ARImageView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ARImageView.h; sourceTree = "<group>"; };
 		718E641B1D5EB9690023B860 /* ARImageView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ARImageView.mm; sourceTree = "<group>"; };
+		718E641E1D5FA2A80023B860 /* ShaderUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShaderUtils.h; sourceTree = "<group>"; };
+		718E641F1D5FA2BD0023B860 /* ShaderUtils.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ShaderUtils.mm; sourceTree = "<group>"; };
+		718E64241D5FBDE50023B860 /* Background.fragsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Background.fragsh; path = components/ar/OldStuff/reference/shaders/Background.fragsh; sourceTree = "<group>"; };
+		718E64251D5FBDE50023B860 /* Background.vertsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Background.vertsh; path = components/ar/OldStuff/reference/shaders/Background.vertsh; sourceTree = "<group>"; };
+		718E64261D5FBDE50023B860 /* Line.fragsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Line.fragsh; path = components/ar/OldStuff/reference/shaders/Line.fragsh; sourceTree = "<group>"; };
+		718E64271D5FBDE50023B860 /* Line.vertsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Line.vertsh; path = components/ar/OldStuff/reference/shaders/Line.vertsh; sourceTree = "<group>"; };
+		718E64281D5FBDE50023B860 /* Simple.fragsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Simple.fragsh; path = components/ar/OldStuff/reference/shaders/Simple.fragsh; sourceTree = "<group>"; };
+		718E64291D5FBDE50023B860 /* Simple.vertsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Simple.vertsh; path = components/ar/OldStuff/reference/shaders/Simple.vertsh; sourceTree = "<group>"; };
+		718E642A1D5FBDE50023B860 /* SimpleWithColor.fragsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = SimpleWithColor.fragsh; path = components/ar/OldStuff/reference/shaders/SimpleWithColor.fragsh; sourceTree = "<group>"; };
 		71AB3EDB1D5D287100A4BD23 /* libVuforia.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libVuforia.a; path = "lib/vuforia-sdk-ios-6-0-112/build/lib/arm/libVuforia.a"; sourceTree = "<group>"; };
 		7EDE38068E97E3DD01296F43 /* Pods-EmblemTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EmblemTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EmblemTests/Pods-EmblemTests.debug.xcconfig"; sourceTree = "<group>"; };
 		8CB9D30DE3991C7F8BB8ADAB /* Pods_EmblemUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EmblemUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -191,6 +208,7 @@
 		35BD88A71D597F4000A409D6 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				718E641D1D5FA26E0023B860 /* ARUtils */,
 				718E64141D5E97B30023B860 /* SimpleViewController.h */,
 				718E64151D5E97B30023B860 /* SimpleViewController.mm */,
 				35A87E101D52BA28004E739E /* LoginViewController.swift */,
@@ -199,6 +217,30 @@
 				718E641B1D5EB9690023B860 /* ARImageView.mm */,
 			);
 			name = Controllers;
+			sourceTree = "<group>";
+		};
+		718E641D1D5FA26E0023B860 /* ARUtils */ = {
+			isa = PBXGroup;
+			children = (
+				718E64231D5FBDD60023B860 /* shaders */,
+				718E641E1D5FA2A80023B860 /* ShaderUtils.h */,
+				718E641F1D5FA2BD0023B860 /* ShaderUtils.mm */,
+			);
+			name = ARUtils;
+			sourceTree = "<group>";
+		};
+		718E64231D5FBDD60023B860 /* shaders */ = {
+			isa = PBXGroup;
+			children = (
+				718E64241D5FBDE50023B860 /* Background.fragsh */,
+				718E64251D5FBDE50023B860 /* Background.vertsh */,
+				718E64261D5FBDE50023B860 /* Line.fragsh */,
+				718E64271D5FBDE50023B860 /* Line.vertsh */,
+				718E64281D5FBDE50023B860 /* Simple.fragsh */,
+				718E64291D5FBDE50023B860 /* Simple.vertsh */,
+				718E642A1D5FBDE50023B860 /* SimpleWithColor.fragsh */,
+			);
+			name = shaders;
 			sourceTree = "<group>";
 		};
 		DE59BFB1C6BC0733D112633F /* Frameworks */ = {
@@ -326,8 +368,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				35A87DED1D52B998004E739E /* LaunchScreen.storyboard in Resources */,
+				718E642E1D5FBDE50023B860 /* Line.vertsh in Resources */,
 				35A87DEA1D52B998004E739E /* Assets.xcassets in Resources */,
 				718E64131D5E971E0023B860 /* lib in Resources */,
+				718E642C1D5FBDE50023B860 /* Background.vertsh in Resources */,
+				718E64301D5FBDE50023B860 /* Simple.vertsh in Resources */,
+				718E642D1D5FBDE50023B860 /* Line.fragsh in Resources */,
+				718E642B1D5FBDE50023B860 /* Background.fragsh in Resources */,
+				718E64311D5FBDE50023B860 /* SimpleWithColor.fragsh in Resources */,
+				718E642F1D5FBDE50023B860 /* Simple.fragsh in Resources */,
 				35A87DE81D52B997004E739E /* Main.storyboard in Resources */,
 				718E64181D5E98100023B860 /* components in Resources */,
 			);
@@ -477,6 +526,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				718E64201D5FA2BD0023B860 /* ShaderUtils.mm in Sources */,
 				718E64161D5E97B30023B860 /* SimpleViewController.mm in Sources */,
 				35BD88A21D59536300A409D6 /* User.swift in Sources */,
 				35A87E111D52BA28004E739E /* LoginViewController.swift in Sources */,
