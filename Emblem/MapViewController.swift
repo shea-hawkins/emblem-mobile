@@ -25,13 +25,12 @@ class MapViewController: UIViewController {
         if let location = mapView.myLocation {
             let x = String(location.coordinate.latitude)
             let y = String(location.coordinate.longitude)
-//            post(["lat": x, "long": y], url: serverUrl!, postCompleted: { (succeeded, msg) in
-//                print("Post Complete \(msg)")
-//            })
+            HTTPRequest.post(["lat": x, "long": y], url: serverUrl!, postCompleted: { (succeeded, msg) in
+                print("Post Complete \(msg)")
+            })
             
-            //TODO: Replace with websockets's
-            print("testbutton")
-            getMarkers(serverUrl!)
+            //TODO: Replace with websockets
+//            getMarkers(serverUrl!)
             
         }
         let markerData = ["item1": 5]
@@ -48,9 +47,25 @@ class MapViewController: UIViewController {
             self.serverUrl = NSURL(string: "http://138.68.23.39:3000/place")!
         }
 
-        //initLocationServices()
+        initLocationServices()
+        
+        socket = SocketIOClient(socketURL: self.serverUrl!, options: [.Log(true), .ForcePolling(true)])
+        socket.on("connect") {data, ack in
+            print("Socket Connected")
+        }
+        
+        socket.on("place/createPlace") {data, ack in
 
-        //getMarkers(self.serverUrl!)
+            if let dataDict = data[0] as? NSDictionary {
+                let lat = String(dataDict["lat"]!)
+                let long = String(dataDict["long"]!)
+                self.createMarker(lat, longitude: long)
+            }
+        }
+        
+        socket.connect()
+
+        getMarkers(self.serverUrl!)
         
     }
     
