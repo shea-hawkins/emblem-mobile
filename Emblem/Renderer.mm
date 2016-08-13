@@ -47,12 +47,12 @@
 
 @implementation Renderer
 
-- (id)initWithRendererControl:(id<RendererControl>) control deviceMode:(Vuforia::Device::MODE) deviceMode stereo:(bool) stereo {
+- (id)initWithRendererControl:(id<RendererControl>) control {
     self = [super init];
     if (self) {
         self.control = control;
-        self.stereo = stereo;
-        self.deviceMode = deviceMode;
+        self.stereo = false;
+        self.deviceMode = Vuforia::Device::MODE_AR;
         self.nearPlane = 50.0f;
         self.farPlane = 5000.0f;
         

@@ -19,7 +19,7 @@
 
 @interface Renderer : NSObject
 
-- (id)initWithRendererControl:(id<RendererControl>) control deviceMode:(Vuforia::Device::MODE) deviceMode stereo:(bool) stereo;
+- (id)initWithRendererControl:(id<RendererControl>) control;
 -(void) initRendering;
 -(void) renderFrameVuforia;
 -(void) renderVideoBackground;

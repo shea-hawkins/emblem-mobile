@@ -11,11 +11,13 @@
 
 #import <UIKit/UIKit.h>
 #import <Vuforia/UIGLViewProtocol.h>
+#import "GLResourceHandler.h"
+
 #import "Renderer.h"
 
 // #define kNumAugmentationTextures 4
 
-@interface ARImageView : UIView {
+@interface ARImageView : UIView <UIGLViewProtocol, GLResourceHandler, RendererControl> {
     EAGLContext* context;
     Renderer* renderer;
     
@@ -34,7 +36,6 @@
     
     BOOL offTargetTrackingEnabled;
     // SampleApplication3DModel* buildingModel;
-    // SampleAppRenderer* sampleAppRenderer;
     
 }
 

@@ -86,7 +86,7 @@
 //            glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, [augmentationTexture[i] width], [augmentationTexture[i] height], 0, GL_RGBA, GL_UNSIGNED_BYTE, (GLvoid*) [augmentationTexture[i] pngData]);
 //        }
         // unknown purpose
-        renderer = [[Renderer alloc] initWithRendererControl: self deviceMode:Vuforia::Device::MODE_AR stereo: false];
+        renderer = [[Renderer alloc] initWithRendererControl: self];
 //        [self loadBuildingsModel];
         [self initShaders];
     }

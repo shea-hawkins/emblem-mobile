@@ -21,7 +21,7 @@
 
 @interface SampleAppRenderer : NSObject
 
-//- (id)initWithSampleAppRendererControl:(id<SampleAppRendererControl>)control deviceMode:(Vuforia::Device::MODE)deviceMode stereo:(bool)stereo;
+- (id)initWithSampleAppRendererControl:(id<SampleAppRendererControl>)control;
 - (void) initRendering;
 - (void) setNearPlane:(CGFloat) near farPlane:(CGFloat) far;
 - (void)renderFrameVuforia;
