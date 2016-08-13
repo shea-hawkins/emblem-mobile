@@ -33,6 +33,8 @@ class MapViewController: UIViewController {
 //            getMarkers(serverUrl!)
             
         }
+        let markerData = ["item1": 5]
+        self.performSegueWithIdentifier(SimpleViewController.getEntrySegueFromMapView(), sender: markerData)
     }
 
     override func viewDidLoad() {
@@ -68,7 +70,7 @@ class MapViewController: UIViewController {
     }
     
     class func getEntrySegueFromLogin() -> String {
-        return "MapViewControllerSegue"
+        return "LoginToMapViewSegue"
     }
     
     func initLocationServices() {
