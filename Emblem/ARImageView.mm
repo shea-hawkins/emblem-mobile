@@ -83,7 +83,7 @@
         // unknown purpose
 //        sampleAppRenderer = [[SampleAppRenderer alloc] initWithSampleAppRendererControl: self deviceMode:Vuforia::Device::MODE_AR stereo: false];
 //        [self loadBuildingsModel];
-        //[self initShaders];
+        [self initShaders];
     }
     return self;
 }
@@ -118,6 +118,21 @@
     // called in response to application entering background
     [self deleteFrameBuffer];
     glFinish();
+}
+
+#pragma mark - OpenGL ES management
+- (void)initShaders {
+//    shaderProgramID = [SampleApplicationShaderUtils createProgramWithVertexShaderFileName:@"Simple.vertsh" fragmentShaderFileName:@"Simple.fragsh"];
+    GLuint shaderProgramID = -10;
+    if (0 < shaderProgramID) {
+        vertexHandle = glGetAttribLocation(shaderProgramID, "vertexPosition");
+        normalHandle = glGetAttribLocation(shaderProgramID, "vertexNormal");
+        textureCoordHandle = glGetAttribLocation(shaderProgramID, "vertexTexCoord");
+        mvpMatrixHandle = glGetUniformLocation(shaderProgramID, "modelViewProjectionMatrix");
+        texSampler2DHandle = glGetUniformLocation(shaderProgramID, "texSampler2D");
+    } else {
+        NSLog(@"Could not initialize augmentation shader");
+    }
 }
 
 //- (void)loadingBuildingsModel {
