@@ -89,6 +89,8 @@
         renderer = [[Renderer alloc] initWithRendererControl: self];
 //        [self loadBuildingsModel];
         [self initShaders];
+        
+        [renderer initRendering];
     }
     return self;
 }
@@ -123,6 +125,119 @@
     // called in response to application entering background
     [self deleteFrameBuffer];
     glFinish();
+}
+
+#pragma mark - UIGLViewProtocol methods
+
+
+- (void)renderFrameVuforia {
+//    if (! vapp.cameraIsStarted) {
+//        return;
+//    }
+    NSLog(@"Render!");
+    [renderer renderFrameVuforia];
+}
+
+// method should take Vuforia State and projection matrix
+- (void) renderFrameWithState {
+    [self setFrameBuffer];
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    
+    //[Renderer renderVideoBackground];
+    
+    glEnable(GL_DEPTH_TEST);
+    
+    if (offTargetTrackingEnabled) {
+        glDisable(GL_CULL_FACE);
+    } else {
+        glEnable(GL_CULL_FACE);
+    }
+    glCullFace(GL_BACK);
+    
+//    // Vuforia code goes here
+//    
+//    glUseProgram(shaderProgramID);
+//    
+//    glEnableVertexAttribArray(vertexHandle);
+//    glEnableVertexAttribArray(normalHandle);
+//    glEnableVertexAttribArray(textureCoordHandle);
+//    
+//    // Mesh rendering code
+//    
+//    glDisableVertexAttribArray(vertexHandle);
+//    glDisableVertexAttribArray(normalHandle);
+//    glDisableVertexAttribArray(textureCoordHandle);
+//    
+//    // error check
+    [self presentFrameBuffer];
+    
+}
+
+- (void)createFrameBuffer {
+    if (context) {
+        glGenFramebuffers(1, &defaultFrameBuffer);
+        glBindFramebuffer(GL_FRAMEBUFFER, defaultFrameBuffer);
+        
+        // Create colour renderbuffer and allocate backing store
+        glGenRenderbuffers(1, &colorRenderBuffer);
+        glBindRenderbuffer(GL_RENDERBUFFER, colorRenderBuffer);
+        
+        // Allocate the renderbuffer's storage (shared with the drawable object)
+        [context renderbufferStorage:GL_RENDERBUFFER fromDrawable:(CAEAGLLayer*)self.layer];
+        GLint framebufferWidth;
+        GLint framebufferHeight;
+        glGetRenderbufferParameteriv(GL_RENDERBUFFER, GL_RENDERBUFFER_WIDTH, &framebufferWidth);
+        glGetRenderbufferParameteriv(GL_RENDERBUFFER, GL_RENDERBUFFER_HEIGHT, &framebufferHeight);
+        
+        // Create the depth render buffer and allocate storage
+        glGenRenderbuffers(1, &depthRenderBuffer);
+        glBindRenderbuffer(GL_RENDERBUFFER, depthRenderBuffer);
+        glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT16, framebufferWidth, framebufferHeight);
+        
+        // Attach colour and depth render buffers to the frame buffer
+        glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, colorRenderBuffer);
+        glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, depthRenderBuffer);
+        
+        // Leave the colour render buffer bound so future rendering operations will act on it
+        glBindRenderbuffer(GL_RENDERBUFFER, colorRenderBuffer);
+    }
+}
+
+- (void)deleteFrameBuffer {
+    if (context) {
+        [EAGLContext setCurrentContext:context];
+        
+        if (defaultFrameBuffer) {
+            glDeleteFramebuffers(1, &defaultFrameBuffer);
+            defaultFrameBuffer = 0;
+        }
+        
+        if (colorRenderBuffer) {
+            glDeleteFramebuffers(1, &colorRenderBuffer);
+            colorRenderBuffer = 0;
+        }
+        
+        if (depthRenderBuffer) {
+            glDeleteRenderbuffers(1, &depthRenderBuffer);
+            depthRenderBuffer = 0;
+        }
+    }
+}
+
+- (void)setFrameBuffer {
+    if (context != [EAGLContext currentContext]) {
+        [EAGLContext setCurrentContext:context];
+    }
+    
+    if (!defaultFrameBuffer) {
+        [self performSelectorOnMainThread:@selector(createFrameBuffer) withObject:self waitUntilDone:YES];
+    }
+    glBindFramebuffer(GL_FRAMEBUFFER, defaultFrameBuffer);
+}
+
+- (BOOL)presentFrameBuffer {
+    glBindRenderbuffer(GL_RENDERBUFFER, colorRenderBuffer);
+    return [context presentRenderbuffer:GL_RENDERBUFFER];
 }
 
 #pragma mark - OpenGL ES management

@@ -65,9 +65,9 @@
     return self;
 }
 
-- (void) initRenderering {
+- (void) initRendering {
     // video background rendering
-    self.vbShaderProgramID = [ShaderUtils createProgramWithVertexShaderFileName:@"Background.vertsh" fragmentShaderFileName:@"Background.frag.sh"];
+    self.vbShaderProgramID = [ShaderUtils createProgramWithVertexShaderFileName:@"Background.vertsh" fragmentShaderFileName:@"Background.fragsh"];
     
     if (0 < self.vbShaderProgramID) {
         self.vbVertexHandle = glGetAttribLocation(self.vbShaderProgramID, "vertexPosition");
