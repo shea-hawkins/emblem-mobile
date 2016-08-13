@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		351F47EC1D5B9FAD0093578B /* HTTPRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351F47EB1D5B9FAD0093578B /* HTTPRequest.swift */; };
 		35A87DE31D52B997004E739E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35A87DE21D52B997004E739E /* AppDelegate.swift */; };
 		35A87DE81D52B997004E739E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 35A87DE61D52B997004E739E /* Main.storyboard */; };
 		35A87DEA1D52B998004E739E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 35A87DE91D52B998004E739E /* Assets.xcassets */; };
@@ -43,6 +44,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		351F47EB1D5B9FAD0093578B /* HTTPRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPRequest.swift; sourceTree = "<group>"; };
 		35A87DDF1D52B997004E739E /* Emblem.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Emblem.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		35A87DE21D52B997004E739E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		35A87DE71D52B997004E739E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -144,6 +146,7 @@
 			children = (
 				718E64171D5E98100023B860 /* components */,
 				718E64121D5E971E0023B860 /* lib */,
+				351F47EB1D5B9FAD0093578B /* HTTPRequest.swift */,
 				35FA710C1D542EFF00F54CBC /* Emblem-Bridging-Header.h */,
 				35A87DE21D52B997004E739E /* AppDelegate.swift */,
 				35A87DE61D52B997004E739E /* Main.storyboard */,
@@ -472,6 +475,7 @@
 				718E64161D5E97B30023B860 /* SimpleViewController.m in Sources */,
 				35BD88A21D59536300A409D6 /* User.swift in Sources */,
 				35A87E111D52BA28004E739E /* LoginViewController.swift in Sources */,
+				351F47EC1D5B9FAD0093578B /* HTTPRequest.swift in Sources */,
 				35A87DE31D52B997004E739E /* AppDelegate.swift in Sources */,
 				35BD88A61D597F3500A409D6 /* MapViewController.swift in Sources */,
 			);
@@ -628,6 +632,7 @@
 					"\"$(SRCROOT)/lib/vuforia/include\"",
 				);
 				INFOPLIST_FILE = Emblem/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -656,6 +661,7 @@
 					"\"$(SRCROOT)/lib/vuforia/include\"",
 				);
 				INFOPLIST_FILE = Emblem/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",

@@ -34,7 +34,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="xO8-N4-cXS"/>
                     <connections>
-                        <outlet property="FBLoginButton" destination="7XN-Xy-8ar" id="hM8-Sh-4YV"/>
+                        <outlet property="fbLoginButton" destination="7XN-Xy-8ar" id="swW-as-7Hh"/>
                         <segue destination="rq9-EC-Xsf" kind="show" identifier="LoginToMapViewSegue" id="OQe-Ki-Uu7"/>
                     </connections>
                 </viewController>
