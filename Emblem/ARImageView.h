@@ -11,11 +11,13 @@
 
 #import <UIKit/UIKit.h>
 #import <Vuforia/UIGLViewProtocol.h>
+#import "Renderer.h"
 
 // #define kNumAugmentationTextures 4
 
 @interface ARImageView : UIView {
     EAGLContext* context;
+    Renderer* renderer;
     
     GLuint defaultFrameBuffer;
     GLuint colorRenderBuffer;

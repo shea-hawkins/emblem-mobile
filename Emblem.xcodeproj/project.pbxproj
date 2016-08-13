@@ -30,6 +30,7 @@
 		718E642F1D5FBDE50023B860 /* Simple.fragsh in Resources */ = {isa = PBXBuildFile; fileRef = 718E64281D5FBDE50023B860 /* Simple.fragsh */; };
 		718E64301D5FBDE50023B860 /* Simple.vertsh in Resources */ = {isa = PBXBuildFile; fileRef = 718E64291D5FBDE50023B860 /* Simple.vertsh */; };
 		718E64311D5FBDE50023B860 /* SimpleWithColor.fragsh in Resources */ = {isa = PBXBuildFile; fileRef = 718E642A1D5FBDE50023B860 /* SimpleWithColor.fragsh */; };
+		718E64341D5FBFAD0023B860 /* Renderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 718E64331D5FBFAD0023B860 /* Renderer.mm */; };
 		71AB3EDC1D5D287100A4BD23 /* libVuforia.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 71AB3EDB1D5D287100A4BD23 /* libVuforia.a */; settings = {ATTRIBUTES = (Required, ); }; };
 		80FE0960445486837F57694A /* Pods_EmblemUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CB9D30DE3991C7F8BB8ADAB /* Pods_EmblemUITests.framework */; };
 		D5C1AA5F6BACC53824E8D303 /* Pods_Emblem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A976B07605230728311C182 /* Pods_Emblem.framework */; };
@@ -89,6 +90,8 @@
 		718E64281D5FBDE50023B860 /* Simple.fragsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Simple.fragsh; path = components/ar/OldStuff/reference/shaders/Simple.fragsh; sourceTree = "<group>"; };
 		718E64291D5FBDE50023B860 /* Simple.vertsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Simple.vertsh; path = components/ar/OldStuff/reference/shaders/Simple.vertsh; sourceTree = "<group>"; };
 		718E642A1D5FBDE50023B860 /* SimpleWithColor.fragsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = SimpleWithColor.fragsh; path = components/ar/OldStuff/reference/shaders/SimpleWithColor.fragsh; sourceTree = "<group>"; };
+		718E64321D5FBF7C0023B860 /* Renderer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Renderer.h; sourceTree = "<group>"; };
+		718E64331D5FBFAD0023B860 /* Renderer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Renderer.mm; sourceTree = "<group>"; };
 		71AB3EDB1D5D287100A4BD23 /* libVuforia.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libVuforia.a; path = "lib/vuforia-sdk-ios-6-0-112/build/lib/arm/libVuforia.a"; sourceTree = "<group>"; };
 		7EDE38068E97E3DD01296F43 /* Pods-EmblemTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EmblemTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EmblemTests/Pods-EmblemTests.debug.xcconfig"; sourceTree = "<group>"; };
 		8CB9D30DE3991C7F8BB8ADAB /* Pods_EmblemUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EmblemUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -225,6 +228,8 @@
 				718E64231D5FBDD60023B860 /* shaders */,
 				718E641E1D5FA2A80023B860 /* ShaderUtils.h */,
 				718E641F1D5FA2BD0023B860 /* ShaderUtils.mm */,
+				718E64321D5FBF7C0023B860 /* Renderer.h */,
+				718E64331D5FBFAD0023B860 /* Renderer.mm */,
 			);
 			name = ARUtils;
 			sourceTree = "<group>";
@@ -528,6 +533,7 @@
 			files = (
 				718E64201D5FA2BD0023B860 /* ShaderUtils.mm in Sources */,
 				718E64161D5E97B30023B860 /* SimpleViewController.mm in Sources */,
+				718E64341D5FBFAD0023B860 /* Renderer.mm in Sources */,
 				35BD88A21D59536300A409D6 /* User.swift in Sources */,
 				35A87E111D52BA28004E739E /* LoginViewController.swift in Sources */,
 				351F47EC1D5B9FAD0093578B /* HTTPRequest.swift in Sources */,

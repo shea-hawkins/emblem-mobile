@@ -12,6 +12,7 @@
 #import <sys/time.h>
 
 #import <Vuforia/Vuforia.h>
+#import <Vuforia/Device.h>
 #import <Vuforia/State.h>
 #import <Vuforia/Tool.h>
 #import <Vuforia/Renderer.h>
@@ -22,8 +23,10 @@
 #import "ShaderUtils.h"
 
 
+
 // Here is where we define the private methods of this class
 @interface ARImageView (PrivateMethods)
+
 - (void)initShaders;
 - (void)loadBuildingsModel;
 - (void)createFrameBuffer;
@@ -31,8 +34,9 @@
 - (void)setFrameBuffer;
 - (BOOL)presentFrameBuffer;
 - (EAGLContext*)context;
+
 // SampleApplication3DModel* buildingModel;
-// SampleAppRenderer* sampleAppRenderer;
+
 @end
 
 @implementation ARImageView
@@ -82,7 +86,7 @@
 //            glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, [augmentationTexture[i] width], [augmentationTexture[i] height], 0, GL_RGBA, GL_UNSIGNED_BYTE, (GLvoid*) [augmentationTexture[i] pngData]);
 //        }
         // unknown purpose
-//        sampleAppRenderer = [[SampleAppRenderer alloc] initWithSampleAppRendererControl: self deviceMode:Vuforia::Device::MODE_AR stereo: false];
+        renderer = [[Renderer alloc] initWithRendererControl: self deviceMode:Vuforia::Device::MODE_AR stereo: false];
 //        [self loadBuildingsModel];
         [self initShaders];
     }

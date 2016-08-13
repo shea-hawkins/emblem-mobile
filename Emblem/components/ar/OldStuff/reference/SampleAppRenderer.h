@@ -9,8 +9,8 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-//#import <Vuforia/Device.h>
-//#import <Vuforia/State.h>
+#import <Vuforia/Device.h>
+#import <Vuforia/State.h>
 
 @protocol SampleAppRendererControl
 // This method has to be implemented by the Renderer class which handles the content rendering
