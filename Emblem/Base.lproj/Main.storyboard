@@ -93,12 +93,12 @@
                     </view>
                     <connections>
                         <outlet property="mapView" destination="Ytj-s9-ZYr" id="cJt-MF-OJZ"/>
-                        <segue destination="PG5-Cd-BPl" kind="show" identifier="MapToSimpleViewControllerSegue" id="T2w-UH-LJU"/>
+                        <segue destination="PG5-Cd-BPl" kind="show" identifier="MapToSimpleViewControllerSegue" id="Dt0-lS-UWd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hJf-XZ-8ZX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1933" y="261"/>
+            <point key="canvasLocation" x="2013" y="353"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Fw7-Sj-f7y">
@@ -150,7 +150,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="u4F-NI-Rqb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2761" y="275"/>
+            <point key="canvasLocation" x="2871" y="353"/>
         </scene>
     </scenes>
 </document>

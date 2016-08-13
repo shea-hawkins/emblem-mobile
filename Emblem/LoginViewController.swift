@@ -24,6 +24,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         if FBSDKAccessToken.currentAccessToken() != nil {
             print("loggedInAlready")
             self.performSegueWithIdentifier(MapViewController.getEntrySegueFromLogin(), sender:nil )
+            //self.performSegueWithIdentifier(SimpleViewController.getEntrySegueFromMapView(), sender:nil )
         }
         
         let env = NSProcessInfo.processInfo().environment
@@ -75,5 +76,6 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
                 dest.user = user
             }
         }
+
     }
 }
