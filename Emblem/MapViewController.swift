@@ -22,15 +22,17 @@ class MapViewController: UIViewController {
         if let location = mapView.myLocation {
             let x = String(location.coordinate.latitude)
             let y = String(location.coordinate.longitude)
-            post(["lat": x, "long": y], url: serverUrl!, postCompleted: { (succeeded, msg) in
-                print("Post Complete \(msg)")
-            })
+//            post(["lat": x, "long": y], url: serverUrl!, postCompleted: { (succeeded, msg) in
+//                print("Post Complete \(msg)")
+//            })
             
             //TODO: Replace with websockets's
-            
+            print("testbutton")
             getMarkers(serverUrl!)
             
         }
+        let markerData = ["item1": 5]
+        self.performSegueWithIdentifier(SimpleViewController.getEntrySegueFromMapView(), sender: markerData)
     }
 
     override func viewDidLoad() {
@@ -44,8 +46,7 @@ class MapViewController: UIViewController {
         }
 
         //initLocationServices()
-        let markerData = ["item1": 5];
-        self.performSegueWithIdentifier(SimpleViewController.getEntrySegueFromMapView(), sender: markerData)
+
         //getMarkers(self.serverUrl!)
         
     }
@@ -134,15 +135,6 @@ class MapViewController: UIViewController {
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-    }
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == SimpleViewController.getEntrySegueFromMapView() {
-            
-            let vc = segue.destinationViewController as! SimpleViewController
-            if let dest = sender {
-                vc.data = dest as! [NSObject : AnyObject];
-            }
-        }
     }
 }
 
