@@ -8,6 +8,7 @@
 
 import UIKit
 import SwiftyJSON
+import SocketIOClientSwift
 
 class MapViewController: UIViewController {
     
@@ -15,6 +16,8 @@ class MapViewController: UIViewController {
     var serverUrl:NSURL?
     var user:User?
     let locationManager = CLLocationManager()
+    let env = NSProcessInfo.processInfo().environment
+    var socket: SocketIOClient!
     
     @IBOutlet weak var mapView: GMSMapView!
     
@@ -37,8 +40,8 @@ class MapViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let env = NSProcessInfo.processInfo().environment
-        if let server = env["DEV_SERVER"]! as String? {
+
+        if let server = env["DEV_SERVER/PLACE"] as String? {
             self.serverUrl = NSURL(string: server)!
             
         } else {
@@ -64,73 +67,25 @@ class MapViewController: UIViewController {
     }
     
     func getMarkers(scriptURL: NSURL) {
-        get(scriptURL){(succeeded, data) in
-            
-            if succeeded {
+        HTTPRequest.get(scriptURL){(response, data) in
+            print("GetMarkers: \(response.statusCode)")
+            if response.statusCode == 200 {
                 let json = JSON(data:data)
                 print(json)
-                dispatch_async(dispatch_get_main_queue()) {
-                    for (_, subJson):(String, JSON) in json {
-                        let marker = GMSMarker()
-                        marker.position = CLLocationCoordinate2DMake(CLLocationDegrees(subJson["lat"].stringValue)!, CLLocationDegrees(subJson["long"].stringValue)!)
-                        marker.appearAnimation = kGMSMarkerAnimationPop
-                        marker.map = self.mapView
-                    }
-                    
+                for(_, subJSON):(String, JSON) in json {
+                    self.createMarker(subJSON["lat"].stringValue, longitude: subJSON["long"].stringValue)
                 }
             }
         }
     }
     
-    func get(url:NSURL, getCompleted: (succeeded: Bool, data: NSData) -> ()) {
-        
-        let task = NSURLSession.sharedSession().dataTaskWithURL(url) {(data, response, error) in
-            
-            if error != nil {
-                print("Get Request Error: \(error!)")
-            } else {
-                getCompleted(succeeded: true, data: data!)
-            }
+    func createMarker(latitude: String, longitude: String) {
+        dispatch_async(dispatch_get_main_queue()) {
+            let marker = GMSMarker()
+            marker.position = CLLocationCoordinate2DMake(CLLocationDegrees(latitude)!, CLLocationDegrees(longitude)!)
+            marker.appearAnimation = kGMSMarkerAnimationPop
+            marker.map = self.mapView
         }
-        task.resume()
-        
-    }
-    
-    func post(params: Dictionary<String, String>, url: NSURL, postCompleted: (succeeded: Bool, msg: String) -> ()){
-        
-        let request = NSMutableURLRequest(URL: url)
-        let session = NSURLSession.sharedSession()
-        request.HTTPMethod = "POST"
-        
-        do {
-            
-            let json = try NSJSONSerialization.dataWithJSONObject(params, options: [])
-            print(json.dynamicType)
-            request.HTTPBody = json
-        } catch {
-            print("HTTPBody set error: \(error)")
-        }
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
-        
-        let task = session.dataTaskWithRequest(request) { (data, response, error) in
-            print("Response: \(response)")
-            let strData = NSString(data: data!, encoding: NSUTF8StringEncoding)
-            print("Body: \(strData)")
-            
-            do {
-                let json = try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.AllowFragments)
-                print("POST RESPONSE: \(json)")
-                let parseJSON = json
-                if let success = parseJSON["success"] as? Bool {
-                    postCompleted(succeeded: success, msg: "Post Successful")
-                    print("Success: \(success)")
-                }
-            } catch{
-                print("JSON POST parse error: \(error)")
-            }
-        }
-        task.resume()
     }
     
     override func didReceiveMemoryWarning() {
