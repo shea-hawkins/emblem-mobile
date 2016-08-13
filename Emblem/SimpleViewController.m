@@ -2,7 +2,7 @@
 
 @implementation SimpleViewController
 
-@synthesize data;
+@synthesize data = data;
 
 - (void) viewDidLoad {
     [super viewDidLoad];
