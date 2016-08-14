@@ -30,7 +30,7 @@ Copyright (c) 2016 PTC Inc. All Rights Reserved.
 
 #define E_CAMERA_NOT_STARTED        150
 
-#define E_INTERNAL_ERROR                -1
+#define E_INTERNAL_ERROR            -1
 
 // An AR application must implement this protocol in order to be notified of
 // the different events during the life cycle of an AR application
@@ -61,7 +61,7 @@ Copyright (c) 2016 PTC Inc. All Rights Reserved.
 
 //@optional
 //// optional method to handle the Vuforia callback - can be used to swap dataset for instance
-//- (void) onVuforiaUpdate: (Vuforia::State *) state;
+- (void) onVuforiaUpdate: (Vuforia::State *) state;
 
 @end
 

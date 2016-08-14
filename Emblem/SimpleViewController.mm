@@ -1,9 +1,11 @@
+#import "ARApplicationSession.h"
 #import "SimpleViewController.h"
 #import "ARImageView.h"
 
 @interface SimpleViewController ()
 
 @property (weak, nonatomic) IBOutlet UIImageView* ARViewPlaceholder;
+@property (weak, nonatomic) ARApplicationSession* vapp;
 
 @end
 
