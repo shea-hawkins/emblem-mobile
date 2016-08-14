@@ -10,6 +10,7 @@ target 'Emblem' do
     pod 'FacebookLogin'
     pod 'FacebookShare'
     pod 'Socket.IO-Client-Swift', '~> 6.1.6'
+    pod 'PromiseKit'
 end
 
 use_frameworks!
