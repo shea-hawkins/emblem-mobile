@@ -10,16 +10,16 @@
 #define ARView_h
 
 #import <UIKit/UIKit.h>
-#import <Vuforia/UIGLViewProtocol.h>
-#import "GLResourceHandler.h"
+//#import <Vuforia/UIGLViewProtocol.h>
+//#import "GLResourceHandler.h"
 
-#import "Renderer.h"
+//#import "Renderer.h"
 
 // #define kNumAugmentationTextures 4
 
-@interface ARImageView : UIView <UIGLViewProtocol, GLResourceHandler, RendererControl> {
+@interface ARImageView : UIView {
     EAGLContext* context;
-    Renderer* renderer;
+    //Renderer* renderer;
     
     GLuint defaultFrameBuffer;
     GLuint colorRenderBuffer;
@@ -44,6 +44,8 @@
 
 - (void) finishOpenGLESCommands;
 - (void) freeOpenGLESResources;
+
+- (void) sayIt;
 
 - (void) setOffTargetTrackingMode:(BOOL) enabled;
 @end

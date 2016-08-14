@@ -11,13 +11,13 @@
 #import <OpenGLES/ES2/glext.h>
 #import <sys/time.h>
 
-#import <Vuforia/Vuforia.h>
-#import <Vuforia/Device.h>
-#import <Vuforia/State.h>
-#import <Vuforia/Tool.h>
-#import <Vuforia/Renderer.h>
-#import <Vuforia/TrackableResult.h>
-#import <Vuforia/VideoBackgroundConfig.h>
+//#import <Vuforia/Vuforia.h>
+//#import <Vuforia/Device.h>
+//#import <Vuforia/State.h>
+//#import <Vuforia/Tool.h>
+//#import <Vuforia/Renderer.h>
+//#import <Vuforia/TrackableResult.h>
+//#import <Vuforia/VideoBackgroundConfig.h>
 
 #import "ARImageView.h"
 #import "ShaderUtils.h"
@@ -45,6 +45,10 @@
 + (Class)layerClass
 {
     return [CAEAGLLayer class];
+}
+
+-(void)sayIt {
+    NSLog(@"myName");
 }
 //
 #pragma Lifecycle
@@ -86,11 +90,11 @@
 //            glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, [augmentationTexture[i] width], [augmentationTexture[i] height], 0, GL_RGBA, GL_UNSIGNED_BYTE, (GLvoid*) [augmentationTexture[i] pngData]);
 //        }
         // unknown purpose
-        renderer = [[Renderer alloc] initWithRendererControl: self];
+        //renderer = [[Renderer alloc] initWithRendererControl: self];
 //        [self loadBuildingsModel];
         [self initShaders];
         
-        [renderer initRendering];
+        //[renderer initRendering];
     }
     return self;
 }
@@ -135,7 +139,7 @@
 //        return;
 //    }
     NSLog(@"Render!");
-    [renderer renderFrameVuforia];
+    //[renderer renderFrameVuforia];
 }
 
 // method should take Vuforia State and projection matrix

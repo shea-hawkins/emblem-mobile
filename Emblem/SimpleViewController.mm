@@ -1,11 +1,11 @@
-#import "ARApplicationSession.h"
+//#import "ARApplicationSession.h"
 #import "SimpleViewController.h"
 #import "ARImageView.h"
 
 @interface SimpleViewController ()
 
-@property (weak, nonatomic) IBOutlet UIImageView* ARViewPlaceholder;
-@property (weak, nonatomic) ARApplicationSession* vapp;
+@property (weak, nonatomic) IBOutlet UIView* ARViewPlaceholder;
+@property (weak, nonatomic) NSObject* vapp;
 
 @end
 
@@ -36,6 +36,9 @@
     CGRect viewFrame = [self getCurrentARViewFrame];
     
     imgView = [[ARImageView alloc] initWithFrame:viewFrame];
+    ARImageView* imgViewTest = (ARImageView*)imgView;
+    imgView = imgViewTest;
+    [imgView sayIt];
     [self setView:imgView];
     // Creates the vuforia session
     // VuforiaSamplesAppDelegate *appDelegate = (VuforiaSamplesAppDelegate*)[[UIApplication sharedApplication] delegate];
@@ -44,11 +47,8 @@
     
 }
 
-- (void) viewDidLoad {
-    [super viewDidLoad];
-    NSLog(@"Hello World");
-    NSLog(data);
-}
+
+
 
 - (void) showLoadingAnimation {
     CGRect indicatorBounds;

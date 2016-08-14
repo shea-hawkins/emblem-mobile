@@ -19,19 +19,6 @@
 		35BD88A61D597F3500A409D6 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35BD88A51D597F3500A409D6 /* MapViewController.swift */; };
 		55CB9937DFC26F85914C1C66 /* Pods_EmblemTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93A26ACF62EF8EADDFE28128 /* Pods_EmblemTests.framework */; };
 		718E64131D5E971E0023B860 /* lib in Resources */ = {isa = PBXBuildFile; fileRef = 718E64121D5E971E0023B860 /* lib */; };
-		718E64161D5E97B30023B860 /* SimpleViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 718E64151D5E97B30023B860 /* SimpleViewController.mm */; };
-		718E64181D5E98100023B860 /* components in Resources */ = {isa = PBXBuildFile; fileRef = 718E64171D5E98100023B860 /* components */; };
-		718E641C1D5EB9690023B860 /* ARImageView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 718E641B1D5EB9690023B860 /* ARImageView.mm */; };
-		718E64201D5FA2BD0023B860 /* ShaderUtils.mm in Sources */ = {isa = PBXBuildFile; fileRef = 718E641F1D5FA2BD0023B860 /* ShaderUtils.mm */; };
-		718E642B1D5FBDE50023B860 /* Background.fragsh in Resources */ = {isa = PBXBuildFile; fileRef = 718E64241D5FBDE50023B860 /* Background.fragsh */; };
-		718E642C1D5FBDE50023B860 /* Background.vertsh in Resources */ = {isa = PBXBuildFile; fileRef = 718E64251D5FBDE50023B860 /* Background.vertsh */; };
-		718E642D1D5FBDE50023B860 /* Line.fragsh in Resources */ = {isa = PBXBuildFile; fileRef = 718E64261D5FBDE50023B860 /* Line.fragsh */; };
-		718E642E1D5FBDE50023B860 /* Line.vertsh in Resources */ = {isa = PBXBuildFile; fileRef = 718E64271D5FBDE50023B860 /* Line.vertsh */; };
-		718E642F1D5FBDE50023B860 /* Simple.fragsh in Resources */ = {isa = PBXBuildFile; fileRef = 718E64281D5FBDE50023B860 /* Simple.fragsh */; };
-		718E64301D5FBDE50023B860 /* Simple.vertsh in Resources */ = {isa = PBXBuildFile; fileRef = 718E64291D5FBDE50023B860 /* Simple.vertsh */; };
-		718E64311D5FBDE50023B860 /* SimpleWithColor.fragsh in Resources */ = {isa = PBXBuildFile; fileRef = 718E642A1D5FBDE50023B860 /* SimpleWithColor.fragsh */; };
-		718E64341D5FBFAD0023B860 /* Renderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 718E64331D5FBFAD0023B860 /* Renderer.mm */; };
-		718E64381D5FEBF10023B860 /* ARApplicationSession.mm in Sources */ = {isa = PBXBuildFile; fileRef = 718E64371D5FEBF10023B860 /* ARApplicationSession.mm */; };
 		718E643A1D6012E20023B860 /* libVuforia.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 718E64391D6012E20023B860 /* libVuforia.a */; };
 		718E643D1D60157F0023B860 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 718E643C1D60157F0023B860 /* AudioToolbox.framework */; };
 		718E643F1D6015880023B860 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 718E643E1D6015880023B860 /* AVFoundation.framework */; };
@@ -46,6 +33,12 @@
 		718E64511D6016010023B860 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 718E64501D6016010023B860 /* Security.framework */; };
 		718E64531D60160D0023B860 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 718E64521D60160D0023B860 /* SystemConfiguration.framework */; };
 		718E64551D6016160023B860 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 718E64541D6016160023B860 /* UIKit.framework */; };
+		71B366E31D61382700085836 /* ImageTargetsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 71B366DE1D61382700085836 /* ImageTargetsViewController.mm */; };
+		71B366E41D61382700085836 /* SampleAppRenderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 71B366DF1D61382700085836 /* SampleAppRenderer.mm */; };
+		71B366E51D61382700085836 /* ImageTargetsEAGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 71B366E11D61382700085836 /* ImageTargetsEAGLView.mm */; };
+		71B366E71D61386100085836 /* SampleApplication in Resources */ = {isa = PBXBuildFile; fileRef = 71B366E61D61386100085836 /* SampleApplication */; };
+		71B366E91D61389D00085836 /* SampleAppUI in Resources */ = {isa = PBXBuildFile; fileRef = 71B366E81D61389D00085836 /* SampleAppUI */; };
+		71B366EB1D6138B500085836 /* Resources in Resources */ = {isa = PBXBuildFile; fileRef = 71B366EA1D6138B500085836 /* Resources */; };
 		80FE0960445486837F57694A /* Pods_EmblemUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CB9D30DE3991C7F8BB8ADAB /* Pods_EmblemUITests.framework */; };
 		D5C1AA5F6BACC53824E8D303 /* Pods_Emblem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A976B07605230728311C182 /* Pods_Emblem.framework */; };
 /* End PBXBuildFile section */
@@ -90,25 +83,6 @@
 		67770561255CFF1F85E4316B /* Pods-EmblemUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EmblemUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-EmblemUITests/Pods-EmblemUITests.release.xcconfig"; sourceTree = "<group>"; };
 		679B4FD6FEAE7FBD70BF8A6B /* Pods-EmblemTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EmblemTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-EmblemTests/Pods-EmblemTests.release.xcconfig"; sourceTree = "<group>"; };
 		718E64121D5E971E0023B860 /* lib */ = {isa = PBXFileReference; lastKnownFileType = folder; path = lib; sourceTree = SOURCE_ROOT; };
-		718E64141D5E97B30023B860 /* SimpleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimpleViewController.h; sourceTree = "<group>"; };
-		718E64151D5E97B30023B860 /* SimpleViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SimpleViewController.mm; sourceTree = "<group>"; };
-		718E64171D5E98100023B860 /* components */ = {isa = PBXFileReference; lastKnownFileType = folder; path = components; sourceTree = "<group>"; };
-		718E641A1D5EB9400023B860 /* ARImageView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ARImageView.h; sourceTree = "<group>"; };
-		718E641B1D5EB9690023B860 /* ARImageView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ARImageView.mm; sourceTree = "<group>"; };
-		718E641E1D5FA2A80023B860 /* ShaderUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShaderUtils.h; sourceTree = "<group>"; };
-		718E641F1D5FA2BD0023B860 /* ShaderUtils.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ShaderUtils.mm; sourceTree = "<group>"; };
-		718E64241D5FBDE50023B860 /* Background.fragsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Background.fragsh; path = components/ar/OldStuff/reference/shaders/Background.fragsh; sourceTree = "<group>"; };
-		718E64251D5FBDE50023B860 /* Background.vertsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Background.vertsh; path = components/ar/OldStuff/reference/shaders/Background.vertsh; sourceTree = "<group>"; };
-		718E64261D5FBDE50023B860 /* Line.fragsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Line.fragsh; path = components/ar/OldStuff/reference/shaders/Line.fragsh; sourceTree = "<group>"; };
-		718E64271D5FBDE50023B860 /* Line.vertsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Line.vertsh; path = components/ar/OldStuff/reference/shaders/Line.vertsh; sourceTree = "<group>"; };
-		718E64281D5FBDE50023B860 /* Simple.fragsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Simple.fragsh; path = components/ar/OldStuff/reference/shaders/Simple.fragsh; sourceTree = "<group>"; };
-		718E64291D5FBDE50023B860 /* Simple.vertsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Simple.vertsh; path = components/ar/OldStuff/reference/shaders/Simple.vertsh; sourceTree = "<group>"; };
-		718E642A1D5FBDE50023B860 /* SimpleWithColor.fragsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = SimpleWithColor.fragsh; path = components/ar/OldStuff/reference/shaders/SimpleWithColor.fragsh; sourceTree = "<group>"; };
-		718E64321D5FBF7C0023B860 /* Renderer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Renderer.h; sourceTree = "<group>"; };
-		718E64331D5FBFAD0023B860 /* Renderer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Renderer.mm; sourceTree = "<group>"; };
-		718E64351D5FCF160023B860 /* GLResourceHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GLResourceHandler.h; sourceTree = "<group>"; };
-		718E64361D5FEBCA0023B860 /* ARApplicationSession.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ARApplicationSession.h; sourceTree = "<group>"; };
-		718E64371D5FEBF10023B860 /* ARApplicationSession.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ARApplicationSession.mm; sourceTree = "<group>"; };
 		718E64391D6012E20023B860 /* libVuforia.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libVuforia.a; path = lib/vuforia/lib/arm/libVuforia.a; sourceTree = "<group>"; };
 		718E643C1D60157F0023B860 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		718E643E1D6015880023B860 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -124,6 +98,15 @@
 		718E64521D60160D0023B860 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		718E64541D6016160023B860 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		71AB3EDB1D5D287100A4BD23 /* libVuforia.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libVuforia.a; path = "lib/vuforia-sdk-ios-6-0-112/build/lib/arm/libVuforia.a"; sourceTree = "<group>"; };
+		71B366DD1D61382700085836 /* ImageTargetsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ImageTargetsViewController.h; path = "components/ar/fresh ref/VuforiaSamples/Classes/Features/ImageTargets/ImageTargetsViewController.h"; sourceTree = "<group>"; };
+		71B366DE1D61382700085836 /* ImageTargetsViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = ImageTargetsViewController.mm; path = "components/ar/fresh ref/VuforiaSamples/Classes/Features/ImageTargets/ImageTargetsViewController.mm"; sourceTree = "<group>"; };
+		71B366DF1D61382700085836 /* SampleAppRenderer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = SampleAppRenderer.mm; path = "components/ar/fresh ref/VuforiaSamples/Classes/Features/ImageTargets/SampleAppRenderer.mm"; sourceTree = "<group>"; };
+		71B366E01D61382700085836 /* ImageTargetsEAGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ImageTargetsEAGLView.h; path = "components/ar/fresh ref/VuforiaSamples/Classes/Features/ImageTargets/ImageTargetsEAGLView.h"; sourceTree = "<group>"; };
+		71B366E11D61382700085836 /* ImageTargetsEAGLView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = ImageTargetsEAGLView.mm; path = "components/ar/fresh ref/VuforiaSamples/Classes/Features/ImageTargets/ImageTargetsEAGLView.mm"; sourceTree = "<group>"; };
+		71B366E21D61382700085836 /* SampleAppRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SampleAppRenderer.h; path = "components/ar/fresh ref/VuforiaSamples/Classes/Features/ImageTargets/SampleAppRenderer.h"; sourceTree = "<group>"; };
+		71B366E61D61386100085836 /* SampleApplication */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SampleApplication; path = "components/ar/fresh ref/VuforiaSamples/Classes/SampleApplication"; sourceTree = "<group>"; };
+		71B366E81D61389D00085836 /* SampleAppUI */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SampleAppUI; path = "components/ar/fresh ref/VuforiaSamples/Classes/SampleAppUI"; sourceTree = "<group>"; };
+		71B366EA1D6138B500085836 /* Resources */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Resources; path = "components/ar/fresh ref/VuforiaSamples/Resources"; sourceTree = "<group>"; };
 		7EDE38068E97E3DD01296F43 /* Pods-EmblemTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EmblemTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EmblemTests/Pods-EmblemTests.debug.xcconfig"; sourceTree = "<group>"; };
 		8CB9D30DE3991C7F8BB8ADAB /* Pods_EmblemUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EmblemUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		93A26ACF62EF8EADDFE28128 /* Pods_EmblemTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EmblemTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -211,7 +194,6 @@
 		35A87DE11D52B997004E739E /* Emblem */ = {
 			isa = PBXGroup;
 			children = (
-				718E64171D5E98100023B860 /* components */,
 				718E64121D5E971E0023B860 /* lib */,
 				351F47EB1D5B9FAD0093578B /* HTTPRequest.swift */,
 				35FA710C1D542EFF00F54CBC /* Emblem-Bridging-Header.h */,
@@ -255,44 +237,27 @@
 		35BD88A71D597F4000A409D6 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				718E641D1D5FA26E0023B860 /* ARUtils */,
-				718E64141D5E97B30023B860 /* SimpleViewController.h */,
-				718E64151D5E97B30023B860 /* SimpleViewController.mm */,
+				71B366DC1D6137C400085836 /* Transplant */,
 				35A87E101D52BA28004E739E /* LoginViewController.swift */,
 				35BD88A51D597F3500A409D6 /* MapViewController.swift */,
-				718E641A1D5EB9400023B860 /* ARImageView.h */,
-				718E641B1D5EB9690023B860 /* ARImageView.mm */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
 		};
-		718E641D1D5FA26E0023B860 /* ARUtils */ = {
+		71B366DC1D6137C400085836 /* Transplant */ = {
 			isa = PBXGroup;
 			children = (
-				718E64231D5FBDD60023B860 /* shaders */,
-				718E641E1D5FA2A80023B860 /* ShaderUtils.h */,
-				718E641F1D5FA2BD0023B860 /* ShaderUtils.mm */,
-				718E64321D5FBF7C0023B860 /* Renderer.h */,
-				718E64331D5FBFAD0023B860 /* Renderer.mm */,
-				718E64351D5FCF160023B860 /* GLResourceHandler.h */,
-				718E64361D5FEBCA0023B860 /* ARApplicationSession.h */,
-				718E64371D5FEBF10023B860 /* ARApplicationSession.mm */,
+				71B366EA1D6138B500085836 /* Resources */,
+				71B366E81D61389D00085836 /* SampleAppUI */,
+				71B366E61D61386100085836 /* SampleApplication */,
+				71B366DD1D61382700085836 /* ImageTargetsViewController.h */,
+				71B366DE1D61382700085836 /* ImageTargetsViewController.mm */,
+				71B366DF1D61382700085836 /* SampleAppRenderer.mm */,
+				71B366E01D61382700085836 /* ImageTargetsEAGLView.h */,
+				71B366E11D61382700085836 /* ImageTargetsEAGLView.mm */,
+				71B366E21D61382700085836 /* SampleAppRenderer.h */,
 			);
-			name = ARUtils;
-			sourceTree = "<group>";
-		};
-		718E64231D5FBDD60023B860 /* shaders */ = {
-			isa = PBXGroup;
-			children = (
-				718E64241D5FBDE50023B860 /* Background.fragsh */,
-				718E64251D5FBDE50023B860 /* Background.vertsh */,
-				718E64261D5FBDE50023B860 /* Line.fragsh */,
-				718E64271D5FBDE50023B860 /* Line.vertsh */,
-				718E64281D5FBDE50023B860 /* Simple.fragsh */,
-				718E64291D5FBDE50023B860 /* Simple.vertsh */,
-				718E642A1D5FBDE50023B860 /* SimpleWithColor.fragsh */,
-			);
-			name = shaders;
+			name = Transplant;
 			sourceTree = "<group>";
 		};
 		DE59BFB1C6BC0733D112633F /* Frameworks */ = {
@@ -433,18 +398,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				71B366E91D61389D00085836 /* SampleAppUI in Resources */,
 				35A87DED1D52B998004E739E /* LaunchScreen.storyboard in Resources */,
-				718E642E1D5FBDE50023B860 /* Line.vertsh in Resources */,
 				35A87DEA1D52B998004E739E /* Assets.xcassets in Resources */,
 				718E64131D5E971E0023B860 /* lib in Resources */,
-				718E642C1D5FBDE50023B860 /* Background.vertsh in Resources */,
-				718E64301D5FBDE50023B860 /* Simple.vertsh in Resources */,
-				718E642D1D5FBDE50023B860 /* Line.fragsh in Resources */,
-				718E642B1D5FBDE50023B860 /* Background.fragsh in Resources */,
-				718E64311D5FBDE50023B860 /* SimpleWithColor.fragsh in Resources */,
-				718E642F1D5FBDE50023B860 /* Simple.fragsh in Resources */,
+				71B366E71D61386100085836 /* SampleApplication in Resources */,
 				35A87DE81D52B997004E739E /* Main.storyboard in Resources */,
-				718E64181D5E98100023B860 /* components in Resources */,
+				71B366EB1D6138B500085836 /* Resources in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -592,15 +552,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				718E64201D5FA2BD0023B860 /* ShaderUtils.mm in Sources */,
-				718E64381D5FEBF10023B860 /* ARApplicationSession.mm in Sources */,
-				718E64161D5E97B30023B860 /* SimpleViewController.mm in Sources */,
-				718E64341D5FBFAD0023B860 /* Renderer.mm in Sources */,
+				71B366E41D61382700085836 /* SampleAppRenderer.mm in Sources */,
 				35BD88A21D59536300A409D6 /* User.swift in Sources */,
 				35A87E111D52BA28004E739E /* LoginViewController.swift in Sources */,
 				351F47EC1D5B9FAD0093578B /* HTTPRequest.swift in Sources */,
-				718E641C1D5EB9690023B860 /* ARImageView.mm in Sources */,
+				71B366E51D61382700085836 /* ImageTargetsEAGLView.mm in Sources */,
 				35A87DE31D52B997004E739E /* AppDelegate.swift in Sources */,
+				71B366E31D61382700085836 /* ImageTargetsViewController.mm in Sources */,
 				35BD88A61D597F3500A409D6 /* MapViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -757,7 +715,7 @@
 					"$(inherited)",
 					"\"${PODS_ROOT}/Headers/Public\"",
 					"\"${PODS_ROOT}/Headers/Public/GoogleMaps\"",
-					"\"${SRCROOT}/Emblem/components\"",
+					"\"${SRCROOT}/Emblem/components/ar/fresh ref\"/**",
 					"\"$(SRCROOT)/lib/vuforia/include\"",
 				);
 				INFOPLIST_FILE = Emblem/Info.plist;
@@ -843,7 +801,7 @@
 					"$(inherited)",
 					"\"${PODS_ROOT}/Headers/Public\"",
 					"\"${PODS_ROOT}/Headers/Public/GoogleMaps\"",
-					"\"${SRCROOT}/Emblem/components\"",
+					"\"${SRCROOT}/Emblem/components/ar/fresh ref\"/**",
 					"\"$(SRCROOT)/lib/vuforia/include\"",
 				);
 				INFOPLIST_FILE = Emblem/Info.plist;

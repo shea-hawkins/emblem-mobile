@@ -5,7 +5,7 @@
 @interface SimpleViewController : UIViewController
 
 @property (nonatomic, weak) NSString* data;
-@property (nonatomic, strong) ARImageView* imgView;
+@property (nonatomic, strong) UIView* imgView;
 
 
 + (NSString*) getEntrySegueFromMapView;
