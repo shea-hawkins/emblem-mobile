@@ -18,6 +18,11 @@
 		35BD88A21D59536300A409D6 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35BD88A11D59536300A409D6 /* User.swift */; };
 		35BD88A61D597F3500A409D6 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35BD88A51D597F3500A409D6 /* MapViewController.swift */; };
 		55CB9937DFC26F85914C1C66 /* Pods_EmblemTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93A26ACF62EF8EADDFE28128 /* Pods_EmblemTests.framework */; };
+		7105318B1D627207003EC15B /* TextureTeapotBlue.png in Resources */ = {isa = PBXBuildFile; fileRef = 710531861D627207003EC15B /* TextureTeapotBlue.png */; };
+		7105318C1D627207003EC15B /* TextureTeapotBrass.png in Resources */ = {isa = PBXBuildFile; fileRef = 710531871D627207003EC15B /* TextureTeapotBrass.png */; };
+		7105318D1D627207003EC15B /* TextureTeapotGreen.png in Resources */ = {isa = PBXBuildFile; fileRef = 710531881D627207003EC15B /* TextureTeapotGreen.png */; };
+		7105318E1D627207003EC15B /* TextureTeapotRed.png in Resources */ = {isa = PBXBuildFile; fileRef = 710531891D627207003EC15B /* TextureTeapotRed.png */; };
+		7105318F1D627207003EC15B /* TextureTeapotYellow.png in Resources */ = {isa = PBXBuildFile; fileRef = 7105318A1D627207003EC15B /* TextureTeapotYellow.png */; };
 		718E64131D5E971E0023B860 /* lib in Resources */ = {isa = PBXBuildFile; fileRef = 718E64121D5E971E0023B860 /* lib */; };
 		718E643A1D6012E20023B860 /* libVuforia.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 718E64391D6012E20023B860 /* libVuforia.a */; };
 		718E643D1D60157F0023B860 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 718E643C1D60157F0023B860 /* AudioToolbox.framework */; };
@@ -34,11 +39,29 @@
 		718E64531D60160D0023B860 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 718E64521D60160D0023B860 /* SystemConfiguration.framework */; };
 		718E64551D6016160023B860 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 718E64541D6016160023B860 /* UIKit.framework */; };
 		71B366E31D61382700085836 /* ImageTargetsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 71B366DE1D61382700085836 /* ImageTargetsViewController.mm */; };
-		71B366E41D61382700085836 /* SampleAppRenderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 71B366DF1D61382700085836 /* SampleAppRenderer.mm */; };
-		71B366E51D61382700085836 /* ImageTargetsEAGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 71B366E11D61382700085836 /* ImageTargetsEAGLView.mm */; };
-		71B366E71D61386100085836 /* SampleApplication in Resources */ = {isa = PBXBuildFile; fileRef = 71B366E61D61386100085836 /* SampleApplication */; };
-		71B366E91D61389D00085836 /* SampleAppUI in Resources */ = {isa = PBXBuildFile; fileRef = 71B366E81D61389D00085836 /* SampleAppUI */; };
-		71B366EB1D6138B500085836 /* Resources in Resources */ = {isa = PBXBuildFile; fileRef = 71B366EA1D6138B500085836 /* Resources */; };
+		71B3672A1D6226C300085836 /* SampleAppRenderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 71B367271D6226C300085836 /* SampleAppRenderer.mm */; };
+		71B3672B1D6226C300085836 /* ImageTargetsEAGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 71B367281D6226C300085836 /* ImageTargetsEAGLView.mm */; };
+		71B3672E1D6226FB00085836 /* SampleApplicationSession.mm in Sources */ = {isa = PBXBuildFile; fileRef = 71B3672D1D6226FB00085836 /* SampleApplicationSession.mm */; };
+		71B367311D62272000085836 /* SampleAppMenuViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 71B367301D62272000085836 /* SampleAppMenuViewController.mm */; };
+		71B367341D62273D00085836 /* PresentMenuSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 71B367331D62273D00085836 /* PresentMenuSegue.m */; };
+		71B367371D62276400085836 /* UnwindMenuSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 71B367361D62276400085836 /* UnwindMenuSegue.m */; };
+		71B367401D6227A000085836 /* SampleApplication3DModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 71B367391D6227A000085836 /* SampleApplication3DModel.m */; };
+		71B367411D6227A000085836 /* SampleApplicationShaderUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 71B3673B1D6227A000085836 /* SampleApplicationShaderUtils.m */; };
+		71B367421D6227A000085836 /* SampleApplicationUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 71B3673C1D6227A000085836 /* SampleApplicationUtils.cpp */; };
+		71B367431D6227A000085836 /* Texture.mm in Sources */ = {isa = PBXBuildFile; fileRef = 71B3673F1D6227A000085836 /* Texture.mm */; };
+		71B3674E1D62286300085836 /* Background.fragsh in Resources */ = {isa = PBXBuildFile; fileRef = 71B367471D62286300085836 /* Background.fragsh */; };
+		71B3674F1D62286300085836 /* Background.vertsh in Resources */ = {isa = PBXBuildFile; fileRef = 71B367481D62286300085836 /* Background.vertsh */; };
+		71B367501D62286300085836 /* Line.fragsh in Resources */ = {isa = PBXBuildFile; fileRef = 71B367491D62286300085836 /* Line.fragsh */; };
+		71B367511D62286300085836 /* Line.vertsh in Resources */ = {isa = PBXBuildFile; fileRef = 71B3674A1D62286300085836 /* Line.vertsh */; };
+		71B367521D62286300085836 /* Simple.fragsh in Resources */ = {isa = PBXBuildFile; fileRef = 71B3674B1D62286300085836 /* Simple.fragsh */; };
+		71B367531D62286300085836 /* Simple.vertsh in Resources */ = {isa = PBXBuildFile; fileRef = 71B3674C1D62286300085836 /* Simple.vertsh */; };
+		71B367541D62286300085836 /* SimpleWithColor.fragsh in Resources */ = {isa = PBXBuildFile; fileRef = 71B3674D1D62286300085836 /* SimpleWithColor.fragsh */; };
+		71D216A81D622C6C003BCEBB /* IT_about.html in Resources */ = {isa = PBXBuildFile; fileRef = 71D216A21D622C6C003BCEBB /* IT_about.html */; };
+		71D216A91D622C6C003BCEBB /* IT.png in Resources */ = {isa = PBXBuildFile; fileRef = 71D216A31D622C6C003BCEBB /* IT.png */; };
+		71D216AA1D622C6C003BCEBB /* StonesAndChips.dat in Resources */ = {isa = PBXBuildFile; fileRef = 71D216A41D622C6C003BCEBB /* StonesAndChips.dat */; };
+		71D216AB1D622C6C003BCEBB /* StonesAndChips.xml in Resources */ = {isa = PBXBuildFile; fileRef = 71D216A51D622C6C003BCEBB /* StonesAndChips.xml */; };
+		71D216AC1D622C6C003BCEBB /* Tarmac.dat in Resources */ = {isa = PBXBuildFile; fileRef = 71D216A61D622C6C003BCEBB /* Tarmac.dat */; };
+		71D216AD1D622C6C003BCEBB /* Tarmac.xml in Resources */ = {isa = PBXBuildFile; fileRef = 71D216A71D622C6C003BCEBB /* Tarmac.xml */; };
 		80FE0960445486837F57694A /* Pods_EmblemUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CB9D30DE3991C7F8BB8ADAB /* Pods_EmblemUITests.framework */; };
 		D5C1AA5F6BACC53824E8D303 /* Pods_Emblem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A976B07605230728311C182 /* Pods_Emblem.framework */; };
 /* End PBXBuildFile section */
@@ -82,6 +105,11 @@
 		600D4A85AE037D048F0AA4C0 /* Pods-EmblemUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EmblemUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EmblemUITests/Pods-EmblemUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		67770561255CFF1F85E4316B /* Pods-EmblemUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EmblemUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-EmblemUITests/Pods-EmblemUITests.release.xcconfig"; sourceTree = "<group>"; };
 		679B4FD6FEAE7FBD70BF8A6B /* Pods-EmblemTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EmblemTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-EmblemTests/Pods-EmblemTests.release.xcconfig"; sourceTree = "<group>"; };
+		710531861D627207003EC15B /* TextureTeapotBlue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TextureTeapotBlue.png; path = "components/ar/fresh ref/VuforiaSamples/VuResources/Assets/TextureTeapotBlue.png"; sourceTree = "<group>"; };
+		710531871D627207003EC15B /* TextureTeapotBrass.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TextureTeapotBrass.png; path = "components/ar/fresh ref/VuforiaSamples/VuResources/Assets/TextureTeapotBrass.png"; sourceTree = "<group>"; };
+		710531881D627207003EC15B /* TextureTeapotGreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TextureTeapotGreen.png; path = "components/ar/fresh ref/VuforiaSamples/VuResources/Assets/TextureTeapotGreen.png"; sourceTree = "<group>"; };
+		710531891D627207003EC15B /* TextureTeapotRed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TextureTeapotRed.png; path = "components/ar/fresh ref/VuforiaSamples/VuResources/Assets/TextureTeapotRed.png"; sourceTree = "<group>"; };
+		7105318A1D627207003EC15B /* TextureTeapotYellow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TextureTeapotYellow.png; path = "components/ar/fresh ref/VuforiaSamples/VuResources/Assets/TextureTeapotYellow.png"; sourceTree = "<group>"; };
 		718E64121D5E971E0023B860 /* lib */ = {isa = PBXFileReference; lastKnownFileType = folder; path = lib; sourceTree = SOURCE_ROOT; };
 		718E64391D6012E20023B860 /* libVuforia.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libVuforia.a; path = lib/vuforia/lib/arm/libVuforia.a; sourceTree = "<group>"; };
 		718E643C1D60157F0023B860 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
@@ -100,13 +128,42 @@
 		71AB3EDB1D5D287100A4BD23 /* libVuforia.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libVuforia.a; path = "lib/vuforia-sdk-ios-6-0-112/build/lib/arm/libVuforia.a"; sourceTree = "<group>"; };
 		71B366DD1D61382700085836 /* ImageTargetsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ImageTargetsViewController.h; path = "components/ar/fresh ref/VuforiaSamples/Classes/Features/ImageTargets/ImageTargetsViewController.h"; sourceTree = "<group>"; };
 		71B366DE1D61382700085836 /* ImageTargetsViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = ImageTargetsViewController.mm; path = "components/ar/fresh ref/VuforiaSamples/Classes/Features/ImageTargets/ImageTargetsViewController.mm"; sourceTree = "<group>"; };
-		71B366DF1D61382700085836 /* SampleAppRenderer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = SampleAppRenderer.mm; path = "components/ar/fresh ref/VuforiaSamples/Classes/Features/ImageTargets/SampleAppRenderer.mm"; sourceTree = "<group>"; };
-		71B366E01D61382700085836 /* ImageTargetsEAGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ImageTargetsEAGLView.h; path = "components/ar/fresh ref/VuforiaSamples/Classes/Features/ImageTargets/ImageTargetsEAGLView.h"; sourceTree = "<group>"; };
-		71B366E11D61382700085836 /* ImageTargetsEAGLView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = ImageTargetsEAGLView.mm; path = "components/ar/fresh ref/VuforiaSamples/Classes/Features/ImageTargets/ImageTargetsEAGLView.mm"; sourceTree = "<group>"; };
-		71B366E21D61382700085836 /* SampleAppRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SampleAppRenderer.h; path = "components/ar/fresh ref/VuforiaSamples/Classes/Features/ImageTargets/SampleAppRenderer.h"; sourceTree = "<group>"; };
-		71B366E61D61386100085836 /* SampleApplication */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SampleApplication; path = "components/ar/fresh ref/VuforiaSamples/Classes/SampleApplication"; sourceTree = "<group>"; };
-		71B366E81D61389D00085836 /* SampleAppUI */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SampleAppUI; path = "components/ar/fresh ref/VuforiaSamples/Classes/SampleAppUI"; sourceTree = "<group>"; };
-		71B366EA1D6138B500085836 /* Resources */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Resources; path = "components/ar/fresh ref/VuforiaSamples/Resources"; sourceTree = "<group>"; };
+		71B367261D6226C300085836 /* ImageTargetsEAGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ImageTargetsEAGLView.h; path = "components/ar/fresh ref/VuforiaSamples/Classes/Features/ImageTargets/ImageTargetsEAGLView.h"; sourceTree = "<group>"; };
+		71B367271D6226C300085836 /* SampleAppRenderer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = SampleAppRenderer.mm; path = "components/ar/fresh ref/VuforiaSamples/Classes/Features/ImageTargets/SampleAppRenderer.mm"; sourceTree = "<group>"; };
+		71B367281D6226C300085836 /* ImageTargetsEAGLView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = ImageTargetsEAGLView.mm; path = "components/ar/fresh ref/VuforiaSamples/Classes/Features/ImageTargets/ImageTargetsEAGLView.mm"; sourceTree = "<group>"; };
+		71B367291D6226C300085836 /* SampleAppRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SampleAppRenderer.h; path = "components/ar/fresh ref/VuforiaSamples/Classes/Features/ImageTargets/SampleAppRenderer.h"; sourceTree = "<group>"; };
+		71B3672C1D6226FB00085836 /* SampleApplicationSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SampleApplicationSession.h; path = "components/ar/fresh ref/VuforiaSamples/Classes/SampleApplication/SampleApplicationSession.h"; sourceTree = "<group>"; };
+		71B3672D1D6226FB00085836 /* SampleApplicationSession.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = SampleApplicationSession.mm; path = "components/ar/fresh ref/VuforiaSamples/Classes/SampleApplication/SampleApplicationSession.mm"; sourceTree = "<group>"; };
+		71B3672F1D62272000085836 /* SampleAppMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SampleAppMenuViewController.h; path = "components/ar/fresh ref/VuforiaSamples/Classes/SampleAppUI/SampleAppMenuViewController.h"; sourceTree = "<group>"; };
+		71B367301D62272000085836 /* SampleAppMenuViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = SampleAppMenuViewController.mm; path = "components/ar/fresh ref/VuforiaSamples/Classes/SampleAppUI/SampleAppMenuViewController.mm"; sourceTree = "<group>"; };
+		71B367321D62273D00085836 /* PresentMenuSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PresentMenuSegue.h; path = "components/ar/fresh ref/VuforiaSamples/Classes/SampleAppUI/Transitions/PresentMenuSegue.h"; sourceTree = "<group>"; };
+		71B367331D62273D00085836 /* PresentMenuSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PresentMenuSegue.m; path = "components/ar/fresh ref/VuforiaSamples/Classes/SampleAppUI/Transitions/PresentMenuSegue.m"; sourceTree = "<group>"; };
+		71B367351D62276400085836 /* UnwindMenuSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UnwindMenuSegue.h; path = "components/ar/fresh ref/VuforiaSamples/Classes/SampleAppUI/Transitions/UnwindMenuSegue.h"; sourceTree = "<group>"; };
+		71B367361D62276400085836 /* UnwindMenuSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UnwindMenuSegue.m; path = "components/ar/fresh ref/VuforiaSamples/Classes/SampleAppUI/Transitions/UnwindMenuSegue.m"; sourceTree = "<group>"; };
+		71B367381D6227A000085836 /* SampleApplication3DModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SampleApplication3DModel.h; path = "components/ar/fresh ref/VuforiaSamples/Classes/SampleApplication/SampleApplication3DModel.h"; sourceTree = "<group>"; };
+		71B367391D6227A000085836 /* SampleApplication3DModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SampleApplication3DModel.m; path = "components/ar/fresh ref/VuforiaSamples/Classes/SampleApplication/SampleApplication3DModel.m"; sourceTree = "<group>"; };
+		71B3673A1D6227A000085836 /* SampleApplicationShaderUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SampleApplicationShaderUtils.h; path = "components/ar/fresh ref/VuforiaSamples/Classes/SampleApplication/SampleApplicationShaderUtils.h"; sourceTree = "<group>"; };
+		71B3673B1D6227A000085836 /* SampleApplicationShaderUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SampleApplicationShaderUtils.m; path = "components/ar/fresh ref/VuforiaSamples/Classes/SampleApplication/SampleApplicationShaderUtils.m"; sourceTree = "<group>"; };
+		71B3673C1D6227A000085836 /* SampleApplicationUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SampleApplicationUtils.cpp; path = "components/ar/fresh ref/VuforiaSamples/Classes/SampleApplication/SampleApplicationUtils.cpp"; sourceTree = "<group>"; };
+		71B3673D1D6227A000085836 /* SampleApplicationUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SampleApplicationUtils.h; path = "components/ar/fresh ref/VuforiaSamples/Classes/SampleApplication/SampleApplicationUtils.h"; sourceTree = "<group>"; };
+		71B3673E1D6227A000085836 /* Texture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Texture.h; path = "components/ar/fresh ref/VuforiaSamples/Classes/SampleApplication/Texture.h"; sourceTree = "<group>"; };
+		71B3673F1D6227A000085836 /* Texture.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = Texture.mm; path = "components/ar/fresh ref/VuforiaSamples/Classes/SampleApplication/Texture.mm"; sourceTree = "<group>"; };
+		71B367441D62283C00085836 /* Quad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Quad.h; path = "components/ar/fresh ref/VuforiaSamples/Classes/SampleApplication/Quad.h"; sourceTree = "<group>"; };
+		71B367451D62283C00085836 /* SampleGLResourceHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SampleGLResourceHandler.h; path = "components/ar/fresh ref/VuforiaSamples/Classes/SampleApplication/SampleGLResourceHandler.h"; sourceTree = "<group>"; };
+		71B367461D62283C00085836 /* Teapot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Teapot.h; path = "components/ar/fresh ref/VuforiaSamples/Classes/SampleApplication/Teapot.h"; sourceTree = "<group>"; };
+		71B367471D62286300085836 /* Background.fragsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Background.fragsh; path = "components/ar/fresh ref/VuforiaSamples/Classes/SampleApplication/shaders/Background.fragsh"; sourceTree = "<group>"; };
+		71B367481D62286300085836 /* Background.vertsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Background.vertsh; path = "components/ar/fresh ref/VuforiaSamples/Classes/SampleApplication/shaders/Background.vertsh"; sourceTree = "<group>"; };
+		71B367491D62286300085836 /* Line.fragsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Line.fragsh; path = "components/ar/fresh ref/VuforiaSamples/Classes/SampleApplication/shaders/Line.fragsh"; sourceTree = "<group>"; };
+		71B3674A1D62286300085836 /* Line.vertsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Line.vertsh; path = "components/ar/fresh ref/VuforiaSamples/Classes/SampleApplication/shaders/Line.vertsh"; sourceTree = "<group>"; };
+		71B3674B1D62286300085836 /* Simple.fragsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Simple.fragsh; path = "components/ar/fresh ref/VuforiaSamples/Classes/SampleApplication/shaders/Simple.fragsh"; sourceTree = "<group>"; };
+		71B3674C1D62286300085836 /* Simple.vertsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Simple.vertsh; path = "components/ar/fresh ref/VuforiaSamples/Classes/SampleApplication/shaders/Simple.vertsh"; sourceTree = "<group>"; };
+		71B3674D1D62286300085836 /* SimpleWithColor.fragsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = SimpleWithColor.fragsh; path = "components/ar/fresh ref/VuforiaSamples/Classes/SampleApplication/shaders/SimpleWithColor.fragsh"; sourceTree = "<group>"; };
+		71D216A21D622C6C003BCEBB /* IT_about.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = IT_about.html; path = "components/ar/fresh ref/VuforiaSamples/VuResources/Assets/ImageTargets/IT_about.html"; sourceTree = "<group>"; };
+		71D216A31D622C6C003BCEBB /* IT.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = IT.png; path = "components/ar/fresh ref/VuforiaSamples/VuResources/Assets/ImageTargets/IT.png"; sourceTree = "<group>"; };
+		71D216A41D622C6C003BCEBB /* StonesAndChips.dat */ = {isa = PBXFileReference; lastKnownFileType = file; name = StonesAndChips.dat; path = "components/ar/fresh ref/VuforiaSamples/VuResources/Assets/ImageTargets/StonesAndChips.dat"; sourceTree = "<group>"; };
+		71D216A51D622C6C003BCEBB /* StonesAndChips.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = StonesAndChips.xml; path = "components/ar/fresh ref/VuforiaSamples/VuResources/Assets/ImageTargets/StonesAndChips.xml"; sourceTree = "<group>"; };
+		71D216A61D622C6C003BCEBB /* Tarmac.dat */ = {isa = PBXFileReference; lastKnownFileType = file; name = Tarmac.dat; path = "components/ar/fresh ref/VuforiaSamples/VuResources/Assets/ImageTargets/Tarmac.dat"; sourceTree = "<group>"; };
+		71D216A71D622C6C003BCEBB /* Tarmac.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = Tarmac.xml; path = "components/ar/fresh ref/VuforiaSamples/VuResources/Assets/ImageTargets/Tarmac.xml"; sourceTree = "<group>"; };
 		7EDE38068E97E3DD01296F43 /* Pods-EmblemTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EmblemTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EmblemTests/Pods-EmblemTests.debug.xcconfig"; sourceTree = "<group>"; };
 		8CB9D30DE3991C7F8BB8ADAB /* Pods_EmblemUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EmblemUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		93A26ACF62EF8EADDFE28128 /* Pods_EmblemTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EmblemTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -247,15 +304,49 @@
 		71B366DC1D6137C400085836 /* Transplant */ = {
 			isa = PBXGroup;
 			children = (
-				71B366EA1D6138B500085836 /* Resources */,
-				71B366E81D61389D00085836 /* SampleAppUI */,
-				71B366E61D61386100085836 /* SampleApplication */,
+				710531861D627207003EC15B /* TextureTeapotBlue.png */,
+				710531871D627207003EC15B /* TextureTeapotBrass.png */,
+				710531881D627207003EC15B /* TextureTeapotGreen.png */,
+				710531891D627207003EC15B /* TextureTeapotRed.png */,
+				7105318A1D627207003EC15B /* TextureTeapotYellow.png */,
+				71D216A21D622C6C003BCEBB /* IT_about.html */,
+				71D216A31D622C6C003BCEBB /* IT.png */,
+				71D216A41D622C6C003BCEBB /* StonesAndChips.dat */,
+				71D216A51D622C6C003BCEBB /* StonesAndChips.xml */,
+				71D216A61D622C6C003BCEBB /* Tarmac.dat */,
+				71D216A71D622C6C003BCEBB /* Tarmac.xml */,
+				71B367471D62286300085836 /* Background.fragsh */,
+				71B367481D62286300085836 /* Background.vertsh */,
+				71B367491D62286300085836 /* Line.fragsh */,
+				71B3674A1D62286300085836 /* Line.vertsh */,
+				71B3674B1D62286300085836 /* Simple.fragsh */,
+				71B3674C1D62286300085836 /* Simple.vertsh */,
+				71B3674D1D62286300085836 /* SimpleWithColor.fragsh */,
+				71B367441D62283C00085836 /* Quad.h */,
+				71B367451D62283C00085836 /* SampleGLResourceHandler.h */,
+				71B367461D62283C00085836 /* Teapot.h */,
+				71B367381D6227A000085836 /* SampleApplication3DModel.h */,
+				71B367391D6227A000085836 /* SampleApplication3DModel.m */,
+				71B3673A1D6227A000085836 /* SampleApplicationShaderUtils.h */,
+				71B3673B1D6227A000085836 /* SampleApplicationShaderUtils.m */,
+				71B3673C1D6227A000085836 /* SampleApplicationUtils.cpp */,
+				71B3673D1D6227A000085836 /* SampleApplicationUtils.h */,
+				71B3673E1D6227A000085836 /* Texture.h */,
+				71B3673F1D6227A000085836 /* Texture.mm */,
+				71B367351D62276400085836 /* UnwindMenuSegue.h */,
+				71B367361D62276400085836 /* UnwindMenuSegue.m */,
+				71B367321D62273D00085836 /* PresentMenuSegue.h */,
+				71B367331D62273D00085836 /* PresentMenuSegue.m */,
+				71B3672F1D62272000085836 /* SampleAppMenuViewController.h */,
+				71B367301D62272000085836 /* SampleAppMenuViewController.mm */,
+				71B3672C1D6226FB00085836 /* SampleApplicationSession.h */,
+				71B3672D1D6226FB00085836 /* SampleApplicationSession.mm */,
+				71B367261D6226C300085836 /* ImageTargetsEAGLView.h */,
+				71B367271D6226C300085836 /* SampleAppRenderer.mm */,
+				71B367281D6226C300085836 /* ImageTargetsEAGLView.mm */,
+				71B367291D6226C300085836 /* SampleAppRenderer.h */,
 				71B366DD1D61382700085836 /* ImageTargetsViewController.h */,
 				71B366DE1D61382700085836 /* ImageTargetsViewController.mm */,
-				71B366DF1D61382700085836 /* SampleAppRenderer.mm */,
-				71B366E01D61382700085836 /* ImageTargetsEAGLView.h */,
-				71B366E11D61382700085836 /* ImageTargetsEAGLView.mm */,
-				71B366E21D61382700085836 /* SampleAppRenderer.h */,
 			);
 			name = Transplant;
 			sourceTree = "<group>";
@@ -398,13 +489,28 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				71B366E91D61389D00085836 /* SampleAppUI in Resources */,
+				71D216AC1D622C6C003BCEBB /* Tarmac.dat in Resources */,
+				71B3674E1D62286300085836 /* Background.fragsh in Resources */,
+				7105318B1D627207003EC15B /* TextureTeapotBlue.png in Resources */,
 				35A87DED1D52B998004E739E /* LaunchScreen.storyboard in Resources */,
+				71D216A91D622C6C003BCEBB /* IT.png in Resources */,
+				71B367521D62286300085836 /* Simple.fragsh in Resources */,
 				35A87DEA1D52B998004E739E /* Assets.xcassets in Resources */,
 				718E64131D5E971E0023B860 /* lib in Resources */,
-				71B366E71D61386100085836 /* SampleApplication in Resources */,
+				7105318E1D627207003EC15B /* TextureTeapotRed.png in Resources */,
+				71D216AD1D622C6C003BCEBB /* Tarmac.xml in Resources */,
+				71B367511D62286300085836 /* Line.vertsh in Resources */,
+				7105318C1D627207003EC15B /* TextureTeapotBrass.png in Resources */,
+				71D216AB1D622C6C003BCEBB /* StonesAndChips.xml in Resources */,
+				71B367501D62286300085836 /* Line.fragsh in Resources */,
+				71D216A81D622C6C003BCEBB /* IT_about.html in Resources */,
+				7105318F1D627207003EC15B /* TextureTeapotYellow.png in Resources */,
+				71B3674F1D62286300085836 /* Background.vertsh in Resources */,
+				71D216AA1D622C6C003BCEBB /* StonesAndChips.dat in Resources */,
+				71B367541D62286300085836 /* SimpleWithColor.fragsh in Resources */,
+				7105318D1D627207003EC15B /* TextureTeapotGreen.png in Resources */,
 				35A87DE81D52B997004E739E /* Main.storyboard in Resources */,
-				71B366EB1D6138B500085836 /* Resources in Resources */,
+				71B367531D62286300085836 /* Simple.vertsh in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -552,14 +658,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				71B366E41D61382700085836 /* SampleAppRenderer.mm in Sources */,
+				71B367341D62273D00085836 /* PresentMenuSegue.m in Sources */,
+				71B3672B1D6226C300085836 /* ImageTargetsEAGLView.mm in Sources */,
+				71B367401D6227A000085836 /* SampleApplication3DModel.m in Sources */,
+				71B367431D6227A000085836 /* Texture.mm in Sources */,
 				35BD88A21D59536300A409D6 /* User.swift in Sources */,
 				35A87E111D52BA28004E739E /* LoginViewController.swift in Sources */,
 				351F47EC1D5B9FAD0093578B /* HTTPRequest.swift in Sources */,
-				71B366E51D61382700085836 /* ImageTargetsEAGLView.mm in Sources */,
 				35A87DE31D52B997004E739E /* AppDelegate.swift in Sources */,
+				71B367411D6227A000085836 /* SampleApplicationShaderUtils.m in Sources */,
 				71B366E31D61382700085836 /* ImageTargetsViewController.mm in Sources */,
+				71B367421D6227A000085836 /* SampleApplicationUtils.cpp in Sources */,
+				71B367371D62276400085836 /* UnwindMenuSegue.m in Sources */,
 				35BD88A61D597F3500A409D6 /* MapViewController.swift in Sources */,
+				71B3672E1D6226FB00085836 /* SampleApplicationSession.mm in Sources */,
+				71B3672A1D6226C300085836 /* SampleAppRenderer.mm in Sources */,
+				71B367311D62272000085836 /* SampleAppMenuViewController.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -651,7 +765,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LIBRARY_SEARCH_PATHS = "\"${SRCROOT}/lib/vuforia/lib/arm\"";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -693,7 +807,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LIBRARY_SEARCH_PATHS = "\"${SRCROOT}/lib/vuforia/lib/arm\"";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
@@ -708,18 +822,17 @@
 			baseConfigurationReference = E7A804B65C6354D60BBB3FE2 /* Pods-Emblem.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Dane Jordan (QG42KV7GE7)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Dane Jordan (QG42KV7GE7)";
 				ENABLE_BITCODE = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"${PODS_ROOT}/Headers/Public\"",
 					"\"${PODS_ROOT}/Headers/Public/GoogleMaps\"",
-					"\"${SRCROOT}/Emblem/components/ar/fresh ref\"/**",
 					"\"$(SRCROOT)/lib/vuforia/include\"",
 				);
 				INFOPLIST_FILE = Emblem/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -792,8 +905,8 @@
 			baseConfigurationReference = A8D395F0EF6B5C0151062790 /* Pods-Emblem.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Dane Jordan (QG42KV7GE7)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Dane Jordan (QG42KV7GE7)";
 				ENABLE_BITCODE = NO;
 				"FRAMEWORK_SEARCH_PATHS[arch=*]" = "$(PROJECT_DIR)";
 				GCC_OPTIMIZATION_LEVEL = s;
@@ -801,11 +914,10 @@
 					"$(inherited)",
 					"\"${PODS_ROOT}/Headers/Public\"",
 					"\"${PODS_ROOT}/Headers/Public/GoogleMaps\"",
-					"\"${SRCROOT}/Emblem/components/ar/fresh ref\"/**",
 					"\"$(SRCROOT)/lib/vuforia/include\"",
 				);
 				INFOPLIST_FILE = Emblem/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",

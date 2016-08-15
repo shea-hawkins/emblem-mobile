@@ -8,7 +8,7 @@ countries.
 ===============================================================================*/
 
 #import "ImageTargetsViewController.h"
-#import "VuforiaSamplesAppDelegate.h"
+//#import "VuforiaSamplesAppDelegate.h"
 #import <Vuforia/Vuforia.h>
 #import <Vuforia/TrackerManager.h>
 #import <Vuforia/ObjectTracker.h>
@@ -22,7 +22,6 @@ countries.
 
 #import "UnwindMenuSegue.h"
 #import "PresentMenuSegue.h"
-#import "SampleAppMenuViewController.h"
 
 @interface ImageTargetsViewController ()
 
@@ -80,8 +79,10 @@ countries.
     
     eaglView = [[ImageTargetsEAGLView alloc] initWithFrame:viewFrame appSession:vapp];
     [self setView:eaglView];
-    VuforiaSamplesAppDelegate *appDelegate = (VuforiaSamplesAppDelegate*)[[UIApplication sharedApplication] delegate];
-    appDelegate.glResourceHandler = eaglView;
+    
+    // Re-implement for improved exit-view performance.
+//    VuforiaSamplesAppDelegate *appDelegate = (VuforiaSamplesAppDelegate*)[[UIApplication sharedApplication] delegate];
+//    appDelegate.glResourceHandler = eaglView;
     
     // double tap used to also trigger the menu
     UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc] initWithTarget: self action:@selector(doubleTapGestureAction:)];
@@ -168,9 +169,10 @@ countries.
     // thread is not executing, inform the root view controller that the
     // EAGLView should finish any OpenGL ES commands
     [self finishOpenGLESCommands];
+
     
-    VuforiaSamplesAppDelegate *appDelegate = (VuforiaSamplesAppDelegate*)[[UIApplication sharedApplication] delegate];
-    appDelegate.glResourceHandler = nil;
+//    VuforiaSamplesAppDelegate *appDelegate = (VuforiaSamplesAppDelegate*)[[UIApplication sharedApplication] delegate];
+//    appDelegate.glResourceHandler = nil;
     
     [super viewWillDisappear:animated];
 }
@@ -620,7 +622,7 @@ countries.
             menuVC.menuDelegate = self;
             menuVC.sampleAppFeatureName = @"Image Targets";
             menuVC.dismissItemName = @"Vuforia Samples";
-            menuVC.backSegueId = @"BackToImageTargets";
+            menuVC.backSegueId = @"HideMenu";
             
             NSLog(@"Dataset current %@", _dataSetCurrent == _dataSetTarmac ? @"Tarmac" : @"Stones & Chips");
             

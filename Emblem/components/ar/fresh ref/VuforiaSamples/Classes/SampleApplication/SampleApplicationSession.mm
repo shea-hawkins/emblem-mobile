@@ -123,7 +123,7 @@ namespace {
 {
     // Background thread must have its own autorelease pool
     @autoreleasepool {
-        Vuforia::setInitParameters(mVuforiaInitFlags,"");
+        Vuforia::setInitParameters(mVuforiaInitFlags,"AYJpO+D/////AAAAGXc7/OWJPUHjsb8bm4n4RlSOubbboimzkhNccixNsn3gsfnHEwFz8G4B3aMZrzGPPJj2hFSFNzpALj17d8v7MGsFvWa+wDUmN+3nHCmGRvBYafkHI7fpSJujrkvCpKqCL70uTp/mnp60q/wkGmvMmaMB7zSnKZBMNJcYbQUC3jDOhmxXnQDh3Dn3kmpMkpWal2kjadG5uQflQyxxDqtLo7p9nnz0M0vpX0kir615EBJKhMihnBYl+6BTGYwfbehqYwrOXNJSofm70tPELhMHkSG25tclvcg0O0je/sEefhzXA+uxpAyprLxKg7JgFKjY6dFJ42VjE919C9qcyqD2yK2XJfDNUYnDvDShthtDNCR8");
         
         // Vuforia::init() will return positive numbers up to 100 as it progresses
         // towards success.  Negative numbers indicate error conditions

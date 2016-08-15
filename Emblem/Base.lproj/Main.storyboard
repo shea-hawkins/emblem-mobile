@@ -118,10 +118,10 @@
             </objects>
             <point key="canvasLocation" x="447" y="268"/>
         </scene>
-        <!--Simple View Controller-->
+        <!--Image Targets View Controller-->
         <scene sceneID="1nH-UY-EvQ">
             <objects>
-                <viewController id="PG5-Cd-BPl" customClass="SimpleViewController" sceneMemberID="viewController">
+                <viewController id="PG5-Cd-BPl" customClass="ImageTargetsViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ili-go-54i"/>
                         <viewControllerLayoutGuide type="bottom" id="qFw-PG-lWN"/>
@@ -147,10 +147,37 @@
                             </mask>
                         </variation>
                     </view>
+                    <connections>
+                        <segue destination="980-sX-Pyv" kind="custom" identifier="PresentMenu" customClass="PresentMenuSegue" id="rhL-5n-zId"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="u4F-NI-Rqb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2871" y="353"/>
+            <point key="canvasLocation" x="2935" y="409"/>
+        </scene>
+        <!--Sample App Menu View Controller-->
+        <scene sceneID="c09-tk-wHU">
+            <objects>
+                <viewController id="980-sX-Pyv" customClass="SampleAppMenuViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="euh-hJ-l94"/>
+                        <viewControllerLayoutGuide type="bottom" id="cDo-wZ-vHk"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="v4g-2o-Asg" customClass="UITableView">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <segue destination="PG5-Cd-BPl" kind="custom" identifier="HideMenu" customClass="UnwindMenuSegue" id="YSP-r0-vrg"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yVu-Lk-g8B" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3755" y="409"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="YSP-r0-vrg"/>
+    </inferredMetricsTieBreakers>
 </document>
