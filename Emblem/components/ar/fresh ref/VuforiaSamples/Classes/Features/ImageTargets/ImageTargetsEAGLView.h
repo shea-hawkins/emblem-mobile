@@ -13,13 +13,8 @@ countries.
 
 #import <Vuforia/UIGLViewProtocol.h>
 
-#import "Texture.h"
 #import "SampleApplicationSession.h"
-#import "SampleApplication3DModel.h"
 #import "SampleGLResourceHandler.h"
-#import "SampleAppRenderer.h"
-
-#define kNumAugmentationTextures 4
 
 @protocol SceneDataSourceProtocol
 
@@ -30,7 +25,7 @@ countries.
 
 // EAGLView is a subclass of UIView and conforms to the informal protocol
 // UIGLViewProtocol
-@interface ImageTargetsEAGLView : UIView <UIGLViewProtocol, SampleGLResourceHandler, SampleAppRendererControl> {
+@interface ImageTargetsEAGLView : UIView <UIGLViewProtocol, SampleGLResourceHandler> {
 @private
     // OpenGL ES context
     EAGLContext *context;
@@ -48,14 +43,8 @@ countries.
     GLint textureCoordHandle;
     GLint mvpMatrixHandle;
     GLint texSampler2DHandle;
-    
-    // Texture used when rendering augmentation
-    Texture* augmentationTexture[kNumAugmentationTextures];
-    
+
     BOOL offTargetTrackingEnabled;
-    SampleApplication3DModel * buildingModel;
-    
-    SampleAppRenderer * sampleAppRenderer;
 }
 
 
@@ -64,9 +53,6 @@ countries.
 @property (nonatomic, strong) SCNNode* cameraNode;
 @property (nonatomic, strong) SCNScene* scene;
 @property (nonatomic, assign) CFAbsoluteTime startTime;
-
-
-
 
 - (id)initWithFrame:(CGRect)frame appSession:(SampleApplicationSession *) app;
 - (void)finishOpenGLESCommands;

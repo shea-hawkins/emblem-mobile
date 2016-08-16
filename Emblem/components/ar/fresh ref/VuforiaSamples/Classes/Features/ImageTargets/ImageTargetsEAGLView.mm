@@ -18,15 +18,11 @@ countries.
 #import <Vuforia/Renderer.h>
 #import <Vuforia/TrackableResult.h>
 #import <Vuforia/VideoBackgroundConfig.h>
+
 #import <SceneKit/SceneKit.h>
 
 #import "ImageTargetsEAGLView.h"
-#import "ArtNode.h"
-
-#import "Texture.h"
 #import "SampleApplicationUtils.h"
-#import "SampleApplicationShaderUtils.h"
-#import "Teapot.h"
 
 
 //******************************************************************************
@@ -49,24 +45,13 @@ countries.
 
 
 namespace {
-    // --- Data private to this unit ---
 
-    // Teapot texture filenames
-    const char* textureFilenames[] = {
-        "TextureTeapotBrass.png",
-        "TextureTeapotBlue.png",
-        "TextureTeapotRed.png",
-        "building_texture.jpeg"
-    };
-    
-    // Model scale factor
     const float kObjectScaleNormal = 3.0f;
     const float kObjectScaleOffTargetTracking = 12.0f;
     const float kObjectScale = 3.0f;
 }
 
 @interface ImageTargetsEAGLView ()
-- (void)initShaders;
 - (void)createFramebuffer;
 - (void)deleteFramebuffer;
 - (void)setFramebuffer;
@@ -75,6 +60,8 @@ namespace {
 @property (nonatomic, readwrite) UIInterfaceOrientation mARViewOrientation;
 
 @end
+
+
 
 @implementation ImageTargetsEAGLView
 
@@ -173,11 +160,6 @@ namespace {
         if (YES == [vapp isRetinaDisplay]) {
             [self setContentScaleFactor:[UIScreen mainScreen].nativeScale];
         }
-        
-        // Load the augmentation textures
-        for (int i = 0; i < kNumAugmentationTextures; ++i) {
-            augmentationTexture[i] = [[Texture alloc] initWithImageFile:[NSString stringWithCString:textureFilenames[i] encoding:NSASCIIStringEncoding]];
-        }
 
         // Create the OpenGL ES context
         context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
@@ -189,8 +171,6 @@ namespace {
         }
         
         [self createScene];
-        [self loadBuildingsModel];
-        [self initShaders];
         [self setupRenderer];
     }
     
@@ -223,10 +203,6 @@ namespace {
     if ([EAGLContext currentContext] == context) {
         [EAGLContext setCurrentContext:nil];
     }
-
-    for (int i = 0; i < kNumAugmentationTextures; ++i) {
-        augmentationTexture[i] = nil;
-    }
 }
 
 
@@ -252,11 +228,6 @@ namespace {
 
 - (void) setOffTargetTrackingMode:(BOOL) enabled {
     offTargetTrackingEnabled = enabled;
-}
-
-- (void) loadBuildingsModel {
-    buildingModel = [[SampleApplication3DModel alloc] initWithTxtResourceName:@"buildings"];
-    [buildingModel read];
 }
 
 
@@ -322,123 +293,9 @@ namespace {
     [self presentFramebuffer];
 }
 
-- (void) renderFrameWithState:(const Vuforia::State&) state projectMatrix:(Vuforia::Matrix44F&) projectionMatrix {
-    [self setFramebuffer];
-    
-    // Clear colour and depth buffers
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    
-    // Render video background and retrieve tracking state
-    [sampleAppRenderer renderVideoBackground];
-    
-    glEnable(GL_DEPTH_TEST);
-    // We must detect if background reflection is active and adjust the culling direction.
-    // If the reflection is active, this means the pose matrix has been reflected as well,
-    // therefore standard counter clockwise face culling will result in "inside out" models.
-    if (offTargetTrackingEnabled) {
-        glDisable(GL_CULL_FACE);
-    } else {
-        glEnable(GL_CULL_FACE);
-    }
-    glCullFace(GL_BACK);
-    if(Vuforia::Renderer::getInstance().getVideoBackgroundConfig().mReflection == Vuforia::VIDEO_BACKGROUND_REFLECTION_ON)
-        glFrontFace(GL_CW);  //Front camera
-    else
-        glFrontFace(GL_CCW);   //Back camera
-    
-    for (int i = 0; i < state.getNumTrackableResults(); ++i) {
-        // Get the trackable
-        const Vuforia::TrackableResult* result = state.getTrackableResult(i);
-        const Vuforia::Trackable& trackable = result->getTrackable();
-
-        //const Vuforia::Trackable& trackable = result->getTrackable();
-        Vuforia::Matrix44F modelViewMatrix = Vuforia::Tool::convertPose2GLMatrix(result->getPose());
-        
-        // OpenGL 2
-        Vuforia::Matrix44F modelViewProjection;
-        
-        if (offTargetTrackingEnabled) {
-            SampleApplicationUtils::rotatePoseMatrix(90, 1, 0, 0,&modelViewMatrix.data[0]);
-            SampleApplicationUtils::scalePoseMatrix(kObjectScaleOffTargetTracking, kObjectScaleOffTargetTracking, kObjectScaleOffTargetTracking, &modelViewMatrix.data[0]);
-        } else {
-            SampleApplicationUtils::translatePoseMatrix(0.0f, 0.0f, kObjectScaleNormal, &modelViewMatrix.data[0]);
-            SampleApplicationUtils::scalePoseMatrix(kObjectScaleNormal, kObjectScaleNormal, kObjectScaleNormal, &modelViewMatrix.data[0]);
-        }
-        
-        SampleApplicationUtils::multiplyMatrix(&projectionMatrix.data[0], &modelViewMatrix.data[0], &modelViewProjection.data[0]);
-        
-        glUseProgram(shaderProgramID);
-        
-        if (offTargetTrackingEnabled) {
-            glVertexAttribPointer(vertexHandle, 3, GL_FLOAT, GL_FALSE, 0, (const GLvoid*)buildingModel.vertices);
-            glVertexAttribPointer(normalHandle, 3, GL_FLOAT, GL_FALSE, 0, (const GLvoid*)buildingModel.normals);
-            glVertexAttribPointer(textureCoordHandle, 2, GL_FLOAT, GL_FALSE, 0, (const GLvoid*)buildingModel.texCoords);
-        } else {
-            glVertexAttribPointer(vertexHandle, 3, GL_FLOAT, GL_FALSE, 0, (const GLvoid*)teapotVertices);
-            glVertexAttribPointer(normalHandle, 3, GL_FLOAT, GL_FALSE, 0, (const GLvoid*)teapotNormals);
-            glVertexAttribPointer(textureCoordHandle, 2, GL_FLOAT, GL_FALSE, 0, (const GLvoid*)teapotTexCoords);
-        }
-        
-        glEnableVertexAttribArray(vertexHandle);
-        glEnableVertexAttribArray(normalHandle);
-        glEnableVertexAttribArray(textureCoordHandle);
-        
-        // Choose the texture based on the target name
-        int targetIndex = 0; // "stones"
-        if (!strcmp(trackable.getName(), "chips"))
-            targetIndex = 1;
-        else if (!strcmp(trackable.getName(), "tarmac"))
-            targetIndex = 2;
-        
-        glActiveTexture(GL_TEXTURE0);
-        
-        if (offTargetTrackingEnabled) {
-            glBindTexture(GL_TEXTURE_2D, augmentationTexture[3].textureID);
-        } else {
-            glBindTexture(GL_TEXTURE_2D, augmentationTexture[targetIndex].textureID);
-        }
-        glUniformMatrix4fv(mvpMatrixHandle, 1, GL_FALSE, (const GLfloat*)&modelViewProjection.data[0]);
-        glUniform1i(texSampler2DHandle, 0 /*GL_TEXTURE0*/);
-        
-        if (offTargetTrackingEnabled) {
-            glDrawArrays(GL_TRIANGLES, 0, (int)buildingModel.numVertices);
-        } else {
-            glDrawElements(GL_TRIANGLES, NUM_TEAPOT_OBJECT_INDEX, GL_UNSIGNED_SHORT, (const GLvoid*)teapotIndices);
-        }
-        
-        glDisableVertexAttribArray(vertexHandle);
-        glDisableVertexAttribArray(normalHandle);
-        glDisableVertexAttribArray(textureCoordHandle);
-        
-        SampleApplicationUtils::checkGlError("EAGLView renderFrameVuforia");
-    }
-    
-    glDisable(GL_DEPTH_TEST);
-    glDisable(GL_CULL_FACE);
-    
-    [self presentFramebuffer];
-}
 
 //------------------------------------------------------------------------------
 #pragma mark - OpenGL ES management
-
-- (void)initShaders
-{
-    shaderProgramID = [SampleApplicationShaderUtils createProgramWithVertexShaderFileName:@"Simple.vertsh"
-                                                   fragmentShaderFileName:@"Simple.fragsh"];
-
-    if (0 < shaderProgramID) {
-        vertexHandle = glGetAttribLocation(shaderProgramID, "vertexPosition");
-        normalHandle = glGetAttribLocation(shaderProgramID, "vertexNormal");
-        textureCoordHandle = glGetAttribLocation(shaderProgramID, "vertexTexCoord");
-        mvpMatrixHandle = glGetUniformLocation(shaderProgramID, "modelViewProjectionMatrix");
-        texSampler2DHandle  = glGetUniformLocation(shaderProgramID,"texSampler2D");
-    }
-    else {
-        NSLog(@"Could not initialise augmentation shader");
-    }
-}
-
 
 - (void)createFramebuffer
 {
