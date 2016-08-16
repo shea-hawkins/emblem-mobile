@@ -18,7 +18,6 @@ countries.
 #import "SampleApplication3DModel.h"
 #import "SampleGLResourceHandler.h"
 #import "SampleAppRenderer.h"
-#import "SceneDataSource.h"
 
 #define kNumAugmentationTextures 4
 
@@ -59,11 +58,13 @@ countries.
     SampleAppRenderer * sampleAppRenderer;
 }
 
+
 @property (nonatomic, weak) SampleApplicationSession * vapp;
-@property (nonatomic, strong) SCNRenderer *renderer;
-@property (nonatomic, strong) SCNNode *cameraNode;
+@property (nonatomic, strong) SCNRenderer* renderer;
+@property (nonatomic, strong) SCNNode* cameraNode;
+@property (nonatomic, strong) SCNScene* scene;
 @property (nonatomic, assign) CFAbsoluteTime startTime;
-@property (nonatomic, assign) SceneDataSource* sceneSource;
+
 
 
 

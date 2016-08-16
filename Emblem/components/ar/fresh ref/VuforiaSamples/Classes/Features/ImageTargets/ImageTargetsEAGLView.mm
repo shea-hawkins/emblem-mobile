@@ -18,9 +18,11 @@ countries.
 #import <Vuforia/Renderer.h>
 #import <Vuforia/TrackableResult.h>
 #import <Vuforia/VideoBackgroundConfig.h>
-
+#import <SceneKit/SceneKit.h>
 
 #import "ImageTargetsEAGLView.h"
+#import "ArtNode.h"
+
 #import "Texture.h"
 #import "SampleApplicationUtils.h"
 #import "SampleApplicationShaderUtils.h"
@@ -63,26 +65,97 @@ namespace {
     const float kObjectScale = 3.0f;
 }
 
-@interface ImageTargetsEAGLView (PrivateMethods)
-
+@interface ImageTargetsEAGLView ()
 - (void)initShaders;
 - (void)createFramebuffer;
 - (void)deleteFramebuffer;
 - (void)setFramebuffer;
 - (BOOL)presentFramebuffer;
 
-@end
+@property (nonatomic, readwrite) UIInterfaceOrientation mARViewOrientation;
 
+@end
 
 @implementation ImageTargetsEAGLView
 
 @synthesize vapp = vapp;
 
-// You must implement this method, which ensures the view's underlying layer is
-// of type CAEAGLLayer
 + (Class)layerClass
 {
     return [CAEAGLLayer class];
+}
+
+#pragma mark - Matrix Utils
+
+- (SCNMatrix4)VuMatrix44ToSCNMatrix4:(Vuforia::Matrix44F)matrix {
+    GLKMatrix4 glkMatrix;
+    
+    for (int i =0; i<16; i++) {
+        glkMatrix.m[i] = matrix.data[i];
+    }
+    
+    return SCNMatrix4FromGLKMatrix4(glkMatrix);
+}
+
+
+- (void)setCameraMatrix:(Vuforia::Matrix44F)matrix {
+    SCNMatrix4 extrinsic = [self VuMatrix44ToSCNMatrix4:matrix];
+    SCNMatrix4 inverted = SCNMatrix4Invert(extrinsic);
+    self.cameraNode.transform = inverted;
+}
+
+- (void)setProjectionMatrix:(Vuforia::Matrix44F)matrix {
+    self.cameraNode.camera.projectionTransform = [self VuMatrix44ToSCNMatrix4:matrix];
+}
+
+#pragma mark - Scene Stuff
+- (SCNScene*)createScene {
+    CGFloat hue = ( arc4random() % 256 / 256.0 );  //  0.0 to 1.0
+    CGFloat saturation = ( arc4random() % 128 / 256.0 ) + 0.5;  //  0.5 to 1.0, away from white
+    CGFloat brightness = ( arc4random() % 128 / 256.0 ) + 0.5;  //  0.5 to 1.0, away from black
+    UIColor *color = [UIColor colorWithHue:hue saturation:saturation brightness:brightness alpha:1];
+    
+    self.scene = [SCNScene new];
+    
+    SCNNode* planeNode = [SCNNode new];
+    planeNode.name = @"plane";
+    
+    SCNPlane* planeGeometry = [SCNPlane new];
+    
+    planeGeometry.width = 247.0;
+    planeGeometry.height = 173.0;
+    
+    planeNode.geometry = planeGeometry;
+    planeNode.position = SCNVector3Make(0, 0, -1);
+    
+    SCNMaterial* planeMaterial = [SCNMaterial new];
+    planeMaterial.diffuse.contents = color;
+    planeMaterial.transparency = 10;
+    
+    planeNode.geometry.firstMaterial = planeMaterial;
+    [self.scene.rootNode addChildNode:planeNode];
+    
+    SCNNode* boxNode = [SCNNode new];
+    boxNode.name = @"box";
+    
+    SCNBox* boxGeometry = [SCNBox new];
+    
+    boxGeometry.width = 1;
+    boxGeometry.height = 1;
+    boxGeometry.length = 1;
+    boxGeometry.chamferRadius = 0.0;
+    
+    SCNMaterial* boxMaterial = [SCNMaterial new];
+    boxMaterial.diffuse.contents = color;
+    
+    
+    boxNode.geometry = boxGeometry;
+    boxNode.geometry.firstMaterial = boxMaterial;
+    
+    
+    [self.scene.rootNode addChildNode:planeNode];
+    
+    return self.scene;
 }
 
 
@@ -95,6 +168,7 @@ namespace {
     
     if (self) {
         vapp = app;
+        
         // Enable retina mode if available on this device
         if (YES == [vapp isRetinaDisplay]) {
             [self setContentScaleFactor:[UIScreen mainScreen].nativeScale];
@@ -114,21 +188,7 @@ namespace {
             [EAGLContext setCurrentContext:context];
         }
         
-        // Generate the OpenGL ES texture and upload the texture data for use
-        // when rendering the augmentation
-        for (int i = 0; i < kNumAugmentationTextures; ++i) {
-            GLuint textureID;
-            glGenTextures(1, &textureID);
-            [augmentationTexture[i] setTextureID:textureID];
-            glBindTexture(GL_TEXTURE_2D, textureID);
-            glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-            glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-            glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, [augmentationTexture[i] width], [augmentationTexture[i] height], 0, GL_RGBA, GL_UNSIGNED_BYTE, (GLvoid*)[augmentationTexture[i] pngData]);
-        }
-
-        offTargetTrackingEnabled = NO;
-        sampleAppRenderer = [[SampleAppRenderer alloc]initWithSampleAppRendererControl:self deviceMode:Vuforia::Device::MODE_AR stereo:false];
-        
+        [self createScene];
         [self loadBuildingsModel];
         [self initShaders];
         [self setupRenderer];
@@ -142,9 +202,11 @@ namespace {
     self.renderer.autoenablesDefaultLighting = YES;
     self.renderer.playing = YES;
     
-    if (self.sceneSource != nil) {
-        self.renderer.scene = [self.sceneSource sceneForEAGLView:self];
+    
+    if (self.scene != nil) {
+        self.renderer.scene = self.scene;
         SCNCamera* camera = [SCNCamera camera];
+
         self.cameraNode.camera = camera;
         [self.renderer.scene.rootNode addChildNode:self.cameraNode];
         self.renderer.pointOfView = self.cameraNode;
@@ -235,38 +297,20 @@ namespace {
     // Render the RefFree UI elements depending on the current state
     //refFreeFrame->render();
     
+    [self setProjectionMatrix:vapp.projectionMatrix];
+    
     for (int i = 0; i < state.getNumTrackableResults(); ++i) {
         // Get the trackable
         const Vuforia::TrackableResult* result = state.getTrackableResult(i);
         //const Vuforia::Trackable& trackable = result->getTrackable();
         Vuforia::Matrix44F modelViewMatrix = Vuforia::Tool::convertPose2GLMatrix(result->getPose());
         
-        // OpenGL 2
-        Vuforia::Matrix44F modelViewProjection;
-        
         SampleApplicationUtils::translatePoseMatrix(0.0f, 0.0f, kObjectScale, &modelViewMatrix.data[0]);
         SampleApplicationUtils::scalePoseMatrix(kObjectScale, kObjectScale, kObjectScale, &modelViewMatrix.data[0]);
-        SampleApplicationUtils::multiplyMatrix(&vapp.projectionMatrix.data[0], &modelViewMatrix.data[0], &modelViewProjection.data[0]);
         
-        glUseProgram(shaderProgramID);
         
-        glVertexAttribPointer(vertexHandle, 3, GL_FLOAT, GL_FALSE, 0, (const GLvoid*)teapotVertices);
-        glVertexAttribPointer(normalHandle, 3, GL_FLOAT, GL_FALSE, 0, (const GLvoid*)teapotNormals);
-        glVertexAttribPointer(textureCoordHandle, 2, GL_FLOAT, GL_FALSE, 0, (const GLvoid*)teapotTexCoords);
-        
-        glEnableVertexAttribArray(vertexHandle);
-        glEnableVertexAttribArray(normalHandle);
-        glEnableVertexAttribArray(textureCoordHandle);
-        
-        glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, augmentationTexture[0].textureID);
-        glUniformMatrix4fv(mvpMatrixHandle, 1, GL_FALSE, (const GLfloat*)&modelViewProjection.data[0]);
-        glUniform1i(texSampler2DHandle, 0 /*GL_TEXTURE0*/);
-        glDrawElements(GL_TRIANGLES, NUM_TEAPOT_OBJECT_INDEX, GL_UNSIGNED_SHORT, (const GLvoid*)teapotIndices);
-        
-        glDisableVertexAttribArray(vertexHandle);
-        glDisableVertexAttribArray(normalHandle);
-        glDisableVertexAttribArray(textureCoordHandle);
+        [self setCameraMatrix:modelViewMatrix];
+        [self.renderer renderAtTime:CFAbsoluteTimeGetCurrent() - self.startTime];
         
         SampleApplicationUtils::checkGlError("EAGLView renderFrameVuforia");
     }
