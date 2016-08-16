@@ -23,6 +23,7 @@
 		7105318D1D627207003EC15B /* TextureTeapotGreen.png in Resources */ = {isa = PBXBuildFile; fileRef = 710531881D627207003EC15B /* TextureTeapotGreen.png */; };
 		7105318E1D627207003EC15B /* TextureTeapotRed.png in Resources */ = {isa = PBXBuildFile; fileRef = 710531891D627207003EC15B /* TextureTeapotRed.png */; };
 		7105318F1D627207003EC15B /* TextureTeapotYellow.png in Resources */ = {isa = PBXBuildFile; fileRef = 7105318A1D627207003EC15B /* TextureTeapotYellow.png */; };
+		710531941D62914E003EC15B /* SceneKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 710531931D62914E003EC15B /* SceneKit.framework */; };
 		718E64131D5E971E0023B860 /* lib in Resources */ = {isa = PBXBuildFile; fileRef = 718E64121D5E971E0023B860 /* lib */; };
 		718E643A1D6012E20023B860 /* libVuforia.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 718E64391D6012E20023B860 /* libVuforia.a */; };
 		718E643D1D60157F0023B860 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 718E643C1D60157F0023B860 /* AudioToolbox.framework */; };
@@ -110,6 +111,7 @@
 		710531881D627207003EC15B /* TextureTeapotGreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TextureTeapotGreen.png; path = "components/ar/fresh ref/VuforiaSamples/VuResources/Assets/TextureTeapotGreen.png"; sourceTree = "<group>"; };
 		710531891D627207003EC15B /* TextureTeapotRed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TextureTeapotRed.png; path = "components/ar/fresh ref/VuforiaSamples/VuResources/Assets/TextureTeapotRed.png"; sourceTree = "<group>"; };
 		7105318A1D627207003EC15B /* TextureTeapotYellow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TextureTeapotYellow.png; path = "components/ar/fresh ref/VuforiaSamples/VuResources/Assets/TextureTeapotYellow.png"; sourceTree = "<group>"; };
+		710531931D62914E003EC15B /* SceneKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SceneKit.framework; path = System/Library/Frameworks/SceneKit.framework; sourceTree = SDKROOT; };
 		718E64121D5E971E0023B860 /* lib */ = {isa = PBXFileReference; lastKnownFileType = folder; path = lib; sourceTree = SOURCE_ROOT; };
 		718E64391D6012E20023B860 /* libVuforia.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libVuforia.a; path = lib/vuforia/lib/arm/libVuforia.a; sourceTree = "<group>"; };
 		718E643C1D60157F0023B860 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
@@ -176,6 +178,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				710531941D62914E003EC15B /* SceneKit.framework in Frameworks */,
 				718E64551D6016160023B860 /* UIKit.framework in Frameworks */,
 				718E64531D60160D0023B860 /* SystemConfiguration.framework in Frameworks */,
 				718E64511D6016010023B860 /* Security.framework in Frameworks */,
@@ -354,6 +357,7 @@
 		DE59BFB1C6BC0733D112633F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				710531931D62914E003EC15B /* SceneKit.framework */,
 				718E64541D6016160023B860 /* UIKit.framework */,
 				718E64521D60160D0023B860 /* SystemConfiguration.framework */,
 				718E64501D6016010023B860 /* Security.framework */,

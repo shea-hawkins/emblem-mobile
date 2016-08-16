@@ -9,6 +9,8 @@ countries.
 
 #import <UIKit/UIKit.h>
 
+#import <SceneKit/SceneKit.h>
+
 #import <Vuforia/UIGLViewProtocol.h>
 
 #import "Texture.h"
@@ -51,9 +53,13 @@ countries.
 }
 
 @property (nonatomic, weak) SampleApplicationSession * vapp;
+@property (nonatomic, strong) SCNRenderer *renderer;
+@property (nonatomic, strong) SCNNode *cameraNode;
+@property (nonatomic, assign) CFAbsoluteTime startTime;
+
+
 
 - (id)initWithFrame:(CGRect)frame appSession:(SampleApplicationSession *) app;
-
 - (void)finishOpenGLESCommands;
 - (void)freeOpenGLESResources;
 

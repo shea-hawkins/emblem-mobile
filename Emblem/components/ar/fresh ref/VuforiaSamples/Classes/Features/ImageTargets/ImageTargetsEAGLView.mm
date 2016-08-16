@@ -59,6 +59,7 @@ namespace {
     // Model scale factor
     const float kObjectScaleNormal = 3.0f;
     const float kObjectScaleOffTargetTracking = 12.0f;
+    const float kObjectScale = 3.0f;
 }
 
 
@@ -195,11 +196,73 @@ namespace {
 // *** Vuforia will call this method periodically on a background thread ***
 - (void)renderFrameVuforia
 {
-    if (! vapp.cameraIsStarted) {
-        return;
+    [self setFramebuffer];
+    
+    // Clear colour and depth buffers
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    
+    // Render video background and retrieve tracking state
+    Vuforia::State state = Vuforia::Renderer::getInstance().begin();
+    Vuforia::Renderer::getInstance().drawVideoBackground();
+    
+    glEnable(GL_DEPTH_TEST);
+    // We must detect if background reflection is active and adjust the culling direction.
+    // If the reflection is active, this means the pose matrix has been reflected as well,
+    // therefore standard counter clockwise face culling will result in "inside out" models.
+    glEnable(GL_CULL_FACE);
+    glCullFace(GL_BACK);
+    if(Vuforia::Renderer::getInstance().getVideoBackgroundConfig().mReflection == Vuforia::VIDEO_BACKGROUND_REFLECTION_ON)
+        glFrontFace(GL_CW);  //Front camera
+    else
+        glFrontFace(GL_CCW);   //Back camera
+    
+    // Set the viewport
+    glViewport(vapp.viewport.posX, vapp.viewport.posY, vapp.viewport.sizeX, vapp.viewport.sizeY);
+    
+    // Render the RefFree UI elements depending on the current state
+    //refFreeFrame->render();
+    
+    for (int i = 0; i < state.getNumTrackableResults(); ++i) {
+        // Get the trackable
+        const Vuforia::TrackableResult* result = state.getTrackableResult(i);
+        //const Vuforia::Trackable& trackable = result->getTrackable();
+        Vuforia::Matrix44F modelViewMatrix = Vuforia::Tool::convertPose2GLMatrix(result->getPose());
+        
+        // OpenGL 2
+        Vuforia::Matrix44F modelViewProjection;
+        
+        SampleApplicationUtils::translatePoseMatrix(0.0f, 0.0f, kObjectScale, &modelViewMatrix.data[0]);
+        SampleApplicationUtils::scalePoseMatrix(kObjectScale, kObjectScale, kObjectScale, &modelViewMatrix.data[0]);
+        SampleApplicationUtils::multiplyMatrix(&vapp.projectionMatrix.data[0], &modelViewMatrix.data[0], &modelViewProjection.data[0]);
+        
+        glUseProgram(shaderProgramID);
+        
+        glVertexAttribPointer(vertexHandle, 3, GL_FLOAT, GL_FALSE, 0, (const GLvoid*)teapotVertices);
+        glVertexAttribPointer(normalHandle, 3, GL_FLOAT, GL_FALSE, 0, (const GLvoid*)teapotNormals);
+        glVertexAttribPointer(textureCoordHandle, 2, GL_FLOAT, GL_FALSE, 0, (const GLvoid*)teapotTexCoords);
+        
+        glEnableVertexAttribArray(vertexHandle);
+        glEnableVertexAttribArray(normalHandle);
+        glEnableVertexAttribArray(textureCoordHandle);
+        
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, augmentationTexture[0].textureID);
+        glUniformMatrix4fv(mvpMatrixHandle, 1, GL_FALSE, (const GLfloat*)&modelViewProjection.data[0]);
+        glUniform1i(texSampler2DHandle, 0 /*GL_TEXTURE0*/);
+        glDrawElements(GL_TRIANGLES, NUM_TEAPOT_OBJECT_INDEX, GL_UNSIGNED_SHORT, (const GLvoid*)teapotIndices);
+        
+        glDisableVertexAttribArray(vertexHandle);
+        glDisableVertexAttribArray(normalHandle);
+        glDisableVertexAttribArray(textureCoordHandle);
+        
+        SampleApplicationUtils::checkGlError("EAGLView renderFrameVuforia");
     }
     
-    [sampleAppRenderer renderFrameVuforia];
+    glDisable(GL_DEPTH_TEST);
+    glDisable(GL_CULL_FACE);
+    
+    Vuforia::Renderer::getInstance().end();
+    [self presentFramebuffer];
 }
 
 - (void) renderFrameWithState:(const Vuforia::State&) state projectMatrix:(Vuforia::Matrix44F&) projectionMatrix {
