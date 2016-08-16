@@ -18,8 +18,15 @@ countries.
 #import "SampleApplication3DModel.h"
 #import "SampleGLResourceHandler.h"
 #import "SampleAppRenderer.h"
+#import "SceneDataSource.h"
 
 #define kNumAugmentationTextures 4
+
+@protocol SceneDataSourceProtocol
+
+- (SCNScene *)sceneForEAGLView:(UIView*) view;
+
+@end
 
 
 // EAGLView is a subclass of UIView and conforms to the informal protocol
@@ -56,6 +63,7 @@ countries.
 @property (nonatomic, strong) SCNRenderer *renderer;
 @property (nonatomic, strong) SCNNode *cameraNode;
 @property (nonatomic, assign) CFAbsoluteTime startTime;
+@property (nonatomic, assign) SceneDataSource* sceneSource;
 
 
 

@@ -10,6 +10,8 @@ countries.
 #import <UIKit/UIKit.h>
 #import "SampleAppMenuViewController.h"
 
+
+
 @interface ImageTargetsViewController : UIViewController <SampleAppMenuDelegate> {
     
     BOOL switchToTarmac;

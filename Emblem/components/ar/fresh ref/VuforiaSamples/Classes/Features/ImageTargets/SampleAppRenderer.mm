@@ -7,7 +7,6 @@
  countries.
  ===============================================================================*/
 
-#import "SampleAppRenderer.h"
 #import <UIKit/UIKit.h>
 
 #import <Vuforia/UIGLViewProtocol.h>
@@ -31,6 +30,7 @@
 #import "Texture.h"
 #import "SampleApplicationUtils.h"
 #import "SampleApplicationShaderUtils.h"
+#import "SampleAppRenderer.h"
 
 
 @interface SampleAppRenderer ()

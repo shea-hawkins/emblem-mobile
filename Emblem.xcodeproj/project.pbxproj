@@ -24,6 +24,7 @@
 		7105318E1D627207003EC15B /* TextureTeapotRed.png in Resources */ = {isa = PBXBuildFile; fileRef = 710531891D627207003EC15B /* TextureTeapotRed.png */; };
 		7105318F1D627207003EC15B /* TextureTeapotYellow.png in Resources */ = {isa = PBXBuildFile; fileRef = 7105318A1D627207003EC15B /* TextureTeapotYellow.png */; };
 		710531941D62914E003EC15B /* SceneKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 710531931D62914E003EC15B /* SceneKit.framework */; };
+		710531971D62AE92003EC15B /* SceneDataSource.mm in Sources */ = {isa = PBXBuildFile; fileRef = 710531961D62AE92003EC15B /* SceneDataSource.mm */; };
 		718E64131D5E971E0023B860 /* lib in Resources */ = {isa = PBXBuildFile; fileRef = 718E64121D5E971E0023B860 /* lib */; };
 		718E643A1D6012E20023B860 /* libVuforia.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 718E64391D6012E20023B860 /* libVuforia.a */; };
 		718E643D1D60157F0023B860 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 718E643C1D60157F0023B860 /* AudioToolbox.framework */; };
@@ -112,6 +113,8 @@
 		710531891D627207003EC15B /* TextureTeapotRed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TextureTeapotRed.png; path = "components/ar/fresh ref/VuforiaSamples/VuResources/Assets/TextureTeapotRed.png"; sourceTree = "<group>"; };
 		7105318A1D627207003EC15B /* TextureTeapotYellow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TextureTeapotYellow.png; path = "components/ar/fresh ref/VuforiaSamples/VuResources/Assets/TextureTeapotYellow.png"; sourceTree = "<group>"; };
 		710531931D62914E003EC15B /* SceneKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SceneKit.framework; path = System/Library/Frameworks/SceneKit.framework; sourceTree = SDKROOT; };
+		710531951D62AE7B003EC15B /* SceneDataSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SceneDataSource.h; sourceTree = "<group>"; };
+		710531961D62AE92003EC15B /* SceneDataSource.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SceneDataSource.mm; sourceTree = "<group>"; };
 		718E64121D5E971E0023B860 /* lib */ = {isa = PBXFileReference; lastKnownFileType = folder; path = lib; sourceTree = SOURCE_ROOT; };
 		718E64391D6012E20023B860 /* libVuforia.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libVuforia.a; path = lib/vuforia/lib/arm/libVuforia.a; sourceTree = "<group>"; };
 		718E643C1D60157F0023B860 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
@@ -345,11 +348,13 @@
 				71B3672C1D6226FB00085836 /* SampleApplicationSession.h */,
 				71B3672D1D6226FB00085836 /* SampleApplicationSession.mm */,
 				71B367261D6226C300085836 /* ImageTargetsEAGLView.h */,
-				71B367271D6226C300085836 /* SampleAppRenderer.mm */,
 				71B367281D6226C300085836 /* ImageTargetsEAGLView.mm */,
+				71B367271D6226C300085836 /* SampleAppRenderer.mm */,
 				71B367291D6226C300085836 /* SampleAppRenderer.h */,
 				71B366DD1D61382700085836 /* ImageTargetsViewController.h */,
 				71B366DE1D61382700085836 /* ImageTargetsViewController.mm */,
+				710531951D62AE7B003EC15B /* SceneDataSource.h */,
+				710531961D62AE92003EC15B /* SceneDataSource.mm */,
 			);
 			name = Transplant;
 			sourceTree = "<group>";
@@ -664,6 +669,7 @@
 			files = (
 				71B367341D62273D00085836 /* PresentMenuSegue.m in Sources */,
 				71B3672B1D6226C300085836 /* ImageTargetsEAGLView.mm in Sources */,
+				710531971D62AE92003EC15B /* SceneDataSource.mm in Sources */,
 				71B367401D6227A000085836 /* SampleApplication3DModel.m in Sources */,
 				71B367431D6227A000085836 /* Texture.mm in Sources */,
 				35BD88A21D59536300A409D6 /* User.swift in Sources */,

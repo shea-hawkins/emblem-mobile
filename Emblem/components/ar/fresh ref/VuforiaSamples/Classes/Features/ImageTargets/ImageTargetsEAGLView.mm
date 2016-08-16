@@ -19,6 +19,7 @@ countries.
 #import <Vuforia/TrackableResult.h>
 #import <Vuforia/VideoBackgroundConfig.h>
 
+
 #import "ImageTargetsEAGLView.h"
 #import "Texture.h"
 #import "SampleApplicationUtils.h"
@@ -61,7 +62,6 @@ namespace {
     const float kObjectScaleOffTargetTracking = 12.0f;
     const float kObjectScale = 3.0f;
 }
-
 
 @interface ImageTargetsEAGLView (PrivateMethods)
 
@@ -131,13 +131,26 @@ namespace {
         
         [self loadBuildingsModel];
         [self initShaders];
-        
-        // we initialize the rendering method of the SampleAppRenderer
-        [sampleAppRenderer initRendering];
+        [self setupRenderer];
     }
     
     return self;
 }
+
+-(void)setupRenderer {
+    self.renderer = [SCNRenderer rendererWithContext: context options: nil];
+    self.renderer.autoenablesDefaultLighting = YES;
+    self.renderer.playing = YES;
+    
+    if (self.sceneSource != nil) {
+        self.renderer.scene = [self.sceneSource sceneForEAGLView:self];
+        SCNCamera* camera = [SCNCamera camera];
+        self.cameraNode.camera = camera;
+        [self.renderer.scene.rootNode addChildNode:self.cameraNode];
+        self.renderer.pointOfView = self.cameraNode;
+    }
+}
+
 
 
 - (void)dealloc
