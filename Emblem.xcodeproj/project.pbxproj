@@ -25,6 +25,8 @@
 		7105318F1D627207003EC15B /* TextureTeapotYellow.png in Resources */ = {isa = PBXBuildFile; fileRef = 7105318A1D627207003EC15B /* TextureTeapotYellow.png */; };
 		710531941D62914E003EC15B /* SceneKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 710531931D62914E003EC15B /* SceneKit.framework */; };
 		710531971D62AE92003EC15B /* SceneDataSource.mm in Sources */ = {isa = PBXBuildFile; fileRef = 710531961D62AE92003EC15B /* SceneDataSource.mm */; };
+		71291CD41D63966A0092C4A9 /* ArtNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 71291CD31D63966A0092C4A9 /* ArtNode.m */; };
+		71291CD61D639AB80092C4A9 /* enemy.scn in Resources */ = {isa = PBXBuildFile; fileRef = 71291CD51D639AB80092C4A9 /* enemy.scn */; };
 		718E64131D5E971E0023B860 /* lib in Resources */ = {isa = PBXBuildFile; fileRef = 718E64121D5E971E0023B860 /* lib */; };
 		718E643A1D6012E20023B860 /* libVuforia.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 718E64391D6012E20023B860 /* libVuforia.a */; };
 		718E643D1D60157F0023B860 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 718E643C1D60157F0023B860 /* AudioToolbox.framework */; };
@@ -115,6 +117,9 @@
 		710531931D62914E003EC15B /* SceneKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SceneKit.framework; path = System/Library/Frameworks/SceneKit.framework; sourceTree = SDKROOT; };
 		710531951D62AE7B003EC15B /* SceneDataSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SceneDataSource.h; sourceTree = "<group>"; };
 		710531961D62AE92003EC15B /* SceneDataSource.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SceneDataSource.mm; sourceTree = "<group>"; };
+		71291CD21D6396470092C4A9 /* ArtNode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ArtNode.h; sourceTree = "<group>"; };
+		71291CD31D63966A0092C4A9 /* ArtNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArtNode.m; sourceTree = "<group>"; };
+		71291CD51D639AB80092C4A9 /* enemy.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; name = enemy.scn; path = ARResources/enemy.scn; sourceTree = "<group>"; };
 		718E64121D5E971E0023B860 /* lib */ = {isa = PBXFileReference; lastKnownFileType = folder; path = lib; sourceTree = SOURCE_ROOT; };
 		718E64391D6012E20023B860 /* libVuforia.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libVuforia.a; path = lib/vuforia/lib/arm/libVuforia.a; sourceTree = "<group>"; };
 		718E643C1D60157F0023B860 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
@@ -310,6 +315,7 @@
 		71B366DC1D6137C400085836 /* Transplant */ = {
 			isa = PBXGroup;
 			children = (
+				71291CD51D639AB80092C4A9 /* enemy.scn */,
 				710531861D627207003EC15B /* TextureTeapotBlue.png */,
 				710531871D627207003EC15B /* TextureTeapotBrass.png */,
 				710531881D627207003EC15B /* TextureTeapotGreen.png */,
@@ -355,6 +361,8 @@
 				71B366DE1D61382700085836 /* ImageTargetsViewController.mm */,
 				710531951D62AE7B003EC15B /* SceneDataSource.h */,
 				710531961D62AE92003EC15B /* SceneDataSource.mm */,
+				71291CD21D6396470092C4A9 /* ArtNode.h */,
+				71291CD31D63966A0092C4A9 /* ArtNode.m */,
 			);
 			name = Transplant;
 			sourceTree = "<group>";
@@ -518,6 +526,7 @@
 				71D216AA1D622C6C003BCEBB /* StonesAndChips.dat in Resources */,
 				71B367541D62286300085836 /* SimpleWithColor.fragsh in Resources */,
 				7105318D1D627207003EC15B /* TextureTeapotGreen.png in Resources */,
+				71291CD61D639AB80092C4A9 /* enemy.scn in Resources */,
 				35A87DE81D52B997004E739E /* Main.storyboard in Resources */,
 				71B367531D62286300085836 /* Simple.vertsh in Resources */,
 			);
@@ -674,6 +683,7 @@
 				71B367431D6227A000085836 /* Texture.mm in Sources */,
 				35BD88A21D59536300A409D6 /* User.swift in Sources */,
 				35A87E111D52BA28004E739E /* LoginViewController.swift in Sources */,
+				71291CD41D63966A0092C4A9 /* ArtNode.m in Sources */,
 				351F47EC1D5B9FAD0093578B /* HTTPRequest.swift in Sources */,
 				35A87DE31D52B997004E739E /* AppDelegate.swift in Sources */,
 				71B367411D6227A000085836 /* SampleApplicationShaderUtils.m in Sources */,
