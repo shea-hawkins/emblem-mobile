@@ -29,6 +29,25 @@ PODS:
   - GoogleMaps/Base (2.0.1)
   - GoogleMaps/Maps (2.0.1):
     - GoogleMaps/Base (= 2.0.1)
+  - OMGHTTPURLRQ (3.2.0):
+    - OMGHTTPURLRQ/RQ (= 3.2.0)
+  - OMGHTTPURLRQ/FormURLEncode (3.2.0)
+  - OMGHTTPURLRQ/RQ (3.2.0):
+    - OMGHTTPURLRQ/FormURLEncode
+    - OMGHTTPURLRQ/UserAgent
+  - OMGHTTPURLRQ/UserAgent (3.2.0)
+  - PromiseKit (3.5.0):
+    - PromiseKit/Foundation (= 3.5.0)
+    - PromiseKit/QuartzCore (= 3.5.0)
+    - PromiseKit/UIKit (= 3.5.0)
+  - PromiseKit/CorePromise (3.5.0)
+  - PromiseKit/Foundation (3.5.0):
+    - OMGHTTPURLRQ (~> 3.2.0)
+    - PromiseKit/CorePromise
+  - PromiseKit/QuartzCore (3.5.0):
+    - PromiseKit/CorePromise
+  - PromiseKit/UIKit (3.5.0):
+    - PromiseKit/CorePromise
   - Socket.IO-Client-Swift (6.1.6)
   - SwiftyJSON (2.3.2)
 
@@ -37,6 +56,7 @@ DEPENDENCIES:
   - FacebookLogin
   - FacebookShare
   - GoogleMaps
+  - PromiseKit
   - Socket.IO-Client-Swift (~> 6.1.6)
   - SwiftyJSON
 
@@ -49,9 +69,11 @@ SPEC CHECKSUMS:
   FBSDKLoginKit: da563567a108050ef83739c8c8c001ee9e25fa13
   FBSDKShareKit: e8e5d4ccef69b41132fe33acda26db1e33143e33
   GoogleMaps: f09da64fc987c1aa29394567c3cab5a3df83c402
+  OMGHTTPURLRQ: 1e54807cb7d5dbb506926e53498e1e9ac5720c79
+  PromiseKit: 3a8a529c0571f8c2c423dba0897ff39bc060bf92
   Socket.IO-Client-Swift: 5eddbfafd3c035a77d365d5b58da93cc488af11f
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
 
-PODFILE CHECKSUM: 155f2eb9a13d593b7a91b98f0f0a6fd905cddeff
+PODFILE CHECKSUM: 3ae5b49df5f5ea9ac8a1cffa11a7b08127815c42
 
 COCOAPODS: 1.0.1

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="1XH-7d-Zum">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ZjP-bM-ADm">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -139,6 +139,9 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gAe-n0-TSe">
                                 <rect key="frame" x="277" y="285" width="46" height="30"/>
                                 <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="changeArtPressed:" destination="PG5-Cd-BPl" eventType="touchUpInside" id="obJ-sP-iaG"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -161,10 +164,45 @@
             </objects>
             <point key="canvasLocation" x="2871" y="353"/>
         </scene>
-        <!--Add Art Table Table View Controller-->
+        <!--Test View Controller-->
+        <scene sceneID="ovs-h3-5bA">
+            <objects>
+                <viewController id="jVj-Pu-4M0" customClass="TestViewController" customModule="Emblem" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="K6A-OM-hGw"/>
+                        <viewControllerLayoutGuide type="bottom" id="fEV-5K-PQX"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="N0w-8U-g3h">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nuj-k0-KaW">
+                                <rect key="frame" x="277" y="285" width="46" height="30"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="pressed:" destination="jVj-Pu-4M0" eventType="touchUpInside" id="3Kg-RZ-nCj"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="nuj-k0-KaW" firstAttribute="centerX" secondItem="N0w-8U-g3h" secondAttribute="centerX" id="Vsb-Vv-1g8"/>
+                            <constraint firstItem="nuj-k0-KaW" firstAttribute="centerY" secondItem="N0w-8U-g3h" secondAttribute="centerY" id="e5x-4F-c9B"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="someView" destination="N0w-8U-g3h" id="OAq-rb-axl"/>
+                        <outlet property="wefwe" destination="nuj-k0-KaW" id="4r9-KA-NPA"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="76v-GT-uo5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2871" y="1082"/>
+        </scene>
+        <!--Change Art Table View Controller-->
         <scene sceneID="d4y-Uc-vMq">
             <objects>
-                <tableViewController id="1XH-7d-Zum" customClass="AddArtTableTableViewController" customModule="Emblem" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="1XH-7d-Zum" customClass="ChangeArtTableViewController" customModule="Emblem" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="90" sectionHeaderHeight="28" sectionFooterHeight="28" id="u2p-om-aG6">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -213,7 +251,6 @@
                                         <constraint firstAttribute="trailingMargin" secondItem="XMM-eN-vin" secondAttribute="trailing" id="d2w-bX-pwC"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="9je-QK-eFw" secondAttribute="bottom" constant="6" id="f0d-Jx-WCY"/>
                                         <constraint firstItem="XMM-eN-vin" firstAttribute="top" secondItem="4rX-g5-mYw" secondAttribute="topMargin" constant="-8" id="hJp-gF-z1r"/>
-                                        <constraint firstItem="9je-QK-eFw" firstAttribute="top" secondItem="4rX-g5-mYw" secondAttribute="topMargin" constant="7" id="n3T-MF-CQA"/>
                                         <constraint firstItem="XMM-eN-vin" firstAttribute="top" secondItem="4rX-g5-mYw" secondAttribute="topMargin" id="uum-sY-rjm"/>
                                     </constraints>
                                     <variation key="default">
