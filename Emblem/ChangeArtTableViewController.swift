@@ -1,5 +1,5 @@
 //
-//  AddArtTableTableViewController.swift
+//  ChangeArtTableViewController.swift
 //  Emblem
 //
 //  Created by Dane Jordan on 8/12/16.
@@ -9,17 +9,20 @@
 import UIKit
 import SwiftyJSON
 
-class AddArtTableTableViewController: UITableViewController {
+class ChangeArtTableViewController: UITableViewController {
     
     var artIDs = [UInt]()
-    var art = [UIImage]()
-    var finishedLoading:Bool = false
+    var art = [UIImage?]()
+    var isLoaded:[Bool]?
+    var delegate:ChangeArtTableViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //TODO: Save image data locally
         
-        getImages();
+        
+        //TODO: Save image data locally
+        getImageIds();
+        
         // Uncomment the following line to preserve selection between presentations
          self.clearsSelectionOnViewWillAppear = false
 
@@ -27,7 +30,7 @@ class AddArtTableTableViewController: UITableViewController {
          self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
     
-    func getImages(){
+    func getImageIds(){
         let url = NSURL(string: NSProcessInfo.processInfo().environment["DEV_SERVER"]! + "art")!
         HTTPRequest.get(url) { (response, data) in
             if response.statusCode == 200 {
@@ -35,22 +38,10 @@ class AddArtTableTableViewController: UITableViewController {
                 print(json)
                 for (_, obj):(String, JSON) in json {
                     self.artIDs.append(obj["id"].uIntValue)
-                    print("IDS: \(self.artIDs)")
+                    print("IDS: \(self.artIDs.count)")
+                    self.art = Array(count: self.artIDs.count, repeatedValue: nil)
+                    self.tableView.reloadData()
                 }
-                for id in self.artIDs {
-                    let urlString = NSProcessInfo.processInfo().environment["DEV_SERVER"]! + "storage/art/\(id)/\(id)_FULL"
-                    let url = NSURL(string: urlString)!
-                    HTTPRequest.get(url, getCompleted: { (response, data) in
-                        if response.statusCode == 200 {
-                            self.art.append(UIImage(data: data)!)
-                        }
-                        
-                    })
-
-                        self.finishedLoading = true;
-                        self.tableView.reloadData()
-                }
-                
             }
         }
     }
@@ -59,13 +50,13 @@ class AddArtTableTableViewController: UITableViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         var sections = 0
-        if (!finishedLoading) {
-    
+        if (false) {
+            print("tableViewLoading")
             let indicatorWidth: CGFloat = 20
             let indicatorHeight: CGFloat = 20
             let yOffset: CGFloat = 60
@@ -107,19 +98,44 @@ class AddArtTableTableViewController: UITableViewController {
     class func getEntrySegueFromARViewController() -> String {
         return "ARtoAddArtTableViewControllerSegue"
     }
-
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if let delegate = self.delegate {
+            delegate.receiveArt(self.art[indexPath.row])
+        }
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cellIdentifier = "ArtTableViewCell"
         let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! ArtTableViewCell
-       
-        if (finishedLoading) {
-            
-            cell.thumbImageView.image = self.art[indexPath.row]
+        
+        cell.thumbImageView.image = nil
+
+
+        if let image = self.art[indexPath.row] {
+            dispatch_async(dispatch_get_main_queue(), {() -> Void in
+                let updateCell: ArtTableViewCell = tableView.cellForRowAtIndexPath(indexPath) as! ArtTableViewCell
+                updateCell.thumbImageView.image = image
+            })
+        } else {
+            let urlString = NSProcessInfo.processInfo().environment["DEV_SERVER"]! + "storage/art/\(indexPath.row+1)/\(indexPath.row+1)_FULL"
+            let url = NSURL(string: urlString)!
+            HTTPRequest.get(url) { (response, data) in
+                if response.statusCode == 200 {
+                    let image = UIImage(data: data)!
+                    dispatch_async(dispatch_get_main_queue(), {() -> Void in
+                        self.art[indexPath.row] = image
+                        let updateCell: ArtTableViewCell = tableView.cellForRowAtIndexPath(indexPath) as! ArtTableViewCell
+                        updateCell.thumbImageView.image = image
+                    })
+                }
+            }
         }
 
         return cell
     }
+    
 
 
     /*

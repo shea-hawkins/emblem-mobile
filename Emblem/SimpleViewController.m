@@ -1,28 +1,40 @@
+#import "Emblem-Swift.h"
 #import "SimpleViewController.h"
 
 @implementation SimpleViewController
 
-@synthesize data;
+//@synthesize data;
 
 - (void) viewDidLoad {
     [super viewDidLoad];
-    NSLog(@"Hello World");
     //NSLog(data);
-    [self addArtPressed];
 }
 
 - (void) didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
--(void) addArtPressed {
+- (IBAction)changeArtPressed:(id)sender {
     //TODO: somehow call getEntrySegueFromARViewcontroller
-   // NSString* segueIdentifer = [AddArtTableViewController getEntrySegueFromARViewController];
+//    NSString* segueIdentifer = ChangeArtTableViewController. getEntrySegueFromARViewController;
     [self performSegueWithIdentifier: @"ARtoAddArtTableViewControllerSegue" sender:nil];
 }
 
-+ (NSString *) getEntrySegueFromMapView {
+- (void) receiveArt:(UIImage*) sender {
+    self.currentArt = sender;
     
+}
+
+
++ (NSString *) getEntrySegueFromMapView {
     return @"MapToSimpleViewControllerSegue";
+    
+}
+
+- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([[segue identifier] isEqualToString: @"ARtoAddArtTableViewControllerSegue"]) {
+        ChangeArtTableViewController *vc = (ChangeArtTableViewController *)[segue destinationViewController];
+        vc.delegate = self;
+    }
 }
 
 

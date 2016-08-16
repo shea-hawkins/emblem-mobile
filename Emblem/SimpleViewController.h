@@ -1,10 +1,17 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SimpleViewController : UIViewController
+@class ChangeArtTableViewController;
+@class TestViewController;
 
-@property (nonatomic, weak) NSString* data;
+@protocol ChangeArtTableViewControllerDelegate<NSObject>
+-(void) receiveArt:(UIImage*) sender;
+@end
 
+
+@interface SimpleViewController : UIViewController <ChangeArtTableViewControllerDelegate>
+@property (nonatomic, weak) NSString* image;
+@property (nonatomic, weak) UIImage* currentArt;
 + (NSString*) getEntrySegueFromMapView;
 
 @end
