@@ -13,21 +13,10 @@
 
 @end
 
-@protocol AREAGLViewDelegate <NSObject>
-
-//- (void)vuforiaEAGLView:(VuforiaEAGLView*)view didTouchDownNode:(SCNNode *)node;
-//- (void)vuforiaEAGLView:(VuforiaEAGLView*)view didTouchUpNode:(SCNNode *)node;
-//- (void)vuforiaEAGLView:(VuforiaEAGLView*)view didTouchCancelNode:(SCNNode *)node;
-
-@end
-
-
-// EAGLView is a subclass of UIView and conforms to the informal protocol
-// UIGLViewProtocol
 @interface AREAGLView : UIView <UIGLViewProtocol>
 
 @property (weak, nonatomic)id<AREAGLViewSceneSource> sceneSource;
-@property (weak, nonatomic)id<AREAGLViewDelegate> delegate;
+@property (weak, nonatomic)id delegate;
 @property (nonatomic, assign)CGFloat objectScale;
 
 - (id)initWithFrame:(CGRect)frame manager:(ARManager *) manager;

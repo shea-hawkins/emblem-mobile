@@ -25,9 +25,9 @@ class MapViewController: UIViewController {
         if let location = mapView.myLocation {
             let x = String(location.coordinate.latitude)
             let y = String(location.coordinate.longitude)
-            HTTPRequest.post(["lat": x, "long": y], url: serverUrl!, postCompleted: { (succeeded, msg) in
-                print("Post Complete \(msg)")
-            })
+//            HTTPRequest.post(["lat": x, "long": y], url: serverUrl!, postCompleted: { (succeeded, msg) in
+//                print("Post Complete \(msg)")
+//            })
             
             //TODO: Replace with websockets
 //            getMarkers(serverUrl!)
