@@ -1,4 +1,4 @@
-#import "ImageTargetsEAGLView.h"
+#import "AREAGLView.h"
 
 #import <SceneKit/SceneKit.h>
 #import <SpriteKit/SpriteKit.h>
@@ -13,7 +13,6 @@
 #import <Vuforia/Renderer.h>
 #import <Vuforia/TrackableResult.h>
 #import <Vuforia/VideoBackgroundConfig.h>
-
 
 
 namespace VuforiaEAGLViewUtils
@@ -71,8 +70,9 @@ namespace VuforiaEAGLViewUtils
 //
 //******************************************************************************
 
-@interface ImageTargetsEAGLView (PrivateMethods)
+@interface AREAGLView (PrivateMethods)
 
+- (void)initShaders;
 - (void)createFramebuffer;
 - (void)deleteFramebuffer;
 - (void)setFramebuffer;
@@ -81,13 +81,11 @@ namespace VuforiaEAGLViewUtils
 @end
 
 
-@implementation ImageTargetsEAGLView {
-    __weak SampleApplicationSession* _manager;
+@implementation AREAGLView {
+    __weak ARManager* _manager;
     
     // OpenGL ES context
     EAGLContext* _context;
-    
-    SCNScene* _scene;
     
     // The OpenGL ES names for the framebuffer and renderbuffers used to render
     // to this view
@@ -115,60 +113,10 @@ namespace VuforiaEAGLViewUtils
 }
 
 
-#pragma mark - Scene Stuff
-- (SCNScene*)createScene {
-    CGFloat hue = ( arc4random() % 256 / 256.0 );  //  0.0 to 1.0
-    CGFloat saturation = ( arc4random() % 128 / 256.0 ) + 0.5;  //  0.5 to 1.0, away from white
-    CGFloat brightness = ( arc4random() % 128 / 256.0 ) + 0.5;  //  0.5 to 1.0, away from black
-    UIColor* color = [UIColor colorWithHue:hue saturation:saturation brightness:brightness alpha:1];
-    
-    SCNScene* scene = [SCNScene new];
-    
-    SCNNode* planeNode = [SCNNode new];
-    planeNode.name = @"plane";
-    
-    SCNPlane* planeGeometry = [SCNPlane new];
-    
-    planeGeometry.width = 247.0/self.objectScale;
-    planeGeometry.height = 173.0/self.objectScale;
-    
-    planeNode.geometry = planeGeometry;
-    planeNode.position = SCNVector3Make(0, 0, -1);
-    
-    SCNMaterial* planeMaterial = [SCNMaterial new];
-    planeMaterial.diffuse.contents = color;
-    planeMaterial.transparency = 1.0;
-    
-    planeNode.geometry.firstMaterial = planeMaterial;
-    [scene.rootNode addChildNode:planeNode];
-    
-    SCNNode* boxNode = [SCNNode new];
-    boxNode.name = @"box";
-    
-    SCNBox* boxGeometry = [SCNBox new];
-    
-    boxGeometry.width = 15;
-    boxGeometry.height = 15;
-    boxGeometry.length = 15;
-    boxGeometry.chamferRadius = 0.0;
-    
-    SCNMaterial* boxMaterial = [SCNMaterial new];
-    boxMaterial.diffuse.contents = color;
-    
-    
-    boxNode.geometry = boxGeometry;
-    boxNode.geometry.firstMaterial = boxMaterial;
-    
-    
-    [scene.rootNode addChildNode:planeNode];
-    
-    return scene;
-}
-
 //------------------------------------------------------------------------------
 #pragma mark - Lifecycle
 
-- (id)initWithFrame:(CGRect)frame manager:(SampleApplicationSession*)manager
+- (id)initWithFrame:(CGRect)frame manager:(ARManager *)manager
 {
     self = [super initWithFrame:frame];
     
@@ -190,8 +138,6 @@ namespace VuforiaEAGLViewUtils
         
         _offTargetTrackingEnabled = NO;
         _objectScale = 50.0f;
-        
-        [self setupRenderer];
     }
     
     return self;
@@ -214,14 +160,14 @@ namespace VuforiaEAGLViewUtils
     _renderer.playing = YES;
     _renderer.showsStatistics = YES;
     
-    //if (_sceneSource != nil) {
+    if (_sceneSource != nil) {
         [self setNeedsChangeSceneWithUserInfo:nil];
-    //}
+    }
     
 }
 
 - (void)setNeedsChangeSceneWithUserInfo: (NSDictionary*)userInfo {
-    SCNScene* scene = [self createScene];
+    SCNScene* scene = [self.sceneSource sceneForEAGLView:self userInfo:userInfo];
     if (scene == nil) {
         return;
     }
@@ -233,7 +179,6 @@ namespace VuforiaEAGLViewUtils
     [scene.rootNode addChildNode:_cameraNode];
     
     _renderer.scene = scene;
-    _scene = scene;
     _renderer.pointOfView = _cameraNode;
 }
 
@@ -317,7 +262,7 @@ namespace VuforiaEAGLViewUtils
     } else {
         glEnable(GL_CULL_FACE);
     }
-    
+
     glCullFace(GL_BACK);
     if(Vuforia::Renderer::getInstance().getVideoBackgroundConfig().mReflection == Vuforia::VIDEO_BACKGROUND_REFLECTION_ON)
         glFrontFace(GL_CW);  //Front camera
@@ -325,8 +270,8 @@ namespace VuforiaEAGLViewUtils
         glFrontFace(GL_CCW);   //Back camera
     
     // Set the viewport
-    glViewport((GLint)_manager.viewport.posX, (GLint)_manager.viewport.posY,
-               (GLsizei)_manager.viewport.sizeX, (GLsizei)_manager.viewport.sizeY);
+    glViewport((GLint)_manager.viewport.origin.x, (GLint)_manager.viewport.origin.y,
+               (GLsizei)_manager.viewport.size.width, (GLsizei)_manager.viewport.size.height);
     
     for (int i = 0; i < state.getNumTrackableResults(); ++i) {
         // Get the trackable
@@ -351,12 +296,12 @@ namespace VuforiaEAGLViewUtils
 }
 
 #pragma mark Touch Evnets
-
+//
 //- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
 //    CGPoint pos = [touches.anyObject locationInView:self];
 //    pos.x *= [[UIScreen mainScreen] nativeScale];
 //    pos.y *= [[UIScreen mainScreen] nativeScale];
-//    pos.y = _manager.viewport.sizeY - pos.y;
+//    pos.y = _manager.viewport.size.height - pos.y;
 //    NSArray* results = [_renderer hitTest:pos options:nil];
 //    SCNNode* result = [[results firstObject] node];
 //    if(result){
@@ -378,7 +323,7 @@ namespace VuforiaEAGLViewUtils
 //    CGPoint pos = [touches.anyObject locationInView:self];
 //    pos.x *= [[UIScreen mainScreen] nativeScale];
 //    pos.y *= [[UIScreen mainScreen] nativeScale];
-//    pos.y = _manager.viewport.sizeY - pos.y;
+//    pos.y = _manager.viewport.size.height - pos.y;
 //    NSArray* results = [_renderer hitTest:pos options:nil];
 //    SCNNode* result = [[results firstObject] node];
 //    if(_currentTouchNode == result){

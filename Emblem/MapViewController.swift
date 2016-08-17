@@ -34,7 +34,7 @@ class MapViewController: UIViewController {
             
         }
         let markerData = ["item1": 5]
-        self.performSegueWithIdentifier(ImageTargetsViewController.getEntrySegueFromMapView(), sender: markerData)
+        self.performSegueWithIdentifier(ARViewController.getEntrySegueFromMapView() as String, sender: markerData)
     }
 
     override func viewDidLoad() {
