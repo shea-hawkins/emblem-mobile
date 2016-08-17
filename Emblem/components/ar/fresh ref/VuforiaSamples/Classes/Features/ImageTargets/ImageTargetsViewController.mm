@@ -78,7 +78,7 @@ countries.
     
     CGRect viewFrame = [self getCurrentARViewFrame];
     
-    eaglView = [[ImageTargetsEAGLView alloc] initWithFrame:viewFrame appSession:vapp];
+    eaglView = [[ImageTargetsEAGLView alloc] initWithFrame:viewFrame manager:vapp];
     [self setView:eaglView];
     
     // Re-implement for improved exit-view performance.
