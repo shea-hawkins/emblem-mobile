@@ -19,7 +19,7 @@ class HTTPRequest {
             if error != nil {
                 print("Get Request Error: \(error!)")
             } else {
-                print("Server Response: \(httpresponse.allHeaderFields)")
+                print("Server Response: \(httpresponse))")
                 getCompleted(response: httpresponse, data: data!)
             }
         }
