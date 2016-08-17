@@ -6,7 +6,7 @@
 //  Copyright © 2016 Hadashco. All rights reserved.
 //
 
-class ARSceneSource: NSObject, AREAGLViewSceneSource {
+class ARSceneSource: NSObject, ARSceneSourceProtocol {
     
     func sceneForEAGLView(view: AREAGLView!, userInfo: [String : AnyObject]?) -> SCNScene! {
         return create2DScene(with: view);

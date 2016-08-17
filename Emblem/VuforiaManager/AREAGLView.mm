@@ -295,53 +295,6 @@ namespace VuforiaEAGLViewUtils
     [self presentFramebuffer];
 }
 
-#pragma mark Touch Evnets
-//
-//- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-//    CGPoint pos = [touches.anyObject locationInView:self];
-//    pos.x *= [[UIScreen mainScreen] nativeScale];
-//    pos.y *= [[UIScreen mainScreen] nativeScale];
-//    pos.y = _manager.viewport.size.height - pos.y;
-//    NSArray* results = [_renderer hitTest:pos options:nil];
-//    SCNNode* result = [[results firstObject] node];
-//    if(result){
-//        _currentTouchNode = result;
-//        [self.delegate vuforiaEAGLView:self didTouchDownNode:result];
-//    }
-//    
-//}
-//
-//- (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-//    
-//}
-//
-//- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-//    if(!_currentTouchNode) {
-//        return;
-//    }
-//    
-//    CGPoint pos = [touches.anyObject locationInView:self];
-//    pos.x *= [[UIScreen mainScreen] nativeScale];
-//    pos.y *= [[UIScreen mainScreen] nativeScale];
-//    pos.y = _manager.viewport.size.height - pos.y;
-//    NSArray* results = [_renderer hitTest:pos options:nil];
-//    SCNNode* result = [[results firstObject] node];
-//    if(_currentTouchNode == result){
-//        [self.delegate vuforiaEAGLView:self didTouchUpNode:result];
-//    }else {
-//        [self.delegate vuforiaEAGLView:self didTouchCancelNode:_currentTouchNode];
-//    }
-//    _currentTouchNode = nil;
-//}
-//
-//- (void)touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-//    if(_currentTouchNode) {
-//        [self.delegate vuforiaEAGLView:self didTouchCancelNode:_currentTouchNode];
-//    }
-//    _currentTouchNode = nil;
-//}
-
-//------------------------------------------------------------------------------
 #pragma mark - OpenGL ES management
 
 - (void)createFramebuffer
@@ -685,6 +638,4 @@ namespace VuforiaEAGLViewUtils
             *cameraDY = (int)(((float)screenDY / (float)scaledUpVideoHeight) * videoHeight);
         }
     }
-    
-    
 }
