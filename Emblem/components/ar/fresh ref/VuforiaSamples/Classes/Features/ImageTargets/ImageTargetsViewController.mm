@@ -28,8 +28,7 @@ countries.
 @property (weak, nonatomic) IBOutlet UIImageView *ARViewPlaceholder;
 
 @property Vuforia::DataSet*  dataSetCurrent;
-@property Vuforia::DataSet*  dataSetTarmac;
-@property Vuforia::DataSet*  dataSetStonesAndChips;
+@property Vuforia::DataSet*  dataSetEmblem;
 
 @property (nonatomic, strong) SampleApplicationSession * vapp;
 @property (nonatomic, strong) ImageTargetsEAGLView* eaglView;
@@ -252,18 +251,15 @@ countries.
 
 // load the data associated to the trackers
 - (bool) doLoadTrackersData {
-    _dataSetStonesAndChips = [self loadObjectTrackerDataSet:@"StonesAndChips.xml"];
-    _dataSetTarmac = [self loadObjectTrackerDataSet:@"Tarmac.xml"];
-    if ((_dataSetStonesAndChips == NULL) || (_dataSetTarmac == NULL)) {
+    _dataSetEmblem = [self loadObjectTrackerDataSet:@"Emblem.xml"];
+    if (_dataSetEmblem == NULL) {
         NSLog(@"Failed to load datasets");
         return NO;
     }
-    if (! [self activateDataSet:_dataSetStonesAndChips]) {
+    if (! [self activateDataSet:_dataSetEmblem]) {
         NSLog(@"Failed to activate dataset");
         return NO;
     }
-    
-    
     return YES;
 }
 
@@ -318,14 +314,14 @@ countries.
 }
 
 - (void) onVuforiaUpdate: (Vuforia::State *) state {
-    if (switchToTarmac) {
-        [self activateDataSet:_dataSetTarmac];
-        switchToTarmac = NO;
-    }
-    if (switchToStonesAndChips) {
-        [self activateDataSet:_dataSetStonesAndChips];
-        switchToStonesAndChips = NO;
-    }
+//    if (switchToTarmac) {
+//        [self activateDataSet:_dataSetTarmac];
+//        switchToTarmac = NO;
+//    }
+//    if (switchToStonesAndChips) {
+//        [self activateDataSet:_dataSetStonesAndChips];
+//        switchToStonesAndChips = NO;
+//    }
 }
 
 // Load the image tracker data set
@@ -388,15 +384,11 @@ countries.
     Vuforia::ObjectTracker* objectTracker = static_cast<Vuforia::ObjectTracker*>(trackerManager.getTracker(Vuforia::ObjectTracker::getClassType()));
     
     // Destroy the data sets:
-    if (!objectTracker->destroyDataSet(_dataSetTarmac))
+    if (!objectTracker->destroyDataSet(_dataSetEmblem))
     {
         NSLog(@"Failed to destroy data set Tarmac.");
     }
-    if (!objectTracker->destroyDataSet(_dataSetStonesAndChips))
-    {
-        NSLog(@"Failed to destroy data set Stones and Chips.");
-    }
-    
+
     NSLog(@"datasets destroyed");
     return YES;
 }
@@ -626,7 +618,7 @@ countries.
             menuVC.dismissItemName = @"Vuforia Samples";
             menuVC.backSegueId = @"HideMenu";
             
-            NSLog(@"Dataset current %@", _dataSetCurrent == _dataSetTarmac ? @"Tarmac" : @"Stones & Chips");
+            NSLog(@"Dataset current %@", _dataSetCurrent == _dataSetEmblem ? @"Emblem" : @"Somethin' weird.");
             
             // initialize menu item values (ON / OFF)
             [menuVC setValue:extendedTrackingEnabled forMenuItem:@"Extended Tracking"];
@@ -634,7 +626,7 @@ countries.
             [menuVC setValue:flashEnabled forMenuItem:@"Flash"];
             [menuVC setValue:frontCameraEnabled forMenuItem:@"Front"];
             [menuVC setValue:!frontCameraEnabled forMenuItem:@"Rear"];
-            if (_dataSetCurrent == _dataSetStonesAndChips) {
+            if (_dataSetCurrent == _dataSetEmblem) {
                 [menuVC setValue:YES forMenuItem:@"Stones & Chips"];
                 [menuVC setValue:NO forMenuItem:@"Tarmac"];
             }

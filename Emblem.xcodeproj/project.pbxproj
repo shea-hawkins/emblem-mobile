@@ -19,6 +19,8 @@
 		35BD88A61D597F3500A409D6 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35BD88A51D597F3500A409D6 /* MapViewController.swift */; };
 		55CB9937DFC26F85914C1C66 /* Pods_EmblemTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93A26ACF62EF8EADDFE28128 /* Pods_EmblemTests.framework */; };
 		710531941D62914E003EC15B /* SceneKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 710531931D62914E003EC15B /* SceneKit.framework */; };
+		71291CD91D63DE690092C4A9 /* Emblem.dat in Resources */ = {isa = PBXBuildFile; fileRef = 71291CD71D63DE690092C4A9 /* Emblem.dat */; };
+		71291CDA1D63DE690092C4A9 /* Emblem.xml in Resources */ = {isa = PBXBuildFile; fileRef = 71291CD81D63DE690092C4A9 /* Emblem.xml */; };
 		718E64131D5E971E0023B860 /* lib in Resources */ = {isa = PBXBuildFile; fileRef = 718E64121D5E971E0023B860 /* lib */; };
 		718E643A1D6012E20023B860 /* libVuforia.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 718E64391D6012E20023B860 /* libVuforia.a */; };
 		718E643D1D60157F0023B860 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 718E643C1D60157F0023B860 /* AudioToolbox.framework */; };
@@ -41,12 +43,6 @@
 		71B367341D62273D00085836 /* PresentMenuSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 71B367331D62273D00085836 /* PresentMenuSegue.m */; };
 		71B367371D62276400085836 /* UnwindMenuSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 71B367361D62276400085836 /* UnwindMenuSegue.m */; };
 		71B367421D6227A000085836 /* SampleApplicationUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 71B3673C1D6227A000085836 /* SampleApplicationUtils.cpp */; };
-		71D216A81D622C6C003BCEBB /* IT_about.html in Resources */ = {isa = PBXBuildFile; fileRef = 71D216A21D622C6C003BCEBB /* IT_about.html */; };
-		71D216A91D622C6C003BCEBB /* IT.png in Resources */ = {isa = PBXBuildFile; fileRef = 71D216A31D622C6C003BCEBB /* IT.png */; };
-		71D216AA1D622C6C003BCEBB /* StonesAndChips.dat in Resources */ = {isa = PBXBuildFile; fileRef = 71D216A41D622C6C003BCEBB /* StonesAndChips.dat */; };
-		71D216AB1D622C6C003BCEBB /* StonesAndChips.xml in Resources */ = {isa = PBXBuildFile; fileRef = 71D216A51D622C6C003BCEBB /* StonesAndChips.xml */; };
-		71D216AC1D622C6C003BCEBB /* Tarmac.dat in Resources */ = {isa = PBXBuildFile; fileRef = 71D216A61D622C6C003BCEBB /* Tarmac.dat */; };
-		71D216AD1D622C6C003BCEBB /* Tarmac.xml in Resources */ = {isa = PBXBuildFile; fileRef = 71D216A71D622C6C003BCEBB /* Tarmac.xml */; };
 		80FE0960445486837F57694A /* Pods_EmblemUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CB9D30DE3991C7F8BB8ADAB /* Pods_EmblemUITests.framework */; };
 		D5C1AA5F6BACC53824E8D303 /* Pods_Emblem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A976B07605230728311C182 /* Pods_Emblem.framework */; };
 /* End PBXBuildFile section */
@@ -91,6 +87,8 @@
 		67770561255CFF1F85E4316B /* Pods-EmblemUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EmblemUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-EmblemUITests/Pods-EmblemUITests.release.xcconfig"; sourceTree = "<group>"; };
 		679B4FD6FEAE7FBD70BF8A6B /* Pods-EmblemTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EmblemTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-EmblemTests/Pods-EmblemTests.release.xcconfig"; sourceTree = "<group>"; };
 		710531931D62914E003EC15B /* SceneKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SceneKit.framework; path = System/Library/Frameworks/SceneKit.framework; sourceTree = SDKROOT; };
+		71291CD71D63DE690092C4A9 /* Emblem.dat */ = {isa = PBXFileReference; lastKnownFileType = file; path = Emblem.dat; sourceTree = "<group>"; };
+		71291CD81D63DE690092C4A9 /* Emblem.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Emblem.xml; sourceTree = "<group>"; };
 		718E64121D5E971E0023B860 /* lib */ = {isa = PBXFileReference; lastKnownFileType = folder; path = lib; sourceTree = SOURCE_ROOT; };
 		718E64391D6012E20023B860 /* libVuforia.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libVuforia.a; path = lib/vuforia/lib/arm/libVuforia.a; sourceTree = "<group>"; };
 		718E643C1D60157F0023B860 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
@@ -122,12 +120,6 @@
 		71B3673C1D6227A000085836 /* SampleApplicationUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SampleApplicationUtils.cpp; path = "components/ar/fresh ref/VuforiaSamples/Classes/SampleApplication/SampleApplicationUtils.cpp"; sourceTree = "<group>"; };
 		71B3673D1D6227A000085836 /* SampleApplicationUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SampleApplicationUtils.h; path = "components/ar/fresh ref/VuforiaSamples/Classes/SampleApplication/SampleApplicationUtils.h"; sourceTree = "<group>"; };
 		71B367451D62283C00085836 /* SampleGLResourceHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SampleGLResourceHandler.h; path = "components/ar/fresh ref/VuforiaSamples/Classes/SampleApplication/SampleGLResourceHandler.h"; sourceTree = "<group>"; };
-		71D216A21D622C6C003BCEBB /* IT_about.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = IT_about.html; path = "components/ar/fresh ref/VuforiaSamples/VuResources/Assets/ImageTargets/IT_about.html"; sourceTree = "<group>"; };
-		71D216A31D622C6C003BCEBB /* IT.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = IT.png; path = "components/ar/fresh ref/VuforiaSamples/VuResources/Assets/ImageTargets/IT.png"; sourceTree = "<group>"; };
-		71D216A41D622C6C003BCEBB /* StonesAndChips.dat */ = {isa = PBXFileReference; lastKnownFileType = file; name = StonesAndChips.dat; path = "components/ar/fresh ref/VuforiaSamples/VuResources/Assets/ImageTargets/StonesAndChips.dat"; sourceTree = "<group>"; };
-		71D216A51D622C6C003BCEBB /* StonesAndChips.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = StonesAndChips.xml; path = "components/ar/fresh ref/VuforiaSamples/VuResources/Assets/ImageTargets/StonesAndChips.xml"; sourceTree = "<group>"; };
-		71D216A61D622C6C003BCEBB /* Tarmac.dat */ = {isa = PBXFileReference; lastKnownFileType = file; name = Tarmac.dat; path = "components/ar/fresh ref/VuforiaSamples/VuResources/Assets/ImageTargets/Tarmac.dat"; sourceTree = "<group>"; };
-		71D216A71D622C6C003BCEBB /* Tarmac.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = Tarmac.xml; path = "components/ar/fresh ref/VuforiaSamples/VuResources/Assets/ImageTargets/Tarmac.xml"; sourceTree = "<group>"; };
 		7EDE38068E97E3DD01296F43 /* Pods-EmblemTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EmblemTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EmblemTests/Pods-EmblemTests.debug.xcconfig"; sourceTree = "<group>"; };
 		8CB9D30DE3991C7F8BB8ADAB /* Pods_EmblemUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EmblemUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		93A26ACF62EF8EADDFE28128 /* Pods_EmblemTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EmblemTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -269,12 +261,8 @@
 		71B366DC1D6137C400085836 /* Transplant */ = {
 			isa = PBXGroup;
 			children = (
-				71D216A21D622C6C003BCEBB /* IT_about.html */,
-				71D216A31D622C6C003BCEBB /* IT.png */,
-				71D216A41D622C6C003BCEBB /* StonesAndChips.dat */,
-				71D216A51D622C6C003BCEBB /* StonesAndChips.xml */,
-				71D216A61D622C6C003BCEBB /* Tarmac.dat */,
-				71D216A71D622C6C003BCEBB /* Tarmac.xml */,
+				71291CD71D63DE690092C4A9 /* Emblem.dat */,
+				71291CD81D63DE690092C4A9 /* Emblem.xml */,
 				71B367451D62283C00085836 /* SampleGLResourceHandler.h */,
 				71B3673C1D6227A000085836 /* SampleApplicationUtils.cpp */,
 				71B3673D1D6227A000085836 /* SampleApplicationUtils.h */,
@@ -433,16 +421,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				71D216AC1D622C6C003BCEBB /* Tarmac.dat in Resources */,
 				35A87DED1D52B998004E739E /* LaunchScreen.storyboard in Resources */,
-				71D216A91D622C6C003BCEBB /* IT.png in Resources */,
 				35A87DEA1D52B998004E739E /* Assets.xcassets in Resources */,
 				718E64131D5E971E0023B860 /* lib in Resources */,
-				71D216AD1D622C6C003BCEBB /* Tarmac.xml in Resources */,
-				71D216AB1D622C6C003BCEBB /* StonesAndChips.xml in Resources */,
-				71D216A81D622C6C003BCEBB /* IT_about.html in Resources */,
-				71D216AA1D622C6C003BCEBB /* StonesAndChips.dat in Resources */,
+				71291CDA1D63DE690092C4A9 /* Emblem.xml in Resources */,
 				35A87DE81D52B997004E739E /* Main.storyboard in Resources */,
+				71291CD91D63DE690092C4A9 /* Emblem.dat in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
