@@ -17,6 +17,14 @@ class ARViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let notificationCenter = NSNotificationCenter.defaultCenter()
+        notificationCenter.addObserver(self, selector: #selector(didRecieveWillResignActiveNotification),
+                                       name: UIApplicationWillResignActiveNotification, object: nil)
+        
+        notificationCenter.addObserver(self, selector: #selector(didRecieveDidBecomeActiveNotification),
+                                       name: UIApplicationDidBecomeActiveNotification, object: nil)
+        
+        
         prepare()
     }
 
@@ -43,6 +51,16 @@ class ARViewController: UIViewController {
     }
 }
 
+extension ARViewController {
+    func didRecieveWillResignActiveNotification(notification: NSNotification) {
+        pause()
+    }
+    
+    func didRecieveDidBecomeActiveNotification(notification: NSNotification) {
+        resume()
+    }
+}
+
 private extension ARViewController {
     
     func prepare() {
@@ -56,13 +74,6 @@ private extension ARViewController {
             manager.eaglView.setupRenderer()
             self.view = manager.eaglView
         }
-        
-        let notificationCenter = NSNotificationCenter.defaultCenter()
-        notificationCenter.addObserver(self, selector: #selector(didRecieveWillResignActiveNotification),
-                                       name: UIApplicationWillResignActiveNotification, object: nil)
-        
-        notificationCenter.addObserver(self, selector: #selector(didRecieveDidBecomeActiveNotification),
-                                       name: UIApplicationDidBecomeActiveNotification, object: nil)
         
         vuforiaManager?.prepareWithOrientation(.Portrait)
     }
@@ -84,15 +95,7 @@ private extension ARViewController {
     }
 }
 
-extension ARViewController {
-    func didRecieveWillResignActiveNotification(notification: NSNotification) {
-        pause()
-    }
-    
-    func didRecieveDidBecomeActiveNotification(notification: NSNotification) {
-        resume()
-    }
-}
+
 
 extension ARViewController: ARManagerDelegate {
     func vuforiaManagerDidFinishPreparing(manager: ARManager!) {
