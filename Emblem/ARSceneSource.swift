@@ -8,7 +8,7 @@
 
 class ARSceneSource: NSObject, ARSceneSourceProtocol {
     
-    func sceneForEAGLView(view: AREAGLView!, userInfo: [String : AnyObject]?) -> SCNScene! {
+    func sceneForEAGLView(view: AREAGLView!, viewInfo: [String : AnyObject]?) -> SCNScene! {
         return create2DScene(with: view);
     }
     

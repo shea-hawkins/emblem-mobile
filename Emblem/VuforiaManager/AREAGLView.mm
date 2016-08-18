@@ -167,7 +167,7 @@ namespace VuforiaEAGLViewUtils
 }
 
 - (void)setNeedsChangeSceneWithUserInfo: (NSDictionary*)userInfo {
-    SCNScene* scene = [self.sceneSource sceneForEAGLView:self userInfo:userInfo];
+    SCNScene* scene = [self.sceneSource sceneForEAGLView:self viewInfo:userInfo];
     if (scene == nil) {
         return;
     }

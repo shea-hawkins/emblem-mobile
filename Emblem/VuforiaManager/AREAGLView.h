@@ -10,13 +10,13 @@
 
 @protocol ARSceneSourceProtocol <NSObject>
 
-- (SCNScene *)sceneForEAGLView:(AREAGLView*)view userInfo:(NSDictionary<NSString*, id>*)userInfo;
+- (SCNScene *)sceneForEAGLView:(AREAGLView*)view viewInfo:(NSDictionary<NSString*, id>*)viewInfo;
 
 @end
 
 @protocol ARSpriteSourceProtocol <NSObject>
 
-- (SKScene *)sceneForEAGLView:(AREAGLView*)view userInfo:(NSDictionary<NSString*, id>*)userInfo;
+- (SKScene *)sceneForEAGLView:(AREAGLView*)view viewInfo:(NSDictionary<NSString*, id>*)viewInfo;
 
 @end
 
