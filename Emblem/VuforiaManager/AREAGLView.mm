@@ -160,26 +160,23 @@ namespace VuforiaEAGLViewUtils
     _renderer.playing = YES;
     _renderer.showsStatistics = YES;
     
-    if (_sceneSource != nil) {
-        [self setNeedsChangeSceneWithUserInfo:nil];
-    }
+    SCNScene* scene = [self get3DScene:nil];
     
+    [self setActiveScene:scene withRenderer:_renderer];
 }
 
-- (void)setNeedsChangeSceneWithUserInfo: (NSDictionary*)userInfo {
-    SCNScene* scene = [self.sceneSource sceneForEAGLView:self viewInfo:userInfo];
-    if (scene == nil) {
-        return;
-    }
-    
+-(void)setActiveScene: (SCNScene*)scene withRenderer: (SCNRenderer*)renderer {
     SCNCamera* camera = [SCNCamera camera];
     _cameraNode = [SCNNode node];
     _cameraNode.camera = camera;
     _cameraNode.camera.projectionTransform = _projectionTransform;
     [scene.rootNode addChildNode:_cameraNode];
-    
-    _renderer.scene = scene;
-    _renderer.pointOfView = _cameraNode;
+    renderer.scene = scene;
+    renderer.pointOfView = _cameraNode;
+}
+
+- (SCNScene*)get3DScene: (NSDictionary*)viewInfo {
+    return [self.sceneSource sceneForEAGLView:self viewInfo:viewInfo];
 }
 
 
