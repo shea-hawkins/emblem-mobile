@@ -160,12 +160,14 @@ namespace VuforiaEAGLViewUtils
     _renderer.playing = YES;
     _renderer.showsStatistics = YES;
     
-    SCNScene* scene = [self get3DScene:nil];
+    SCNScene* scene3D = [self get3DScene:nil];
+    SKScene* scene2D = [self get2DScene:nil];
     
-    [self setActiveScene:scene withRenderer:_renderer];
+    [self setActive3DScene:scene3D withRenderer:_renderer];
+    [self setActive2DScene:scene2D withRenderer:_renderer];
 }
 
--(void)setActiveScene: (SCNScene*)scene withRenderer: (SCNRenderer*)renderer {
+-(void)setActive3DScene: (SCNScene*)scene withRenderer: (SCNRenderer*)renderer {
     SCNCamera* camera = [SCNCamera camera];
     _cameraNode = [SCNNode node];
     _cameraNode.camera = camera;
@@ -175,10 +177,20 @@ namespace VuforiaEAGLViewUtils
     renderer.pointOfView = _cameraNode;
 }
 
+-(void)setActive2DScene: (SKScene*)scene withRenderer: (SCNRenderer*)renderer {
+    renderer.overlaySKScene = scene;
+}
+
 - (SCNScene*)get3DScene: (NSDictionary*)viewInfo {
     return [self.sceneSource sceneForEAGLView:self viewInfo:viewInfo];
 }
 
+- (SKScene*)get2DScene: (NSDictionary*)viewInfo {
+    return [self.spriteSource sceneForEAGLView:self viewInfo:viewInfo];
+}
+
+
+// GL Lifecycle Methods (To be separated into renderer)
 
 - (void)finishOpenGLESCommands
 {

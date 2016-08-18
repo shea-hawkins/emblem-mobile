@@ -24,8 +24,18 @@ class ARViewController: UIViewController {
         notificationCenter.addObserver(self, selector: #selector(didRecieveDidBecomeActiveNotification),
                                        name: UIApplicationDidBecomeActiveNotification, object: nil)
         
+        let recognizer: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(ARViewController.swipeLeft));
+        recognizer.direction = .Left
         
-        prepare()
+        prepare() //functionalize pls
+        
+        self.view.addGestureRecognizer(recognizer)
+    }
+    
+    func swipeLeft(recognizer : UISwipeGestureRecognizer) {
+        NSLog("test");
+        performSegueWithIdentifier(ChangeArtTableViewController.getEntrySegueFromARViewController(), sender: self)
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -74,7 +84,6 @@ private extension ARViewController {
             manager.eaglView.setupRenderer()
             self.view = manager.eaglView
         }
-        
         vuforiaManager?.prepareWithOrientation(.Portrait)
     }
     

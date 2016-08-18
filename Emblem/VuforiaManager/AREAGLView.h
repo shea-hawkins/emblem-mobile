@@ -30,8 +30,6 @@
 - (id)initWithFrame:(CGRect)frame manager:(ARManager *) manager;
 
 - (void)setupRenderer;
-- (void)setNeedsChangeSceneWithUserInfo: (NSDictionary*)userInfo;
-
 - (void)finishOpenGLESCommands;
 - (void)freeOpenGLESResources;
 

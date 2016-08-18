@@ -13,12 +13,12 @@ class HTTPRequest {
     class func get(url:NSURL, getCompleted: (response: NSHTTPURLResponse, data: NSData) -> ()) {
         
         let task = NSURLSession.sharedSession().dataTaskWithURL(url) {(data, response, error) in
-            
-            let httpresponse = response as! NSHTTPURLResponse
+  
 
-            if error != nil {
+            if error != nil || response === nil {
                 print("Get Request Error: \(error!)")
             } else {
+                let httpresponse = response as! NSHTTPURLResponse
                 print("Server Response: \(httpresponse))")
                 getCompleted(response: httpresponse, data: data!)
             }

@@ -100,7 +100,7 @@ class ChangeArtTableViewController: UITableViewController {
     }
     
     class func getEntrySegueFromARViewController() -> String {
-        return "ARtoAddArtTableViewControllerSegue"
+        return "ARToAddArtTableViewControllerSegue"
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
