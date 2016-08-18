@@ -5,10 +5,11 @@ class ARViewController: UIViewController {
     let vuforiaLiceseKey = "AYJpO+D/////AAAAGXc7/OWJPUHjsb8bm4n4RlSOubbboimzkhNccixNsn3gsfnHEwFz8G4B3aMZrzGPPJj2hFSFNzpALj17d8v7MGsFvWa+wDUmN+3nHCmGRvBYafkHI7fpSJujrkvCpKqCL70uTp/mnp60q/wkGmvMmaMB7zSnKZBMNJcYbQUC3jDOhmxXnQDh3Dn3kmpMkpWal2kjadG5uQflQyxxDqtLo7p9nnz0M0vpX0kir615EBJKhMihnBYl+6BTGYwfbehqYwrOXNJSofm70tPELhMHkSG25tclvcg0O0je/sEefhzXA+uxpAyprLxKg7JgFKjY6dFJ42VjE919C9qcyqD2yK2XJfDNUYnDvDShthtDNCR8"
     let vuforiaDataSetFile = "Emblem.xml"
     
-    var vuforiaManager: ARManager? = nil
-    var sceneSource: ARSceneSource? = nil
-    
+    private var vuforiaManager: ARManager? = nil
+    private var sceneSource: ARSceneSource? = nil
     private var lastSceneName: String? = nil
+    private var artType: ArtType? = nil
+    private var art: NSObject? = nil
     
     deinit {
         NSNotificationCenter.defaultCenter().removeObserver(self)
@@ -71,12 +72,21 @@ extension ARViewController {
     }
 }
 
-private extension ARViewController {
+extension ARViewController: ChangeArtTableViewControllerDelegate {
+    func receiveArt(art: NSObject!, artType: ArtType!) {
+        // Can create an observable pattern here  where this notifies
+        // sub views (such as AREAGLView) listening for a change in order to 
+        // change arts after the view has already been loaded.
+        self.art = art;
+        self.artType = artType;
+    }
     
+}
+
+private extension ARViewController {
     func prepare() {
-        
         vuforiaManager = ARManager(licenseKey: vuforiaLiceseKey, dataSetFile: vuforiaDataSetFile)
-        sceneSource = ARSceneSource()
+        sceneSource = ARSceneSource(art: self.art, artType: self.artType)
         if let manager = vuforiaManager {
             manager.delegate = self
             manager.eaglView.sceneSource = sceneSource

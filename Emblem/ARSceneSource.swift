@@ -6,7 +6,28 @@
 //  Copyright © 2016 Hadashco. All rights reserved.
 //
 
+
+enum ArtType {
+    case IMAGE
+    case MODEL
+}
+
 class ARSceneSource: NSObject, ARSceneSourceProtocol {
+    
+    private var art: NSObject? = nil
+    private var artType: ArtType? = nil
+    
+    init(art: NSObject?, artType: ArtType?) {
+        super.init()
+        
+        self.artType = artType
+        self.art = art
+        
+        if (self.artType == nil) {
+            self.artType = .IMAGE;
+            self.art = UIImage(named: "Emblem.jpg")
+        }
+    }
     
     func sceneForEAGLView(view: AREAGLView!, viewInfo: [String : AnyObject]?) -> SCNScene! {
         return create2DScene(with: view);
@@ -20,7 +41,7 @@ class ARSceneSource: NSObject, ARSceneSourceProtocol {
         planeNode.geometry = SCNPlane(width: 247.0/view.objectScale, height: 173.0/view.objectScale)
         planeNode.position = SCNVector3Make(0, 0, -1)
         let planeMaterial = SCNMaterial()
-        planeMaterial.diffuse.contents = "Noblesse.png"
+        planeMaterial.diffuse.contents = art as? UIImage
         planeMaterial.transparency = 0.95
         planeNode.geometry?.firstMaterial = planeMaterial
         scene.rootNode.addChildNode(planeNode)

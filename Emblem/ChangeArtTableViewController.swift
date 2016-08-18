@@ -10,7 +10,7 @@ import UIKit
 import SwiftyJSON
 
 protocol ChangeArtTableViewControllerDelegate {
-    func receiveArt(image: UIImage!);
+    func receiveArt(art: NSObject!, artType: ArtType!);
 }
 
 class ChangeArtTableViewController: UITableViewController {
@@ -105,7 +105,7 @@ class ChangeArtTableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if let delegate = self.delegate {
-            delegate.receiveArt(self.art[indexPath.row])
+            delegate.receiveArt(self.art[indexPath.row], artType: .IMAGE)
         }
         self.dismissViewControllerAnimated(true, completion: nil)
     }
