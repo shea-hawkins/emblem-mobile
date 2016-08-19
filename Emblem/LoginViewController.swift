@@ -28,7 +28,6 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         configureFacebook()
         if FBSDKAccessToken.currentAccessToken() != nil {
             self.performSegueWithIdentifier(MapViewController.getEntrySegueFromLogin(), sender:nil )
-            //self.performSegueWithIdentifier(SimpleViewController.getEntrySegueFromMapView(), sender:nil )
         }
         
     }
@@ -63,12 +62,6 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
                 })
                 
             }
-            
-            //Result Object Here
-            
-            //            let strFirstName: String = (result.objectForKey("first_name") as? String)!
-            //            let strLastName: String = (result.objectForKey("last_name") as? String)!
-            //            let strPictureURL: String = (result.objectForKey("picture")?.objectForKey("data")?.objectForKey("url") as? String)!
         }
         
     }

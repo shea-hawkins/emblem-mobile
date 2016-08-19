@@ -27,24 +27,41 @@ class HTTPRequest {
         
     }
     
-    class func post(params: Dictionary<String, String>, url: NSURL, postCompleted: (succeeded: Bool, msg: String) -> ()){
+    class func post(params: Dictionary<String, AnyObject>, dataType:String, url: NSURL, postCompleted: (succeeded: Bool, msg: String) -> ()){
         
         let request = NSMutableURLRequest(URL: url)
-        let session = NSURLSession.sharedSession()
         request.HTTPMethod = "POST"
+        request.addValue(dataType, forHTTPHeaderField: "Content-Type")
+        request.addValue(dataType, forHTTPHeaderField: "Accept")
+        request.addValue("close", forHTTPHeaderField: "Connection")
+        request.addValue("png", forHTTPHeaderField: "File-Type")
         
-        do {
-            
-            let json = try NSJSONSerialization.dataWithJSONObject(params, options: [])
-            
-            request.HTTPBody = json
-        } catch {
-            print("HTTPBody set error: \(error)")
+        let sessionConfig = NSURLSessionConfiguration.defaultSessionConfiguration()
+        sessionConfig.timeoutIntervalForRequest = 180.0
+        sessionConfig.timeoutIntervalForResource = 180.0
+        let session = NSURLSession(configuration: sessionConfig)
+        
+        if dataType == "application/json" {
+            do {
+                let json = try NSJSONSerialization.dataWithJSONObject(params, options: [])
+                request.HTTPBody = json
+            } catch {
+                print("HTTPBody set error: \(error)")
+            }
+        } else if dataType == "application/octet-stream" {
+            request.HTTPBody = params["image"] as? NSData
+            let imageLength = String(params["imageLength"] as! Int)
+            print("imagelenght: \(imageLength)")
+            request.addValue(imageLength, forHTTPHeaderField: "Content-Length")
         }
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
-        
+
+
         let task = session.dataTaskWithRequest(request) { (data, response, error) in
+            
+            if let error = error {
+                print(error)
+                return
+            }
             print("Response: \(response)")
             let strData = NSString(data: data!, encoding: NSUTF8StringEncoding)
             print("Body: \(strData)")
@@ -52,10 +69,8 @@ class HTTPRequest {
             do {
                 let json = try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.AllowFragments)
                 print("POST RESPONSE: \(json)")
-                let parseJSON = json
-                if let success = parseJSON["success"] as? Bool {
-                    postCompleted(succeeded: success, msg: "Post Successful")
-                    print("Success: \(success)")
+                if data != nil {
+                    postCompleted(succeeded: true, msg: "Post Successful")
                 }
             } catch{
                 print("JSON POST parse error: \(error)")

@@ -13,25 +13,76 @@ class ChangeArtTableViewController: UITableViewController {
     
     var artIDs = [UInt]()
     var art = [UIImage?]()
-    var isLoaded:[Bool]?
+    var regionId:Int = 0
+    var lat:String!
+    var long: String!
+    var locationManager = CLLocationManager()
+    
     var delegate:ChangeArtTableViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
+        locationManager.delegate = self
+        locationManager.startUpdatingLocation()
         //TODO: Save image data locally
-        getImageIds();
+        //getRegionId()
+        getImageIds()
         
         // Uncomment the following line to preserve selection between presentations
          self.clearsSelectionOnViewWillAppear = false
+        
+        if let backImage:UIImage = UIImage(named: "letter-x.png") {
+            let backButton: UIButton = UIButton(type: UIButtonType.Custom)
+            backButton.frame = CGRectMake(0, 0, 15, 15)
+            backButton.contentMode = UIViewContentMode.ScaleAspectFit
+            backButton.setImage(backImage, forState: UIControlState.Normal)
+            backButton.addTarget(self, action: Selector("backPressed"), forControlEvents: .TouchUpInside)
+//            backButton.imageEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 10)
+            let leftBarButtonItem: UIBarButtonItem = UIBarButtonItem(customView: backButton)
+            
+            self.navigationItem.setLeftBarButtonItem(leftBarButtonItem, animated: false)
+        }
+        
+        if let addImage:UIImage = UIImage(named: "plus-symbol.png") {
+            let addButton: UIButton = UIButton(type: UIButtonType.Custom)
+            addButton.frame = CGRectMake(0, 0, 20, 20)
+            addButton.contentMode = UIViewContentMode.ScaleAspectFit
+            addButton.setImage(addImage, forState: UIControlState.Normal)
+            addButton.addTarget(self, action: Selector("addArtPressed"), forControlEvents: .TouchUpInside)
+            //            addButton.imageEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 10)
+            let rightBarButtonItem: UIBarButtonItem = UIBarButtonItem(customView: addButton)
+            
+            self.navigationItem.setRightBarButtonItem(rightBarButtonItem, animated: false)
+        }
 
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-         self.navigationItem.rightBarButtonItem = self.editButtonItem()
+    }
+    
+    func imagePickerControllerDidCancel(picker: UIImagePickerController) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func backPressed() {
+        print("backpressed")
+        self.performSegueWithIdentifier(SimpleViewController.getUnwindSegueFromChangeArtView(), sender: nil)
+//        self.dismissViewControllerAnimated(false, completion: nil)
+        
+//         self.navigationController?.popViewControllerAnimated(true)
+    }
+    
+    func getRegionId() {
+        let url = NSURL(string: NSProcessInfo.processInfo().environment["DEV_SERVER"]! + "art?lat=\(self.lat)&long=\(self.long)")!
+        //get/ post request returns id
+        HTTPRequest.get(url) { (response, data) in
+            if response.statusCode == 200 {
+                let json = JSON(data: data)
+                print(json)
+                //self.region = json["region"] as! Int
+            }
+        }
     }
     
     func getImageIds(){
-        let url = NSURL(string: NSProcessInfo.processInfo().environment["DEV_SERVER"]! + "art")!
+        let url = NSURL(string: NSProcessInfo.processInfo().environment["DEV_SERVER"]! + "\(self.regionId)/art")!
         HTTPRequest.get(url) { (response, data) in
             if response.statusCode == 200 {
                 let json = JSON(data: data)
@@ -183,4 +234,43 @@ class ChangeArtTableViewController: UITableViewController {
     }
     */
 
+}
+extension ChangeArtTableViewController: CLLocationManagerDelegate {
+    
+    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        self.lat = String(locations.first?.coordinate.latitude)
+        self.long = String(locations.first?.coordinate.latitude)
+    }
+}
+
+extension ChangeArtTableViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func addArtPressed() {
+        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.PhotoLibrary) {
+            let imagePicker = UIImagePickerController()
+            imagePicker.delegate = self
+            imagePicker.sourceType = UIImagePickerControllerSourceType.PhotoLibrary;
+            imagePicker.allowsEditing = true
+            self.presentViewController(imagePicker, animated: true, completion: nil)
+        }
+    }
+    
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage!, editingInfo: [NSObject : AnyObject]!) {
+        
+        postImage(image)
+        self.dismissViewControllerAnimated(true, completion: nil);
+    }
+    
+    func postImage(image: UIImage) {
+        let imageData = UIImagePNGRepresentation(image)!
+        let url = NSURL(string: NSProcessInfo.processInfo().environment["DEV_SERVER"]! + "art")!
+        HTTPRequest.post(["image": imageData, "imageLength": imageData.length], dataType: "application/octet-stream", url: url) { (succeeded, msg) in
+            if succeeded {
+                print(msg)
+                self.artIDs = Array<UInt>()
+                self.getImageIds()
+            }
+            
+        }
+    }
 }
