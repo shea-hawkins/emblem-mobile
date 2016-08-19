@@ -36,8 +36,9 @@ class ChangeArtTableViewController: UITableViewController {
     
     func getImageIds(){
         let url = NSURL(string: NSProcessInfo.processInfo().environment["DEV_SERVER"]! + "art")!
+        NSLog(NSProcessInfo.processInfo().environment["DEV_SERVER"]! + "art")
         HTTPRequest.get(url) { (response, data) in
-            if response.statusCode == 200 {
+            if response.statusCode == 200 || response.statusCode == 304 {
                 let json = JSON(data: data)
                 print(json)
                 for (_, obj):(String, JSON) in json {

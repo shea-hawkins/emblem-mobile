@@ -16,6 +16,7 @@ class ARSceneSource: NSObject, ARSceneSourceProtocol {
     
     private var art: NSObject? = nil
     private var artType: ArtType? = nil
+    private var scene: SCNScene? = nil
     
     init(art: NSObject?, artType: ArtType?) {
         super.init()
@@ -29,13 +30,16 @@ class ARSceneSource: NSObject, ARSceneSourceProtocol {
         }
     }
     
+    func setArt(art: NSObject!) {
+        self.art = art;
+    }
+    
     func sceneForEAGLView(view: AREAGLView!, viewInfo: [String : AnyObject]?) -> SCNScene! {
         return create2DScene(with: view);
     }
     
     private func create2DScene(with view: AREAGLView) -> SCNScene {
         let scene = SCNScene()
-        
         let planeNode = SCNNode()
         planeNode.name = "plane"
         planeNode.geometry = SCNPlane(width: 247.0/view.objectScale, height: 173.0/view.objectScale)

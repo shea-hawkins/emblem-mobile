@@ -32,6 +32,8 @@
 - (void)setupRenderer;
 - (void)finishOpenGLESCommands;
 - (void)freeOpenGLESResources;
+- (void)changeScene:(SCNScene*)scene;
+
 
 - (void)setOffTargetTrackingMode:(BOOL) enabled;
 @end

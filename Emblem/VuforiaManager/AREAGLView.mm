@@ -167,7 +167,12 @@ namespace VuforiaEAGLViewUtils
     [self setActive2DScene:scene2D withRenderer:_renderer];
 }
 
+-(void)changeScene: (SCNScene*)scene {
+    [self setActive3DScene:scene withRenderer: _renderer];
+}
+
 -(void)setActive3DScene: (SCNScene*)scene withRenderer: (SCNRenderer*)renderer {
+    NSLog(@"scenechange");
     SCNCamera* camera = [SCNCamera camera];
     _cameraNode = [SCNNode node];
     _cameraNode.camera = camera;

@@ -17,6 +17,7 @@ class ARViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        NSLog("DidLoad")
         
         let notificationCenter = NSNotificationCenter.defaultCenter()
         notificationCenter.addObserver(self, selector: #selector(didRecieveWillResignActiveNotification),
@@ -34,32 +35,34 @@ class ARViewController: UIViewController {
     }
     
     func swipeLeft(recognizer : UISwipeGestureRecognizer) {
-        NSLog("test");
         performSegueWithIdentifier(ChangeArtTableViewController.getEntrySegueFromARViewController(), sender: self)
         
     }
 
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if (segue.identifier == ChangeArtTableViewController.getEntrySegueFromARViewController()) {
+            let dest = segue.destinationViewController as! ChangeArtTableViewController
+            dest.delegate = sender as? ChangeArtTableViewControllerDelegate;
+        }
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        resume()
     }
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
-        
-        do {
-            try vuforiaManager?.stop()
-        }catch let error {
-            print("\(error)")
-        }
+        pause()
     }
     
     class func getEntrySegueFromMapView() -> NSString {
         return "MapToSimpleViewControllerSegue";
     }
+    
 }
 
 extension ARViewController {
@@ -79,6 +82,12 @@ extension ARViewController: ChangeArtTableViewControllerDelegate {
         // change arts after the view has already been loaded.
         self.art = art;
         self.artType = artType;
+        if (self.sceneSource != nil) {
+            self.sceneSource!.setArt(art);
+            let eaglView = self.vuforiaManager?.eaglView;
+            let scene = self.sceneSource!.sceneForEAGLView(eaglView, viewInfo: nil);
+            eaglView!.changeScene(scene);
+        }
     }
     
 }
@@ -86,7 +95,7 @@ extension ARViewController: ChangeArtTableViewControllerDelegate {
 private extension ARViewController {
     func prepare() {
         vuforiaManager = ARManager(licenseKey: vuforiaLiceseKey, dataSetFile: vuforiaDataSetFile)
-        sceneSource = ARSceneSource(art: self.art, artType: self.artType)
+        self.sceneSource = ARSceneSource(art: self.art, artType: self.artType)
         if let manager = vuforiaManager {
             manager.delegate = self
             manager.eaglView.sceneSource = sceneSource
