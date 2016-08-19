@@ -1,16 +1,18 @@
 //
-//  LeftToRightSegue.swift
+//  RightToLeftSegue.swift
 //  Emblem
 //
-//  Created by Dane Jordan on 8/17/16.
+//  Created by Dane Jordan on 8/18/16.
 //  Copyright © 2016 Hadashco. All rights reserved.
+//
+
 //
 
 import Foundation
 import UIKit
 import QuartzCore
 
-class SegueFromRight: UIStoryboardSegue {
+class UnwindSegueFromRight: UIStoryboardSegue {
     
     override func perform() {
         let src: UIViewController = self.sourceViewController
@@ -22,7 +24,8 @@ class SegueFromRight: UIStoryboardSegue {
         transition.type = kCATransitionPush
         transition.subtype = kCATransitionFromRight
         src.navigationController!.view.layer.addAnimation(transition, forKey: kCATransition)
-        src.navigationController!.pushViewController(dst, animated: false)
+//        src.navigationController!.pushViewController(dst, animated: false)
+        src.navigationController?.popViewControllerAnimated(true)
         
     }
     //If not in a navigation controller

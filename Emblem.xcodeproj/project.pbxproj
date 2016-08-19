@@ -14,10 +14,7 @@
 		3569BC391D65161E0036F190 /* Neuton-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3569BC331D65161E0036F190 /* Neuton-Italic.ttf */; };
 		3569BC3A1D65161E0036F190 /* Neuton-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3569BC341D65161E0036F190 /* Neuton-Light.ttf */; };
 		3569BC3B1D65161E0036F190 /* Neuton-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3569BC351D65161E0036F190 /* Neuton-Regular.ttf */; };
-		3569BC411D6567080036F190 /* ScrollViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3569BC401D6567080036F190 /* ScrollViewController.swift */; };
-		3569BC471D65804B0036F190 /* LeftToRightSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3569BC461D65804B0036F190 /* LeftToRightSegue.swift */; };
 		3569BC491D6630990036F190 /* LibraryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3569BC481D6630990036F190 /* LibraryTableViewController.swift */; };
-		3569BC4B1D6689160036F190 /* RightToLeftSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3569BC4A1D6689160036F190 /* RightToLeftSegue.swift */; };
 		35A87DE31D52B997004E739E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35A87DE21D52B997004E739E /* AppDelegate.swift */; };
 		35A87DE81D52B997004E739E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 35A87DE61D52B997004E739E /* Main.storyboard */; };
 		35A87DEA1D52B998004E739E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 35A87DE91D52B998004E739E /* Assets.xcassets */; };
@@ -27,6 +24,10 @@
 		35A87E111D52BA28004E739E /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35A87E101D52BA28004E739E /* LoginViewController.swift */; };
 		35BD88A21D59536300A409D6 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35BD88A11D59536300A409D6 /* User.swift */; };
 		35BD88A61D597F3500A409D6 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35BD88A51D597F3500A409D6 /* MapViewController.swift */; };
+		35DB9D421D66A8E100E8AAF0 /* UnwindFromRightSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35DB9D411D66A8E100E8AAF0 /* UnwindFromRightSegue.swift */; };
+		35DB9D441D66A9A400E8AAF0 /* LeftToRightSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35DB9D431D66A9A400E8AAF0 /* LeftToRightSegue.swift */; };
+		35DB9D461D66B4A900E8AAF0 /* RightToLeftSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35DB9D451D66B4A900E8AAF0 /* RightToLeftSegue.swift */; };
+		35DB9D491D66B52D00E8AAF0 /* UnwindLeftSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35DB9D481D66B52D00E8AAF0 /* UnwindLeftSegue.swift */; };
 		35E22B951D5EBD68004C6201 /* ChangeArtTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35E22B941D5EBD68004C6201 /* ChangeArtTableViewController.swift */; };
 		35E22B9A1D5ECA85004C6201 /* ArtTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35E22B991D5ECA85004C6201 /* ArtTableViewCell.swift */; };
 		55CB9937DFC26F85914C1C66 /* Pods_EmblemTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93A26ACF62EF8EADDFE28128 /* Pods_EmblemTests.framework */; };
@@ -63,10 +64,7 @@
 		3569BC331D65161E0036F190 /* Neuton-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Neuton-Italic.ttf"; sourceTree = "<group>"; };
 		3569BC341D65161E0036F190 /* Neuton-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Neuton-Light.ttf"; sourceTree = "<group>"; };
 		3569BC351D65161E0036F190 /* Neuton-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Neuton-Regular.ttf"; sourceTree = "<group>"; };
-		3569BC401D6567080036F190 /* ScrollViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScrollViewController.swift; sourceTree = "<group>"; };
-		3569BC461D65804B0036F190 /* LeftToRightSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeftToRightSegue.swift; sourceTree = "<group>"; };
 		3569BC481D6630990036F190 /* LibraryTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibraryTableViewController.swift; sourceTree = "<group>"; };
-		3569BC4A1D6689160036F190 /* RightToLeftSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RightToLeftSegue.swift; sourceTree = "<group>"; };
 		35A87DDF1D52B997004E739E /* Emblem.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Emblem.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		35A87DE21D52B997004E739E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		35A87DE71D52B997004E739E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -82,6 +80,10 @@
 		35A87E101D52BA28004E739E /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		35BD88A11D59536300A409D6 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		35BD88A51D597F3500A409D6 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		35DB9D411D66A8E100E8AAF0 /* UnwindFromRightSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnwindFromRightSegue.swift; sourceTree = "<group>"; };
+		35DB9D431D66A9A400E8AAF0 /* LeftToRightSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeftToRightSegue.swift; sourceTree = "<group>"; };
+		35DB9D451D66B4A900E8AAF0 /* RightToLeftSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RightToLeftSegue.swift; sourceTree = "<group>"; };
+		35DB9D481D66B52D00E8AAF0 /* UnwindLeftSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnwindLeftSegue.swift; sourceTree = "<group>"; };
 		35E22B941D5EBD68004C6201 /* ChangeArtTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangeArtTableViewController.swift; sourceTree = "<group>"; };
 		35E22B991D5ECA85004C6201 /* ArtTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArtTableViewCell.swift; sourceTree = "<group>"; };
 		35FA710C1D542EFF00F54CBC /* Emblem-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Emblem-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -174,6 +176,7 @@
 				35FA710C1D542EFF00F54CBC /* Emblem-Bridging-Header.h */,
 				35A87DE21D52B997004E739E /* AppDelegate.swift */,
 				35A87DE61D52B997004E739E /* Main.storyboard */,
+				35DB9D471D66B4ED00E8AAF0 /* Segue */,
 				35BD88A71D597F4000A409D6 /* Controllers */,
 				35E22B981D5ECA66004C6201 /* Views */,
 				35BD889E1D5952FE00A409D6 /* Models */,
@@ -216,15 +219,23 @@
 			children = (
 				35A87E101D52BA28004E739E /* LoginViewController.swift */,
 				35BD88A51D597F3500A409D6 /* MapViewController.swift */,
-				3569BC461D65804B0036F190 /* LeftToRightSegue.swift */,
-				3569BC4A1D6689160036F190 /* RightToLeftSegue.swift */,
 				718E64141D5E97B30023B860 /* SimpleViewController.h */,
 				718E64151D5E97B30023B860 /* SimpleViewController.m */,
-				3569BC401D6567080036F190 /* ScrollViewController.swift */,
 				35E22B941D5EBD68004C6201 /* ChangeArtTableViewController.swift */,
 				3569BC481D6630990036F190 /* LibraryTableViewController.swift */,
 			);
 			name = Controllers;
+			sourceTree = "<group>";
+		};
+		35DB9D471D66B4ED00E8AAF0 /* Segue */ = {
+			isa = PBXGroup;
+			children = (
+				35DB9D431D66A9A400E8AAF0 /* LeftToRightSegue.swift */,
+				35DB9D451D66B4A900E8AAF0 /* RightToLeftSegue.swift */,
+				35DB9D411D66A8E100E8AAF0 /* UnwindFromRightSegue.swift */,
+				35DB9D481D66B52D00E8AAF0 /* UnwindLeftSegue.swift */,
+			);
+			name = Segue;
 			sourceTree = "<group>";
 		};
 		35E22B981D5ECA66004C6201 /* Views */ = {
@@ -335,7 +346,7 @@
 				TargetAttributes = {
 					35A87DDE1D52B997004E739E = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = L4XGR2Z635;
+						DevelopmentTeam = UA7GA5Q8Y4;
 					};
 					35A87DF21D52B998004E739E = {
 						CreatedOnToolsVersion = 7.3.1;
@@ -532,16 +543,17 @@
 			files = (
 				718E64161D5E97B30023B860 /* SimpleViewController.m in Sources */,
 				35E22B951D5EBD68004C6201 /* ChangeArtTableViewController.swift in Sources */,
-				3569BC471D65804B0036F190 /* LeftToRightSegue.swift in Sources */,
+				35DB9D491D66B52D00E8AAF0 /* UnwindLeftSegue.swift in Sources */,
+				35DB9D441D66A9A400E8AAF0 /* LeftToRightSegue.swift in Sources */,
 				35BD88A21D59536300A409D6 /* User.swift in Sources */,
 				35E22B9A1D5ECA85004C6201 /* ArtTableViewCell.swift in Sources */,
 				3569BC491D6630990036F190 /* LibraryTableViewController.swift in Sources */,
-				3569BC4B1D6689160036F190 /* RightToLeftSegue.swift in Sources */,
-				3569BC411D6567080036F190 /* ScrollViewController.swift in Sources */,
+				35DB9D461D66B4A900E8AAF0 /* RightToLeftSegue.swift in Sources */,
 				35A87E111D52BA28004E739E /* LoginViewController.swift in Sources */,
 				351F47EC1D5B9FAD0093578B /* HTTPRequest.swift in Sources */,
 				35A87DE31D52B997004E739E /* AppDelegate.swift in Sources */,
 				35BD88A61D597F3500A409D6 /* MapViewController.swift in Sources */,
+				35DB9D421D66A8E100E8AAF0 /* UnwindFromRightSegue.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

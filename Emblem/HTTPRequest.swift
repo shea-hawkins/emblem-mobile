@@ -14,14 +14,18 @@ class HTTPRequest {
         
         let task = NSURLSession.sharedSession().dataTaskWithURL(url) {(data, response, error) in
             
-            let httpresponse = response as! NSHTTPURLResponse
-
-            if error != nil {
-                print("Get Request Error: \(error!)")
+            
+            if let httpresponse = response as? NSHTTPURLResponse {
+                if error != nil {
+                    print("Get Request Error: \(error!)")
+                } else {
+                    print("Server Response: \(httpresponse))")
+                    getCompleted(response: httpresponse, data: data!)
+                }
             } else {
-                print("Server Response: \(httpresponse))")
-                getCompleted(response: httpresponse, data: data!)
+                print("No Internet Connection")
             }
+
         }
         task.resume()
         

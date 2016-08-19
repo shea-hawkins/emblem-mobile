@@ -24,6 +24,10 @@ class ChangeArtTableViewController: UITableViewController {
         super.viewDidLoad()
         locationManager.delegate = self
         locationManager.startUpdatingLocation()
+        let gesture = UISwipeGestureRecognizer(target: self, action: "backPressed")
+        gesture.direction = .Right
+        self.tableView.addGestureRecognizer(gesture)
+        
         //TODO: Save image data locally
         //getRegionId()
         getImageIds()
