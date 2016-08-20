@@ -56,6 +56,7 @@ class ARSceneSource: NSObject, ARSceneSourceProtocol {
     private func create3DScene(with view: AREAGLView) -> SCNScene {
         let scene = SCNScene()
         
+        
         let boxMaterial = SCNMaterial()
         
         boxMaterial.diffuse.contents = UIColor.lightGrayColor()

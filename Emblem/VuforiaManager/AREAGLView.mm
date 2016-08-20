@@ -72,7 +72,6 @@ namespace VuforiaEAGLViewUtils
 
 @interface AREAGLView (PrivateMethods)
 
-- (void)initShaders;
 - (void)createFramebuffer;
 - (void)deleteFramebuffer;
 - (void)setFramebuffer;
@@ -100,7 +99,6 @@ namespace VuforiaEAGLViewUtils
     SCNNode* _cameraNode; // Camera Node
     CFAbsoluteTime _startTime; // Start Time
     
-    SCNNode* _currentTouchNode;
     
     SCNMatrix4 _projectionTransform;
 }
@@ -162,10 +160,8 @@ namespace VuforiaEAGLViewUtils
     _renderer.overlaySKScene = self.menuScene;
     
     SCNScene* scene3D = [self get3DScene:nil];
-    SKScene* scene2D = [self get2DScene:nil];
     
     [self setActive3DScene:scene3D withRenderer:_renderer];
-    [self setActive2DScene:scene2D withRenderer:_renderer];
 }
 
 -(void)changeScene: (SCNScene*)scene {
@@ -189,10 +185,6 @@ namespace VuforiaEAGLViewUtils
 
 - (SCNScene*)get3DScene: (NSDictionary*)viewInfo {
     return [self.sceneSource sceneForEAGLView:self viewInfo:viewInfo];
-}
-
-- (SKScene*)get2DScene: (NSDictionary*)viewInfo {
-    return [self.spriteSource sceneForEAGLView:self viewInfo:viewInfo];
 }
 
 
