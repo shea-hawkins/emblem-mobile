@@ -13,7 +13,7 @@ import SocketIOClientSwift
 class MapViewController: UIViewController {
     
     
-    var serverUrl:NSURL?
+    var serverUrl:NSURL!
     var user:User?
     let locationManager = CLLocationManager()
     let env = NSProcessInfo.processInfo().environment
@@ -29,13 +29,7 @@ class MapViewController: UIViewController {
         if let location = mapView.myLocation {
             lat = String(location.coordinate.latitude)
             long = String(location.coordinate.longitude)
-//            HTTPRequest.post(["lat": x, "long": y], url: serverUrl!, postCompleted: { (succeeded, msg) in
-//                print("Post Complete \(msg)")
-//            })
-            
-            //TODO: Replace with websockets
-            getMarkers(serverUrl!)
-            
+
         }
         let markerData = ["lat": lat, "long": long]
         self.performSegueWithIdentifier(SimpleViewController.getEntrySegueFromMapView(), sender: markerData)

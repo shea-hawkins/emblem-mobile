@@ -11,12 +11,13 @@ import SwiftyJSON
 
 class ChangeArtTableViewController: UITableViewController {
     
-    var artIDs = [UInt]()
+    var artData = [Dictionary<String,AnyObject>]()
     var art = [UIImage?]()
-    var regionId:Int = 0
-    var lat:String!
-    var long: String!
+    var sectorId:Int = 0
+    var lat:Double = 0
+    var long: Double = 0
     var locationManager = CLLocationManager()
+    let MILEINDEGREES = 0.0144
     
     var delegate:ChangeArtTableViewControllerDelegate?
     
@@ -29,8 +30,8 @@ class ChangeArtTableViewController: UITableViewController {
         self.tableView.addGestureRecognizer(gesture)
         
         //TODO: Save image data locally
-        //getRegionId()
-        getImageIds()
+        getSectorId()
+//        getImageIds()
         
         // Uncomment the following line to preserve selection between presentations
          self.clearsSelectionOnViewWillAppear = false
@@ -41,23 +42,11 @@ class ChangeArtTableViewController: UITableViewController {
             backButton.contentMode = UIViewContentMode.ScaleAspectFit
             backButton.setImage(backImage, forState: UIControlState.Normal)
             backButton.addTarget(self, action: Selector("backPressed"), forControlEvents: .TouchUpInside)
-//            backButton.imageEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 10)
             let leftBarButtonItem: UIBarButtonItem = UIBarButtonItem(customView: backButton)
             
             self.navigationItem.setLeftBarButtonItem(leftBarButtonItem, animated: false)
         }
-        
-        if let addImage:UIImage = UIImage(named: "plus-symbol.png") {
-            let addButton: UIButton = UIButton(type: UIButtonType.Custom)
-            addButton.frame = CGRectMake(0, 0, 20, 20)
-            addButton.contentMode = UIViewContentMode.ScaleAspectFit
-            addButton.setImage(addImage, forState: UIControlState.Normal)
-            addButton.addTarget(self, action: Selector("addArtPressed"), forControlEvents: .TouchUpInside)
-            //            addButton.imageEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 10)
-            let rightBarButtonItem: UIBarButtonItem = UIBarButtonItem(customView: addButton)
-            
-            self.navigationItem.setRightBarButtonItem(rightBarButtonItem, animated: false)
-        }
+    
 
     }
     
@@ -68,33 +57,42 @@ class ChangeArtTableViewController: UITableViewController {
     func backPressed() {
         print("backpressed")
         self.performSegueWithIdentifier(SimpleViewController.getUnwindSegueFromChangeArtView(), sender: nil)
-//        self.dismissViewControllerAnimated(false, completion: nil)
-        
-//         self.navigationController?.popViewControllerAnimated(true)
     }
     
-    func getRegionId() {
-        let url = NSURL(string: NSProcessInfo.processInfo().environment["DEV_SERVER"]! + "art?lat=\(self.lat)&long=\(self.long)")!
-        //get/ post request returns id
-        HTTPRequest.get(url) { (response, data) in
-            if response.statusCode == 200 {
-                let json = JSON(data: data)
-                print(json)
-                //self.region = json["region"] as! Int
-            }
-        }
+    func getSectorId() {
+        
+//        let url = NSURL(string: NSProcessInfo.processInfo().environment["DEV_SERVER"]! + "place/    find/\(self.lat)/\(self.long)")!
+//        HTTPRequest.get(url) { (response, data) in
+//            if response.statusCode == 200 {
+//                let json = JSON(data: data)
+//                print(json)
+//                //self.region = json["region"] as! Int
+//            }
+//        }
+        
+        //TODO: Remove after testing
+        self.sectorId = 1
     }
     
     func getImageIds(){
-        let url = NSURL(string: NSProcessInfo.processInfo().environment["DEV_SERVER"]! + "\(self.regionId)/art")!
+        let url = NSURL(string: NSProcessInfo.processInfo().environment["DEV_SERVER"]! + "\(self.sectorId)/art")!
         HTTPRequest.get(url) { (response, data) in
             if response.statusCode == 200 {
                 let json = JSON(data: data)
                 print(json)
                 for (_, obj):(String, JSON) in json {
-                    self.artIDs.append(obj["id"].uIntValue)
-                    print("IDS: \(self.artIDs.count)")
-                    self.art = Array(count: self.artIDs.count, repeatedValue: nil)
+                    self.artData.append(obj.dictionaryObject!)
+                    self.artData.sortInPlace {
+                        item1, item2 in
+                        let upvotes1 = item1["upvotes"] as! Int
+                        let downvotes1 = item1["downvotes"] as! Int
+                        let upvotes2 = item2["upvotes"] as! Int
+                        let downvotes2 = item2["downvotes"] as! Int
+                        
+                        return (upvotes1 - downvotes1) > (upvotes2 - downvotes2)
+                    }
+                    print("Num IDS: \(self.artData.count)")
+                    self.art = Array(count: self.artData.count, repeatedValue: nil)
                     self.tableView.reloadData()
                 }
             }
@@ -124,7 +122,6 @@ class ChangeArtTableViewController: UITableViewController {
             
             loadingLabel.text = "Loading Photos..."
             loadingLabel.textColor = textColor
-            //loadingLabel.backgroundColor = UIColor.blackColor()
             loadingLabel.numberOfLines = 0
             loadingLabel.textAlignment = .Center
             loadingLabel.font = UIFont(name: "Neuton", size: 17)
@@ -147,7 +144,7 @@ class ChangeArtTableViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.artIDs.count
+        return self.artData.count
     }
     
     class func getEntrySegueFromARViewController() -> String {
@@ -242,39 +239,14 @@ class ChangeArtTableViewController: UITableViewController {
 extension ChangeArtTableViewController: CLLocationManagerDelegate {
     
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        self.lat = String(locations.first?.coordinate.latitude)
-        self.long = String(locations.first?.coordinate.latitude)
-    }
-}
+        let newLat = Double(locations.first!.coordinate.latitude)
+        let newLong = Double(locations.first!.coordinate.longitude)
 
-extension ChangeArtTableViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    
-    func addArtPressed() {
-        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.PhotoLibrary) {
-            let imagePicker = UIImagePickerController()
-            imagePicker.delegate = self
-            imagePicker.sourceType = UIImagePickerControllerSourceType.PhotoLibrary;
-            imagePicker.allowsEditing = true
-            self.presentViewController(imagePicker, animated: true, completion: nil)
-        }
-    }
-    
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage!, editingInfo: [NSObject : AnyObject]!) {
-        
-        postImage(image)
-        self.dismissViewControllerAnimated(true, completion: nil);
-    }
-    
-    func postImage(image: UIImage) {
-        let imageData = UIImagePNGRepresentation(image)!
-        let url = NSURL(string: NSProcessInfo.processInfo().environment["DEV_SERVER"]! + "art")!
-        HTTPRequest.post(["image": imageData, "imageLength": imageData.length], dataType: "application/octet-stream", url: url) { (succeeded, msg) in
-            if succeeded {
-                print(msg)
-                self.artIDs = Array<UInt>()
-                self.getImageIds()
-            }
-            
+        if pow((pow((newLat - self.lat), 2) + pow((newLong - self.long), 2)), 0.5) > MILEINDEGREES {
+            self.lat = newLat
+            self.long = newLong
+            print("updating sector...")
+            getSectorId()
         }
     }
 }

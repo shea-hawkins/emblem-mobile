@@ -7,19 +7,34 @@
 //
 
 import Foundation
+import FBSDKCoreKit
 
 class HTTPRequest {
 
+    
     class func get(url:NSURL, getCompleted: (response: NSHTTPURLResponse, data: NSData) -> ()) {
+        var url = url
         
-        let task = NSURLSession.sharedSession().dataTaskWithURL(url) {(data, response, error) in
-            
+        //TODO: enable without internet access
+        if (EnvironmentVars.accessToken != "") {
+            if let newUrl = NSURL(string: url.absoluteString + "?access_token=\(EnvironmentVars.accessToken)") {
+                url = newUrl
+            }
+        } else {
+            print("No access token")
+        }
+        
+        //TODO: Replace with NSURLRequest
+        let session = NSURLSession.sharedSession()
+
+        let task = session.dataTaskWithURL(url) {(data, response, error) in
             
             if let httpresponse = response as? NSHTTPURLResponse {
                 if error != nil {
-                    print("Get Request Error: \(error!)")
+                    print("GET Request Error: \(error!)")
                 } else {
-                    print("Server Response: \(httpresponse))")
+                    print("GET Server Response: \(httpresponse.statusCode)")
+                    print("GET Server URL: \(httpresponse.URL!.absoluteString)")
                     getCompleted(response: httpresponse, data: data!)
                 }
             } else {
@@ -32,13 +47,20 @@ class HTTPRequest {
     }
     
     class func post(params: Dictionary<String, AnyObject>, dataType:String, url: NSURL, postCompleted: (succeeded: Bool, msg: String) -> ()){
+        var url = url
+        if (EnvironmentVars.accessToken != "") {
+            if let newUrl = NSURL(string: url.absoluteString + "?access_token=\(EnvironmentVars.accessToken)") {
+                url = newUrl
+            }
+        } else {
+            print("No access token")
+        }
         
         let request = NSMutableURLRequest(URL: url)
         request.HTTPMethod = "POST"
         request.addValue(dataType, forHTTPHeaderField: "Content-Type")
         request.addValue(dataType, forHTTPHeaderField: "Accept")
         request.addValue("close", forHTTPHeaderField: "Connection")
-        request.addValue("png", forHTTPHeaderField: "File-Type")
         
         let sessionConfig = NSURLSessionConfiguration.defaultSessionConfiguration()
         sessionConfig.timeoutIntervalForRequest = 180.0
@@ -54,8 +76,8 @@ class HTTPRequest {
             }
         } else if dataType == "application/octet-stream" {
             request.HTTPBody = params["image"] as? NSData
+            request.addValue("png", forHTTPHeaderField: "File-Type")
             let imageLength = String(params["imageLength"] as! Int)
-            print("imagelenght: \(imageLength)")
             request.addValue(imageLength, forHTTPHeaderField: "Content-Length")
         }
 
@@ -66,9 +88,9 @@ class HTTPRequest {
                 print(error)
                 return
             }
-            print("Response: \(response)")
-            let strData = NSString(data: data!, encoding: NSUTF8StringEncoding)
-            print("Body: \(strData)")
+            print("POST URL: \(response?.URL) \r\n POST RESPONSE HEADERS: \((response as! NSHTTPURLResponse).statusCode)")
+            let resString = NSString(data: data!, encoding: NSUTF8StringEncoding)
+            print("Post Response Body: \(resString)")
             
             do {
                 let json = try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.AllowFragments)

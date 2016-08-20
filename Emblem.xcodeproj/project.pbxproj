@@ -28,6 +28,7 @@
 		35DB9D441D66A9A400E8AAF0 /* LeftToRightSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35DB9D431D66A9A400E8AAF0 /* LeftToRightSegue.swift */; };
 		35DB9D461D66B4A900E8AAF0 /* RightToLeftSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35DB9D451D66B4A900E8AAF0 /* RightToLeftSegue.swift */; };
 		35DB9D491D66B52D00E8AAF0 /* UnwindLeftSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35DB9D481D66B52D00E8AAF0 /* UnwindLeftSegue.swift */; };
+		35DB9D4B1D67CE3900E8AAF0 /* EnvironmentVars.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35DB9D4A1D67CE3900E8AAF0 /* EnvironmentVars.swift */; };
 		35E22B951D5EBD68004C6201 /* ChangeArtTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35E22B941D5EBD68004C6201 /* ChangeArtTableViewController.swift */; };
 		35E22B9A1D5ECA85004C6201 /* ArtTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35E22B991D5ECA85004C6201 /* ArtTableViewCell.swift */; };
 		55CB9937DFC26F85914C1C66 /* Pods_EmblemTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93A26ACF62EF8EADDFE28128 /* Pods_EmblemTests.framework */; };
@@ -84,6 +85,7 @@
 		35DB9D431D66A9A400E8AAF0 /* LeftToRightSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeftToRightSegue.swift; sourceTree = "<group>"; };
 		35DB9D451D66B4A900E8AAF0 /* RightToLeftSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RightToLeftSegue.swift; sourceTree = "<group>"; };
 		35DB9D481D66B52D00E8AAF0 /* UnwindLeftSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnwindLeftSegue.swift; sourceTree = "<group>"; };
+		35DB9D4A1D67CE3900E8AAF0 /* EnvironmentVars.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnvironmentVars.swift; sourceTree = "<group>"; };
 		35E22B941D5EBD68004C6201 /* ChangeArtTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangeArtTableViewController.swift; sourceTree = "<group>"; };
 		35E22B991D5ECA85004C6201 /* ArtTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArtTableViewCell.swift; sourceTree = "<group>"; };
 		35FA710C1D542EFF00F54CBC /* Emblem-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Emblem-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -173,6 +175,7 @@
 				718E64171D5E98100023B860 /* components */,
 				718E64121D5E971E0023B860 /* lib */,
 				351F47EB1D5B9FAD0093578B /* HTTPRequest.swift */,
+				35DB9D4A1D67CE3900E8AAF0 /* EnvironmentVars.swift */,
 				35FA710C1D542EFF00F54CBC /* Emblem-Bridging-Header.h */,
 				35A87DE21D52B997004E739E /* AppDelegate.swift */,
 				35A87DE61D52B997004E739E /* Main.storyboard */,
@@ -542,6 +545,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				718E64161D5E97B30023B860 /* SimpleViewController.m in Sources */,
+				35DB9D4B1D67CE3900E8AAF0 /* EnvironmentVars.swift in Sources */,
 				35E22B951D5EBD68004C6201 /* ChangeArtTableViewController.swift in Sources */,
 				35DB9D491D66B52D00E8AAF0 /* UnwindLeftSegue.swift in Sources */,
 				35DB9D441D66A9A400E8AAF0 /* LeftToRightSegue.swift in Sources */,

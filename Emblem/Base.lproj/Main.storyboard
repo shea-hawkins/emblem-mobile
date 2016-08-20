@@ -157,7 +157,7 @@
             </objects>
             <point key="canvasLocation" x="3506" y="1214"/>
         </scene>
-        <!--Library Table View Controller-->
+        <!--My Library-->
         <scene sceneID="lZR-9c-JsB">
             <objects>
                 <tableViewController id="yUG-Ga-vnV" customClass="LibraryTableViewController" customModule="Emblem" customModuleProvider="target" sceneMemberID="viewController">
@@ -166,15 +166,29 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="90" id="lkA-Wf-8cf">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ArtTableViewCell" rowHeight="90" id="lkA-Wf-8cf" customClass="ArtTableViewCell" customModule="Emblem" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="92" width="600" height="90"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="lkA-Wf-8cf" id="Sci-Cx-1cm">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="89"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="pwT-rr-1zn">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="89"/>
+                                        </imageView>
+                                    </subviews>
                                     <gestureRecognizers/>
+                                    <constraints>
+                                        <constraint firstItem="pwT-rr-1zn" firstAttribute="top" secondItem="Sci-Cx-1cm" secondAttribute="top" id="0Ud-Mm-CKq"/>
+                                        <constraint firstItem="pwT-rr-1zn" firstAttribute="leading" secondItem="Sci-Cx-1cm" secondAttribute="leading" id="DJw-X5-dU6"/>
+                                        <constraint firstAttribute="bottom" secondItem="pwT-rr-1zn" secondAttribute="bottom" id="GTO-dx-teN"/>
+                                        <constraint firstAttribute="trailing" secondItem="pwT-rr-1zn" secondAttribute="trailing" id="ZiP-Rl-3tm"/>
+                                    </constraints>
                                 </tableViewCellContentView>
                                 <gestureRecognizers/>
+                                <connections>
+                                    <outlet property="thumbImageView" destination="pwT-rr-1zn" id="Fbe-1I-nUs"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -182,7 +196,7 @@
                             <outlet property="delegate" destination="yUG-Ga-vnV" id="A6S-1r-p7p"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="IOy-kD-rND"/>
+                    <navigationItem key="navigationItem" title="My Library" id="IOy-kD-rND"/>
                     <connections>
                         <segue destination="f8k-pw-kw9" kind="unwind" identifier="UnwindToARVCSegue" customClass="UnwindFromRightSegue" customModule="Emblem" customModuleProvider="target" unwindAction="unwindFromLibaryToARVC:" id="PCf-cB-qOk"/>
                     </connections>
@@ -232,9 +246,9 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="u4F-NI-Rqb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3825" y="371"/>
+            <point key="canvasLocation" x="3792" y="303"/>
         </scene>
-        <!--Change Art Table View Controller-->
+        <!--Posted Images-->
         <scene sceneID="d4y-Uc-vMq">
             <objects>
                 <tableViewController storyboardIdentifier="changeArtVC" id="1XH-7d-Zum" customClass="ChangeArtTableViewController" customModule="Emblem" customModuleProvider="target" sceneMemberID="viewController">
@@ -256,14 +270,14 @@
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9je-QK-eFw">
                                             <rect key="frame" x="8" y="15" width="60" height="60"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="+ 21" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0og-Ts-emT">
-                                                    <rect key="frame" x="8" y="8" width="33" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="+ 21" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0og-Ts-emT">
+                                                    <rect key="frame" x="14" y="8" width="33" height="21"/>
                                                     <fontDescription key="fontDescription" name="Neuton-Regular" family="Neuton" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="- 5" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eI0-Gu-XVT">
-                                                    <rect key="frame" x="8" y="31" width="23" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="- 5" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eI0-Gu-XVT">
+                                                    <rect key="frame" x="14" y="31" width="33" height="21"/>
                                                     <fontDescription key="fontDescription" name="Neuton-Regular" family="Neuton" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -308,7 +322,7 @@
                             <outlet property="delegate" destination="1XH-7d-Zum" id="HmZ-h8-KzD"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="DPs-pA-dj1"/>
+                    <navigationItem key="navigationItem" title="Posted Images" id="DPs-pA-dj1"/>
                     <connections>
                         <segue destination="dwy-Lx-i5T" kind="unwind" identifier="UnwindFromChangeArtToARVCSegue" customClass="UnwindFromLeftSegue" customModule="Emblem" customModuleProvider="target" unwindAction="unwindFromChangeArtToARVC:" id="PGk-5S-A5H"/>
                     </connections>
