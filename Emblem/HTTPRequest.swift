@@ -13,16 +13,16 @@ class HTTPRequest {
     class func get(url:NSURL, getCompleted: (response: NSHTTPURLResponse, data: NSData) -> ()) {
         
         let task = NSURLSession.sharedSession().dataTaskWithURL(url) {(data, response, error) in
-            
-            let httpresponse = response as! NSHTTPURLResponse
+  
 
-            if error != nil {
+            if error != nil || response === nil {
                 print("Get Request Error: \(error!)")
             } else {
+                let httpresponse = response as! NSHTTPURLResponse
                 print("Server Response: \(httpresponse))")
                 getCompleted(response: httpresponse, data: data!)
             }
-        }
+        } 
         task.resume()
         
     }
@@ -53,9 +53,8 @@ class HTTPRequest {
                 let json = try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.AllowFragments)
                 print("POST RESPONSE: \(json)")
                 let parseJSON = json
-                if let success = parseJSON["success"] as? Bool {
-                    postCompleted(succeeded: success, msg: "Post Successful")
-                    print("Success: \(success)")
+                if (data != nil) {
+                    postCompleted(succeeded: true, msg: "Post Successful");
                 }
             } catch{
                 print("JSON POST parse error: \(error)")
