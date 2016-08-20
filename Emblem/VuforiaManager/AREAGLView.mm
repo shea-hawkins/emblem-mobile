@@ -159,6 +159,7 @@ namespace VuforiaEAGLViewUtils
     _renderer.autoenablesDefaultLighting = YES;
     _renderer.playing = YES;
     _renderer.showsStatistics = YES;
+    _renderer.overlaySKScene = self.menuScene;
     
     SCNScene* scene3D = [self get3DScene:nil];
     SKScene* scene2D = [self get2DScene:nil];
