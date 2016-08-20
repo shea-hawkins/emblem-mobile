@@ -42,8 +42,8 @@ class LibraryTableViewController: UITableViewController {
     
     func handleSwipeLeft(recognizer: UISwipeGestureRecognizer) {
         print("swipeLeft")
-        self.performSegueWithIdentifier(SimpleViewController.getUnwindSegueFromLibraryView(), sender: nil)
-//        self.navigationController?.popViewControllerAnimated(true)
+        self.performSegueWithIdentifier(ARViewController.getUnwindSegueFromLibraryView(), sender: nil)
+
     }
 
     override func didReceiveMemoryWarning() {

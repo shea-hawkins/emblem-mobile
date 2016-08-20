@@ -32,10 +32,32 @@
 		35E22B951D5EBD68004C6201 /* ChangeArtTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35E22B941D5EBD68004C6201 /* ChangeArtTableViewController.swift */; };
 		35E22B9A1D5ECA85004C6201 /* ArtTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35E22B991D5ECA85004C6201 /* ArtTableViewCell.swift */; };
 		55CB9937DFC26F85914C1C66 /* Pods_EmblemTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93A26ACF62EF8EADDFE28128 /* Pods_EmblemTests.framework */; };
+		710531941D62914E003EC15B /* SceneKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 710531931D62914E003EC15B /* SceneKit.framework */; };
+		71291CD91D63DE690092C4A9 /* Emblem.dat in Resources */ = {isa = PBXBuildFile; fileRef = 71291CD71D63DE690092C4A9 /* Emblem.dat */; };
+		71291CDA1D63DE690092C4A9 /* Emblem.xml in Resources */ = {isa = PBXBuildFile; fileRef = 71291CD81D63DE690092C4A9 /* Emblem.xml */; };
+		71291CDD1D64D7FD0092C4A9 /* ARViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71291CDC1D64D7FD0092C4A9 /* ARViewController.swift */; };
+		71291CE61D64DF630092C4A9 /* AREAGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 71291CDF1D64DF630092C4A9 /* AREAGLView.mm */; };
+		71291CE71D64DF630092C4A9 /* ARManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 71291CE11D64DF630092C4A9 /* ARManager.mm */; };
+		71291CE81D64DF630092C4A9 /* ARObjects.mm in Sources */ = {isa = PBXBuildFile; fileRef = 71291CE31D64DF630092C4A9 /* ARObjects.mm */; };
+		71291CEB1D64EA010092C4A9 /* Emblem.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 71291CEA1D64EA010092C4A9 /* Emblem.jpg */; };
+		71291CED1D64EB240092C4A9 /* Noblesse.png in Resources */ = {isa = PBXBuildFile; fileRef = 71291CEC1D64EB240092C4A9 /* Noblesse.png */; };
+		71291CF41D651F490092C4A9 /* ARSpriteSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71291CF31D651F480092C4A9 /* ARSpriteSource.swift */; };
+		71291CF61D651F620092C4A9 /* ARSceneSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71291CF51D651F620092C4A9 /* ARSceneSource.swift */; };
 		718E64131D5E971E0023B860 /* lib in Resources */ = {isa = PBXBuildFile; fileRef = 718E64121D5E971E0023B860 /* lib */; };
-		718E64161D5E97B30023B860 /* SimpleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 718E64151D5E97B30023B860 /* SimpleViewController.m */; };
-		718E64181D5E98100023B860 /* components in Resources */ = {isa = PBXBuildFile; fileRef = 718E64171D5E98100023B860 /* components */; };
-		71AB3EDC1D5D287100A4BD23 /* libVuforia.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 71AB3EDB1D5D287100A4BD23 /* libVuforia.a */; settings = {ATTRIBUTES = (Required, ); }; };
+		718E643A1D6012E20023B860 /* libVuforia.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 718E64391D6012E20023B860 /* libVuforia.a */; };
+		718E643D1D60157F0023B860 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 718E643C1D60157F0023B860 /* AudioToolbox.framework */; };
+		718E643F1D6015880023B860 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 718E643E1D6015880023B860 /* AVFoundation.framework */; };
+		718E64411D6015980023B860 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 718E64401D6015980023B860 /* CoreMedia.framework */; };
+		718E64431D6015A20023B860 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 718E64421D6015A20023B860 /* CoreMotion.framework */; };
+		718E64451D6015AF0023B860 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 718E64441D6015AF0023B860 /* CoreFoundation.framework */; };
+		718E64471D6015B90023B860 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 718E64461D6015B90023B860 /* CoreGraphics.framework */; };
+		718E64491D6015C90023B860 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 718E64481D6015C80023B860 /* Foundation.framework */; };
+		718E644B1D6015D80023B860 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 718E644A1D6015D80023B860 /* MediaPlayer.framework */; };
+		718E644D1D6015E50023B860 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 718E644C1D6015E50023B860 /* OpenGLES.framework */; };
+		718E644F1D6015F50023B860 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 718E644E1D6015F50023B860 /* QuartzCore.framework */; };
+		718E64511D6016010023B860 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 718E64501D6016010023B860 /* Security.framework */; };
+		718E64531D60160D0023B860 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 718E64521D60160D0023B860 /* SystemConfiguration.framework */; };
+		718E64551D6016160023B860 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 718E64541D6016160023B860 /* UIKit.framework */; };
 		80FE0960445486837F57694A /* Pods_EmblemUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CB9D30DE3991C7F8BB8ADAB /* Pods_EmblemUITests.framework */; };
 		D5C1AA5F6BACC53824E8D303 /* Pods_Emblem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A976B07605230728311C182 /* Pods_Emblem.framework */; };
 /* End PBXBuildFile section */
@@ -88,15 +110,46 @@
 		35DB9D4A1D67CE3900E8AAF0 /* EnvironmentVars.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnvironmentVars.swift; sourceTree = "<group>"; };
 		35E22B941D5EBD68004C6201 /* ChangeArtTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangeArtTableViewController.swift; sourceTree = "<group>"; };
 		35E22B991D5ECA85004C6201 /* ArtTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArtTableViewCell.swift; sourceTree = "<group>"; };
+		35E22B9C1D5FEB02004C6201 /* Neuton-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Neuton-Bold.ttf"; path = "Assets.xcassets/fonts/Neuton-Bold.ttf"; sourceTree = "<group>"; };
+		35E22B9D1D5FEB02004C6201 /* Neuton-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Neuton-ExtraBold.ttf"; path = "Assets.xcassets/fonts/Neuton-ExtraBold.ttf"; sourceTree = "<group>"; };
+		35E22B9E1D5FEB02004C6201 /* Neuton-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Neuton-ExtraLight.ttf"; path = "Assets.xcassets/fonts/Neuton-ExtraLight.ttf"; sourceTree = "<group>"; };
+		35E22B9F1D5FEB02004C6201 /* Neuton-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Neuton-Italic.ttf"; path = "Assets.xcassets/fonts/Neuton-Italic.ttf"; sourceTree = "<group>"; };
+		35E22BA01D5FEB02004C6201 /* Neuton-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Neuton-Light.ttf"; path = "Assets.xcassets/fonts/Neuton-Light.ttf"; sourceTree = "<group>"; };
+		35E22BA11D5FEB02004C6201 /* Neuton-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Neuton-Regular.ttf"; path = "Assets.xcassets/fonts/Neuton-Regular.ttf"; sourceTree = "<group>"; };
 		35FA710C1D542EFF00F54CBC /* Emblem-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Emblem-Bridging-Header.h"; sourceTree = "<group>"; };
 		5A976B07605230728311C182 /* Pods_Emblem.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Emblem.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		600D4A85AE037D048F0AA4C0 /* Pods-EmblemUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EmblemUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EmblemUITests/Pods-EmblemUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		67770561255CFF1F85E4316B /* Pods-EmblemUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EmblemUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-EmblemUITests/Pods-EmblemUITests.release.xcconfig"; sourceTree = "<group>"; };
 		679B4FD6FEAE7FBD70BF8A6B /* Pods-EmblemTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EmblemTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-EmblemTests/Pods-EmblemTests.release.xcconfig"; sourceTree = "<group>"; };
+		710531931D62914E003EC15B /* SceneKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SceneKit.framework; path = System/Library/Frameworks/SceneKit.framework; sourceTree = SDKROOT; };
+		71291CD71D63DE690092C4A9 /* Emblem.dat */ = {isa = PBXFileReference; lastKnownFileType = file; path = Emblem.dat; sourceTree = "<group>"; };
+		71291CD81D63DE690092C4A9 /* Emblem.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Emblem.xml; sourceTree = "<group>"; };
+		71291CDC1D64D7FD0092C4A9 /* ARViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARViewController.swift; sourceTree = "<group>"; };
+		71291CDE1D64DF630092C4A9 /* AREAGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AREAGLView.h; path = VuforiaManager/AREAGLView.h; sourceTree = "<group>"; };
+		71291CDF1D64DF630092C4A9 /* AREAGLView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AREAGLView.mm; path = VuforiaManager/AREAGLView.mm; sourceTree = "<group>"; };
+		71291CE01D64DF630092C4A9 /* ARManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ARManager.h; path = VuforiaManager/ARManager.h; sourceTree = "<group>"; };
+		71291CE11D64DF630092C4A9 /* ARManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = ARManager.mm; path = VuforiaManager/ARManager.mm; sourceTree = "<group>"; };
+		71291CE21D64DF630092C4A9 /* ARObjects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ARObjects.h; path = VuforiaManager/ARObjects.h; sourceTree = "<group>"; };
+		71291CE31D64DF630092C4A9 /* ARObjects.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = ARObjects.mm; path = VuforiaManager/ARObjects.mm; sourceTree = "<group>"; };
+		71291CEA1D64EA010092C4A9 /* Emblem.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Emblem.jpg; sourceTree = "<group>"; };
+		71291CEC1D64EB240092C4A9 /* Noblesse.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Noblesse.png; sourceTree = "<group>"; };
+		71291CF31D651F480092C4A9 /* ARSpriteSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARSpriteSource.swift; sourceTree = "<group>"; };
+		71291CF51D651F620092C4A9 /* ARSceneSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARSceneSource.swift; sourceTree = "<group>"; };
 		718E64121D5E971E0023B860 /* lib */ = {isa = PBXFileReference; lastKnownFileType = folder; path = lib; sourceTree = SOURCE_ROOT; };
-		718E64141D5E97B30023B860 /* SimpleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimpleViewController.h; sourceTree = "<group>"; };
-		718E64151D5E97B30023B860 /* SimpleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimpleViewController.m; sourceTree = "<group>"; };
-		718E64171D5E98100023B860 /* components */ = {isa = PBXFileReference; lastKnownFileType = folder; path = components; sourceTree = "<group>"; };
+		718E64391D6012E20023B860 /* libVuforia.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libVuforia.a; path = lib/vuforia/lib/arm/libVuforia.a; sourceTree = "<group>"; };
+		718E643C1D60157F0023B860 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		718E643E1D6015880023B860 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		718E64401D6015980023B860 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		718E64421D6015A20023B860 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		718E64441D6015AF0023B860 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		718E64461D6015B90023B860 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		718E64481D6015C80023B860 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		718E644A1D6015D80023B860 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		718E644C1D6015E50023B860 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		718E644E1D6015F50023B860 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		718E64501D6016010023B860 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		718E64521D60160D0023B860 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		718E64541D6016160023B860 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		71AB3EDB1D5D287100A4BD23 /* libVuforia.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libVuforia.a; path = "lib/vuforia-sdk-ios-6-0-112/build/lib/arm/libVuforia.a"; sourceTree = "<group>"; };
 		7EDE38068E97E3DD01296F43 /* Pods-EmblemTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EmblemTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EmblemTests/Pods-EmblemTests.debug.xcconfig"; sourceTree = "<group>"; };
 		8CB9D30DE3991C7F8BB8ADAB /* Pods_EmblemUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EmblemUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -110,8 +163,22 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				710531941D62914E003EC15B /* SceneKit.framework in Frameworks */,
+				718E64551D6016160023B860 /* UIKit.framework in Frameworks */,
+				718E64531D60160D0023B860 /* SystemConfiguration.framework in Frameworks */,
+				718E64511D6016010023B860 /* Security.framework in Frameworks */,
+				718E644F1D6015F50023B860 /* QuartzCore.framework in Frameworks */,
+				718E644D1D6015E50023B860 /* OpenGLES.framework in Frameworks */,
+				718E644B1D6015D80023B860 /* MediaPlayer.framework in Frameworks */,
+				718E64491D6015C90023B860 /* Foundation.framework in Frameworks */,
+				718E64471D6015B90023B860 /* CoreGraphics.framework in Frameworks */,
+				718E64451D6015AF0023B860 /* CoreFoundation.framework in Frameworks */,
+				718E64431D6015A20023B860 /* CoreMotion.framework in Frameworks */,
+				718E64411D6015980023B860 /* CoreMedia.framework in Frameworks */,
+				718E643F1D6015880023B860 /* AVFoundation.framework in Frameworks */,
+				718E643D1D60157F0023B860 /* AudioToolbox.framework in Frameworks */,
+				718E643A1D6012E20023B860 /* libVuforia.a in Frameworks */,
 				D5C1AA5F6BACC53824E8D303 /* Pods_Emblem.framework in Frameworks */,
-				71AB3EDC1D5D287100A4BD23 /* libVuforia.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -172,7 +239,6 @@
 		35A87DE11D52B997004E739E /* Emblem */ = {
 			isa = PBXGroup;
 			children = (
-				718E64171D5E98100023B860 /* components */,
 				718E64121D5E971E0023B860 /* lib */,
 				351F47EB1D5B9FAD0093578B /* HTTPRequest.swift */,
 				35DB9D4A1D67CE3900E8AAF0 /* EnvironmentVars.swift */,
@@ -181,7 +247,6 @@
 				35A87DE61D52B997004E739E /* Main.storyboard */,
 				35DB9D471D66B4ED00E8AAF0 /* Segue */,
 				35BD88A71D597F4000A409D6 /* Controllers */,
-				35E22B981D5ECA66004C6201 /* Views */,
 				35BD889E1D5952FE00A409D6 /* Models */,
 				35A87DE91D52B998004E739E /* Assets.xcassets */,
 				35E22B9B1D5FEA7D004C6201 /* Resources */,
@@ -220,12 +285,14 @@
 		35BD88A71D597F4000A409D6 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				71291CDB1D64D1860092C4A9 /* ARView */,
 				35A87E101D52BA28004E739E /* LoginViewController.swift */,
 				35BD88A51D597F3500A409D6 /* MapViewController.swift */,
 				718E64141D5E97B30023B860 /* SimpleViewController.h */,
 				718E64151D5E97B30023B860 /* SimpleViewController.m */,
 				35E22B941D5EBD68004C6201 /* ChangeArtTableViewController.swift */,
 				3569BC481D6630990036F190 /* LibraryTableViewController.swift */,
+				35E22B991D5ECA85004C6201 /* ArtTableViewCell.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -262,9 +329,44 @@
 			name = Resources;
 			sourceTree = "<group>";
 		};
+		71291CDB1D64D1860092C4A9 /* ARView */ = {
+			isa = PBXGroup;
+			children = (
+				71291CEC1D64EB240092C4A9 /* Noblesse.png */,
+				71291CEA1D64EA010092C4A9 /* Emblem.jpg */,
+				71291CDE1D64DF630092C4A9 /* AREAGLView.h */,
+				71291CDF1D64DF630092C4A9 /* AREAGLView.mm */,
+				71291CD71D63DE690092C4A9 /* Emblem.dat */,
+				71291CD81D63DE690092C4A9 /* Emblem.xml */,
+				71291CE01D64DF630092C4A9 /* ARManager.h */,
+				71291CE11D64DF630092C4A9 /* ARManager.mm */,
+				71291CE21D64DF630092C4A9 /* ARObjects.h */,
+				71291CE31D64DF630092C4A9 /* ARObjects.mm */,
+				71291CDC1D64D7FD0092C4A9 /* ARViewController.swift */,
+				71291CF51D651F620092C4A9 /* ARSceneSource.swift */,
+				71291CF31D651F480092C4A9 /* ARSpriteSource.swift */,
+			);
+			name = ARView;
+			sourceTree = "<group>";
+		};
 		DE59BFB1C6BC0733D112633F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				710531931D62914E003EC15B /* SceneKit.framework */,
+				718E64541D6016160023B860 /* UIKit.framework */,
+				718E64521D60160D0023B860 /* SystemConfiguration.framework */,
+				718E64501D6016010023B860 /* Security.framework */,
+				718E644E1D6015F50023B860 /* QuartzCore.framework */,
+				718E644C1D6015E50023B860 /* OpenGLES.framework */,
+				718E644A1D6015D80023B860 /* MediaPlayer.framework */,
+				718E64481D6015C80023B860 /* Foundation.framework */,
+				718E64461D6015B90023B860 /* CoreGraphics.framework */,
+				718E64441D6015AF0023B860 /* CoreFoundation.framework */,
+				718E64421D6015A20023B860 /* CoreMotion.framework */,
+				718E64401D6015980023B860 /* CoreMedia.framework */,
+				718E643E1D6015880023B860 /* AVFoundation.framework */,
+				718E643C1D60157F0023B860 /* AudioToolbox.framework */,
+				718E64391D6012E20023B860 /* libVuforia.a */,
 				71AB3EDB1D5D287100A4BD23 /* libVuforia.a */,
 				5A976B07605230728311C182 /* Pods_Emblem.framework */,
 				93A26ACF62EF8EADDFE28128 /* Pods_EmblemTests.framework */,
@@ -386,17 +488,20 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				71291CEB1D64EA010092C4A9 /* Emblem.jpg in Resources */,
 				35A87DED1D52B998004E739E /* LaunchScreen.storyboard in Resources */,
-				3569BC371D65161E0036F190 /* Neuton-ExtraBold.ttf in Resources */,
+				71291CED1D64EB240092C4A9 /* Noblesse.png in Resources */,
+				35E22BA31D5FEB02004C6201 /* Neuton-ExtraBold.ttf in Resources */,
 				35A87DEA1D52B998004E739E /* Assets.xcassets in Resources */,
 				3569BC381D65161E0036F190 /* Neuton-ExtraLight.ttf in Resources */,
 				3569BC361D65161E0036F190 /* Neuton-Bold.ttf in Resources */,
 				718E64131D5E971E0023B860 /* lib in Resources */,
-				3569BC3A1D65161E0036F190 /* Neuton-Light.ttf in Resources */,
-				3569BC391D65161E0036F190 /* Neuton-Italic.ttf in Resources */,
+				71291CDA1D63DE690092C4A9 /* Emblem.xml in Resources */,
+				35E22BA61D5FEB02004C6201 /* Neuton-Light.ttf in Resources */,
+				35E22BA51D5FEB02004C6201 /* Neuton-Italic.ttf in Resources */,
 				35A87DE81D52B997004E739E /* Main.storyboard in Resources */,
-				718E64181D5E98100023B860 /* components in Resources */,
-				3569BC3B1D65161E0036F190 /* Neuton-Regular.ttf in Resources */,
+				71291CD91D63DE690092C4A9 /* Emblem.dat in Resources */,
+				35E22BA71D5FEB02004C6201 /* Neuton-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -554,10 +659,16 @@
 				3569BC491D6630990036F190 /* LibraryTableViewController.swift in Sources */,
 				35DB9D461D66B4A900E8AAF0 /* RightToLeftSegue.swift in Sources */,
 				35A87E111D52BA28004E739E /* LoginViewController.swift in Sources */,
+				71291CE71D64DF630092C4A9 /* ARManager.mm in Sources */,
+				71291CF61D651F620092C4A9 /* ARSceneSource.swift in Sources */,
 				351F47EC1D5B9FAD0093578B /* HTTPRequest.swift in Sources */,
+				71291CF41D651F490092C4A9 /* ARSpriteSource.swift in Sources */,
 				35A87DE31D52B997004E739E /* AppDelegate.swift in Sources */,
+				71291CE61D64DF630092C4A9 /* AREAGLView.mm in Sources */,
+				71291CDD1D64D7FD0092C4A9 /* ARViewController.swift in Sources */,
 				35BD88A61D597F3500A409D6 /* MapViewController.swift in Sources */,
 				35DB9D421D66A8E100E8AAF0 /* UnwindFromRightSegue.swift in Sources */,
+				71291CE81D64DF630092C4A9 /* ARObjects.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -650,13 +761,15 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				LIBRARY_SEARCH_PATHS = "\"${SRCROOT}/lib/vuforia/lib/arm\"";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_MODULE_NAME = Emblem;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = "armv7 armv7s arm64";
 			};
 			name = Debug;
 		};
@@ -692,12 +805,14 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				LIBRARY_SEARCH_PATHS = "\"${SRCROOT}/lib/vuforia/lib/arm\"";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_MODULE_NAME = Emblem;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
+				VALID_ARCHS = "armv7 armv7s arm64";
 			};
 			name = Release;
 		};
@@ -706,28 +821,82 @@
 			baseConfigurationReference = E7A804B65C6354D60BBB3FE2 /* Pods-Emblem.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEFINES_MODULE = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Dane Jordan (QG42KV7GE7)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Dane Jordan (QG42KV7GE7)";
+				ENABLE_BITCODE = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"${PODS_ROOT}/Headers/Public\"",
 					"\"${PODS_ROOT}/Headers/Public/GoogleMaps\"",
-					"\"${SRCROOT}/Emblem/components\"",
 					"\"$(SRCROOT)/lib/vuforia/include\"",
 					"\"${SRCROOT}/Emblem\"/**",
 				);
 				INFOPLIST_FILE = Emblem/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/lib/vuforia/lib/arm\"",
+					"\"${SRCROOT}/lib/vuforia/lib/arm\"",
+					"$(PROJECT_DIR)/lib/vuforia/lib/arm",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"c++\"",
+					"-l\"z\"",
+					"-framework",
+					"\"Accelerate\"",
+					"-framework",
+					"\"Bolts\"",
+					"-framework",
+					"\"CoreData\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"CoreLocation\"",
+					"-framework",
+					"\"CoreText\"",
+					"-framework",
+					"\"FBSDKCoreKit\"",
+					"-framework",
+					"\"FBSDKLoginKit\"",
+					"-framework",
+					"\"FBSDKShareKit\"",
+					"-framework",
+					"\"FacebookCore\"",
+					"-framework",
+					"\"FacebookLogin\"",
+					"-framework",
+					"\"FacebookShare\"",
+					"-framework",
+					"\"GLKit\"",
+					"-framework",
+					"\"GoogleMaps\"",
+					"-framework",
+					"\"GoogleMapsBase\"",
+					"-framework",
+					"\"GoogleMapsCore\"",
+					"-framework",
+					"\"ImageIO\"",
+					"-framework",
+					"\"OpenGLES\"",
+					"-framework",
+					"\"QuartzCore\"",
+					"-framework",
+					"\"SocketIOClientSwift\"",
+					"-framework",
+					"\"SwiftyJSON\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-framework",
+					"\"UIKit\"",
+					"-lVuforia",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.hadashco.emblem;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Emblem/Emblem-Bridging-Header.h";
+				VALID_ARCHS = "armv7 armv7s arm64";
 			};
 			name = Debug;
 		};
@@ -736,29 +905,84 @@
 			baseConfigurationReference = A8D395F0EF6B5C0151062790 /* Pods-Emblem.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEFINES_MODULE = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Dane Jordan (QG42KV7GE7)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Dane Jordan (QG42KV7GE7)";
+				ENABLE_BITCODE = NO;
 				"FRAMEWORK_SEARCH_PATHS[arch=*]" = "$(PROJECT_DIR)";
+				GCC_OPTIMIZATION_LEVEL = s;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"${PODS_ROOT}/Headers/Public\"",
 					"\"${PODS_ROOT}/Headers/Public/GoogleMaps\"",
-					"\"${SRCROOT}/Emblem/components\"",
 					"\"$(SRCROOT)/lib/vuforia/include\"",
 					"\"${SRCROOT}/Emblem\"/**",
 				);
 				INFOPLIST_FILE = Emblem/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/lib/vuforia/lib/arm\"",
+					"\"${SRCROOT}/lib/vuforia/lib/arm\"",
+					"$(PROJECT_DIR)/lib/vuforia/lib/arm",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"c++\"",
+					"-l\"z\"",
+					"-framework",
+					"\"Accelerate\"",
+					"-framework",
+					"\"Bolts\"",
+					"-framework",
+					"\"CoreData\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"CoreLocation\"",
+					"-framework",
+					"\"CoreText\"",
+					"-framework",
+					"\"FBSDKCoreKit\"",
+					"-framework",
+					"\"FBSDKLoginKit\"",
+					"-framework",
+					"\"FBSDKShareKit\"",
+					"-framework",
+					"\"FacebookCore\"",
+					"-framework",
+					"\"FacebookLogin\"",
+					"-framework",
+					"\"FacebookShare\"",
+					"-framework",
+					"\"GLKit\"",
+					"-framework",
+					"\"GoogleMaps\"",
+					"-framework",
+					"\"GoogleMapsBase\"",
+					"-framework",
+					"\"GoogleMapsCore\"",
+					"-framework",
+					"\"ImageIO\"",
+					"-framework",
+					"\"OpenGLES\"",
+					"-framework",
+					"\"QuartzCore\"",
+					"-framework",
+					"\"SocketIOClientSwift\"",
+					"-framework",
+					"\"SwiftyJSON\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-framework",
+					"\"UIKit\"",
+					"-lVuforia",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.hadashco.emblem;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Emblem/Emblem-Bridging-Header.h";
+				VALID_ARCHS = "armv7 armv7s arm64";
 			};
 			name = Release;
 		};

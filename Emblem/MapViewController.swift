@@ -32,7 +32,7 @@ class MapViewController: UIViewController {
 
         }
         let markerData = ["lat": lat, "long": long]
-        self.performSegueWithIdentifier(SimpleViewController.getEntrySegueFromMapView(), sender: markerData)
+        self.performSegueWithIdentifier(ARViewController.getEntrySegueFromMapView(), sender: markerData)
 //        self.performSegueWithIdentifier("MapToScrollViewSegue", sender: nil)
     }
 

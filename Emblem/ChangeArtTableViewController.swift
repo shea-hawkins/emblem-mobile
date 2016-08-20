@@ -9,6 +9,10 @@
 import UIKit
 import SwiftyJSON
 
+protocol ChangeArtTableViewControllerDelegate {
+    func receiveArt(art: NSObject!, artType: ArtType!);
+}
+
 class ChangeArtTableViewController: UITableViewController {
     
     var artData = [Dictionary<String,AnyObject>]()
@@ -56,7 +60,7 @@ class ChangeArtTableViewController: UITableViewController {
     
     func backPressed() {
         print("backpressed")
-        self.performSegueWithIdentifier(SimpleViewController.getUnwindSegueFromChangeArtView(), sender: nil)
+        self.performSegueWithIdentifier(ARViewController.getUnwindSegueFromChangeArtView(), sender: nil)
     }
     
     func getSectorId() {
@@ -77,7 +81,7 @@ class ChangeArtTableViewController: UITableViewController {
     func getImageIds(){
         let url = NSURL(string: NSProcessInfo.processInfo().environment["DEV_SERVER"]! + "\(self.sectorId)/art")!
         HTTPRequest.get(url) { (response, data) in
-            if response.statusCode == 200 {
+            if response.statusCode == 200 || response.statusCode == 304 {
                 let json = JSON(data: data)
                 print(json)
                 for (_, obj):(String, JSON) in json {
@@ -148,12 +152,12 @@ class ChangeArtTableViewController: UITableViewController {
     }
     
     class func getEntrySegueFromARViewController() -> String {
-        return "ARtoAddArtTableViewControllerSegue"
+        return "ARToAddArtTableViewControllerSegue"
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if let delegate = self.delegate {
-            delegate.receiveArt(self.art[indexPath.row])
+            delegate.receiveArt(self.art[indexPath.row], artType: .IMAGE)
         }
         self.dismissViewControllerAnimated(true, completion: nil)
     }

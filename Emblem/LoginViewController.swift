@@ -60,7 +60,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
             if error != nil {
                 print("FBLogin Error: \(error)")
             } else {
-                self.user = User(name: result["first_name"] as! String, email: result["email"] as! String, fbID: result["id"] as! String, imgURL: result["picture"]!["data"]!["url"] as! String)
+          
                 print(self.user as User)
                 
                 var url = NSURL()
@@ -73,7 +73,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
                 
                 HTTPRequest.get(url, getCompleted: { (response, data) in
                     if response.statusCode == 200 {
-                        self.performSegueWithIdentifier(MapViewController.getEntrySegueFromLogin(), sender: self.user)
+                        self.performSegueWithIdentifier(MapViewController.getEntrySegueFromLogin(), sender: nil)
                     } else {
                         print("FB Authentication Falure: \(response)")
                     }

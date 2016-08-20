@@ -40,8 +40,7 @@ class HTTPRequest {
             } else {
                 print("No Internet Connection")
             }
-
-        }
+        } 
         task.resume()
         
     }
