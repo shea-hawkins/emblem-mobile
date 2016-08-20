@@ -7,6 +7,7 @@ class ARViewController: UIViewController {
     
     private var vuforiaManager: ARManager? = nil
     private var sceneSource: ARSceneSource? = nil
+    private var menuScene: MenuSpriteScene!
     private var lastSceneName: String? = nil
     private var artType: ArtType? = nil
     private var art: NSObject? = nil
@@ -90,15 +91,28 @@ extension ARViewController: ChangeArtTableViewControllerDelegate {
         }
     }
     
+    func upvoteArt() {
+        NSLog("Upvoting!")
+    }
+    
+    func downvoteArt() {
+        NSLog("Downvoting!")
+    }
 }
 
 private extension ARViewController {
     func prepare() {
         vuforiaManager = ARManager(licenseKey: vuforiaLiceseKey, dataSetFile: vuforiaDataSetFile)
         self.sceneSource = ARSceneSource(art: self.art, artType: self.artType)
+        
+        self.menuScene = MenuSpriteScene()
+        self.menuScene.on("upvote", callback: self.upvoteArt)
+        self.menuScene.on("downvote", callback: self.downvoteArt)
+        
         if let manager = vuforiaManager {
             manager.delegate = self
-            manager.eaglView.sceneSource = sceneSource
+            manager.eaglView.sceneSource = self.sceneSource
+            manager.eaglView.menuScene = self.menuScene
             manager.eaglView.delegate = self
             manager.eaglView.setupRenderer()
             self.view = manager.eaglView
