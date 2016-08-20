@@ -24,6 +24,7 @@
 
 @property (weak, nonatomic)id<ARSceneSourceProtocol> sceneSource;
 @property (weak, nonatomic)id<ARSpriteSourceProtocol> spriteSource;
+@property (weak, nonatomic)SKScene* menuScene;
 @property (weak, nonatomic)id delegate;
 @property (nonatomic, assign)CGFloat objectScale;
 

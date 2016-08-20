@@ -13,11 +13,6 @@ class MenuSpriteScene: SKScene {
     var downvoteNode: SKSpriteNode!
     var events: [String: Array<() -> Void>] = [String: Array<() -> Void>]()
     
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
         let touch = touches.first as UITouch!
         let location = touch?.locationInNode(self)
