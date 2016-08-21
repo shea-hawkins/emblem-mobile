@@ -35,8 +35,11 @@
 		71291CE81D64DF630092C4A9 /* ARObjects.mm in Sources */ = {isa = PBXBuildFile; fileRef = 71291CE31D64DF630092C4A9 /* ARObjects.mm */; };
 		71291CEB1D64EA010092C4A9 /* Emblem.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 71291CEA1D64EA010092C4A9 /* Emblem.jpg */; };
 		71291CED1D64EB240092C4A9 /* Noblesse.png in Resources */ = {isa = PBXBuildFile; fileRef = 71291CEC1D64EB240092C4A9 /* Noblesse.png */; };
-		71291CF41D651F490092C4A9 /* ARSpriteSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71291CF31D651F480092C4A9 /* ARSpriteSource.swift */; };
+		71291CF41D651F490092C4A9 /* ARMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71291CF31D651F480092C4A9 /* ARMenuView.swift */; };
 		71291CF61D651F620092C4A9 /* ARSceneSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71291CF51D651F620092C4A9 /* ARSceneSource.swift */; };
+		7155A2EA1D68D8490018886A /* downvote.png in Resources */ = {isa = PBXBuildFile; fileRef = 7155A2E81D68D8490018886A /* downvote.png */; };
+		7155A2EB1D68D8490018886A /* upvote.png in Resources */ = {isa = PBXBuildFile; fileRef = 7155A2E91D68D8490018886A /* upvote.png */; };
+		717FFC991D68E3B000DABC2A /* Pause Button.png in Resources */ = {isa = PBXBuildFile; fileRef = 717FFC981D68E3B000DABC2A /* Pause Button.png */; };
 		718E64131D5E971E0023B860 /* lib in Resources */ = {isa = PBXBuildFile; fileRef = 718E64121D5E971E0023B860 /* lib */; };
 		718E643A1D6012E20023B860 /* libVuforia.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 718E64391D6012E20023B860 /* libVuforia.a */; };
 		718E643D1D60157F0023B860 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 718E643C1D60157F0023B860 /* AudioToolbox.framework */; };
@@ -115,8 +118,11 @@
 		71291CE31D64DF630092C4A9 /* ARObjects.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = ARObjects.mm; path = VuforiaManager/ARObjects.mm; sourceTree = "<group>"; };
 		71291CEA1D64EA010092C4A9 /* Emblem.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Emblem.jpg; sourceTree = "<group>"; };
 		71291CEC1D64EB240092C4A9 /* Noblesse.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Noblesse.png; sourceTree = "<group>"; };
-		71291CF31D651F480092C4A9 /* ARSpriteSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARSpriteSource.swift; sourceTree = "<group>"; };
+		71291CF31D651F480092C4A9 /* ARMenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARMenuView.swift; sourceTree = "<group>"; };
 		71291CF51D651F620092C4A9 /* ARSceneSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARSceneSource.swift; sourceTree = "<group>"; };
+		7155A2E81D68D8490018886A /* downvote.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = downvote.png; sourceTree = "<group>"; };
+		7155A2E91D68D8490018886A /* upvote.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = upvote.png; sourceTree = "<group>"; };
+		717FFC981D68E3B000DABC2A /* Pause Button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Pause Button.png"; path = "../../../Downloads/Pause Button.png"; sourceTree = "<group>"; };
 		718E64121D5E971E0023B860 /* lib */ = {isa = PBXFileReference; lastKnownFileType = folder; path = lib; sourceTree = SOURCE_ROOT; };
 		718E64391D6012E20023B860 /* libVuforia.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libVuforia.a; path = lib/vuforia/lib/arm/libVuforia.a; sourceTree = "<group>"; };
 		718E643C1D60157F0023B860 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
@@ -290,6 +296,9 @@
 		71291CDB1D64D1860092C4A9 /* ARView */ = {
 			isa = PBXGroup;
 			children = (
+				717FFC981D68E3B000DABC2A /* Pause Button.png */,
+				7155A2E81D68D8490018886A /* downvote.png */,
+				7155A2E91D68D8490018886A /* upvote.png */,
 				71291CEC1D64EB240092C4A9 /* Noblesse.png */,
 				71291CEA1D64EA010092C4A9 /* Emblem.jpg */,
 				71291CDE1D64DF630092C4A9 /* AREAGLView.h */,
@@ -302,7 +311,7 @@
 				71291CE31D64DF630092C4A9 /* ARObjects.mm */,
 				71291CDC1D64D7FD0092C4A9 /* ARViewController.swift */,
 				71291CF51D651F620092C4A9 /* ARSceneSource.swift */,
-				71291CF31D651F480092C4A9 /* ARSpriteSource.swift */,
+				71291CF31D651F480092C4A9 /* ARMenuView.swift */,
 			);
 			name = ARView;
 			sourceTree = "<group>";
@@ -446,14 +455,17 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7155A2EB1D68D8490018886A /* upvote.png in Resources */,
 				71291CEB1D64EA010092C4A9 /* Emblem.jpg in Resources */,
 				35A87DED1D52B998004E739E /* LaunchScreen.storyboard in Resources */,
 				71291CED1D64EB240092C4A9 /* Noblesse.png in Resources */,
+				717FFC991D68E3B000DABC2A /* Pause Button.png in Resources */,
 				35E22BA31D5FEB02004C6201 /* Neuton-ExtraBold.ttf in Resources */,
 				35A87DEA1D52B998004E739E /* Assets.xcassets in Resources */,
 				35E22BA41D5FEB02004C6201 /* Neuton-ExtraLight.ttf in Resources */,
 				35E22BA21D5FEB02004C6201 /* Neuton-Bold.ttf in Resources */,
 				718E64131D5E971E0023B860 /* lib in Resources */,
+				7155A2EA1D68D8490018886A /* downvote.png in Resources */,
 				71291CDA1D63DE690092C4A9 /* Emblem.xml in Resources */,
 				35E22BA61D5FEB02004C6201 /* Neuton-Light.ttf in Resources */,
 				35E22BA51D5FEB02004C6201 /* Neuton-Italic.ttf in Resources */,
@@ -614,7 +626,7 @@
 				71291CE71D64DF630092C4A9 /* ARManager.mm in Sources */,
 				71291CF61D651F620092C4A9 /* ARSceneSource.swift in Sources */,
 				351F47EC1D5B9FAD0093578B /* HTTPRequest.swift in Sources */,
-				71291CF41D651F490092C4A9 /* ARSpriteSource.swift in Sources */,
+				71291CF41D651F490092C4A9 /* ARMenuView.swift in Sources */,
 				35A87DE31D52B997004E739E /* AppDelegate.swift in Sources */,
 				71291CE61D64DF630092C4A9 /* AREAGLView.mm in Sources */,
 				71291CDD1D64D7FD0092C4A9 /* ARViewController.swift in Sources */,
