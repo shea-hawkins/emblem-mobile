@@ -99,12 +99,12 @@
                     </view>
                     <connections>
                         <outlet property="mapView" destination="Ytj-s9-ZYr" id="cJt-MF-OJZ"/>
-                        <segue destination="PG5-Cd-BPl" kind="show" identifier="MapToSimpleViewControllerSegue" id="Dt0-lS-UWd"/>
+                        <segue destination="Izt-Jm-yzx" kind="presentation" identifier="MapToSimpleViewControllerSegue" id="Dt0-lS-UWd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hJf-XZ-8ZX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2013" y="353"/>
+            <point key="canvasLocation" x="2019" y="353"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Fw7-Sj-f7y">
@@ -124,6 +124,55 @@
             </objects>
             <point key="canvasLocation" x="447" y="353"/>
         </scene>
+        <!--My Library-->
+        <scene sceneID="lZR-9c-JsB">
+            <objects>
+                <tableViewController id="yUG-Ga-vnV" customClass="LibraryTableViewController" customModule="Emblem" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="90" sectionHeaderHeight="28" sectionFooterHeight="28" id="hAJ-Fp-iAW">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ArtTableViewCell" rowHeight="90" id="lkA-Wf-8cf" customClass="ArtTableViewCell" customModule="Emblem" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="92" width="600" height="90"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="lkA-Wf-8cf" id="Sci-Cx-1cm">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="89"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="pwT-rr-1zn">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="89"/>
+                                        </imageView>
+                                    </subviews>
+                                    <gestureRecognizers/>
+                                    <constraints>
+                                        <constraint firstItem="pwT-rr-1zn" firstAttribute="top" secondItem="Sci-Cx-1cm" secondAttribute="top" id="0Ud-Mm-CKq"/>
+                                        <constraint firstItem="pwT-rr-1zn" firstAttribute="leading" secondItem="Sci-Cx-1cm" secondAttribute="leading" id="DJw-X5-dU6"/>
+                                        <constraint firstAttribute="bottom" secondItem="pwT-rr-1zn" secondAttribute="bottom" id="GTO-dx-teN"/>
+                                        <constraint firstAttribute="trailing" secondItem="pwT-rr-1zn" secondAttribute="trailing" id="ZiP-Rl-3tm"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outlet property="thumbImageView" destination="pwT-rr-1zn" id="Fbe-1I-nUs"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="yUG-Ga-vnV" id="c1V-P5-VeP"/>
+                            <outlet property="delegate" destination="yUG-Ga-vnV" id="A6S-1r-p7p"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="My Library" id="IOy-kD-rND"/>
+                    <connections>
+                        <segue destination="f8k-pw-kw9" kind="unwind" identifier="UnwindToARVCSegue" customClass="UnwindFromRightSegue" customModule="Emblem" customModuleProvider="target" unwindAction="unwindFromLibaryToARVC:" id="PCf-cB-qOk"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JHl-jI-xDv" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="f8k-pw-kw9" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="3469" y="-357"/>
+        </scene>
         <!--View Controller-->
         <scene sceneID="1nH-UY-EvQ">
             <objects>
@@ -137,25 +186,27 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <navigationItem key="navigationItem" id="814-om-Isf"/>
                     <connections>
-                        <segue destination="1XH-7d-Zum" kind="presentation" identifier="ARToAddArtTableViewControllerSegue" id="Z79-bJ-N3u"/>
+                        <segue destination="1XH-7d-Zum" kind="show" identifier="ARToChangeArtViewControllerSegue" customClass="SegueFromRight" customModule="Emblem" customModuleProvider="target" id="NAN-rJ-gqA"/>
+                        <segue destination="yUG-Ga-vnV" kind="show" identifier="ARToLibraryViewControllerSegue" customClass="SegueFromLeft" customModule="Emblem" customModuleProvider="target" id="t5V-zx-tMR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="u4F-NI-Rqb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2861" y="353"/>
+            <point key="canvasLocation" x="3280" y="437"/>
         </scene>
-        <!--Change Art Table View Controller-->
+        <!--Posted Images-->
         <scene sceneID="d4y-Uc-vMq">
             <objects>
-                <tableViewController id="1XH-7d-Zum" customClass="ChangeArtTableViewController" customModule="Emblem" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="changeArtVC" id="1XH-7d-Zum" customClass="ChangeArtTableViewController" customModule="Emblem" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="90" sectionHeaderHeight="28" sectionFooterHeight="28" id="u2p-om-aG6">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ArtTableViewCell" rowHeight="90" id="Uic-Kf-uIh" customClass="ArtTableViewCell" customModule="Emblem" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="600" height="90"/>
+                                <rect key="frame" x="0.0" y="92" width="600" height="90"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Uic-Kf-uIh" id="4rX-g5-mYw">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="89"/>
@@ -167,16 +218,16 @@
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9je-QK-eFw">
                                             <rect key="frame" x="8" y="15" width="60" height="60"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="+ 21" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0og-Ts-emT">
-                                                    <rect key="frame" x="8" y="8" width="33" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="+ 21" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0og-Ts-emT">
+                                                    <rect key="frame" x="14" y="8" width="33" height="21"/>
                                                     <fontDescription key="fontDescription" name="Neuton-Regular" family="Neuton" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="- 5" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eI0-Gu-XVT">
-                                                    <rect key="frame" x="8" y="31" width="23" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="- 5" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eI0-Gu-XVT">
+                                                    <rect key="frame" x="14" y="31" width="33" height="21"/>
                                                     <fontDescription key="fontDescription" name="Neuton-Regular" family="Neuton" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -219,10 +270,33 @@
                             <outlet property="delegate" destination="1XH-7d-Zum" id="HmZ-h8-KzD"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" title="Posted Images" id="DPs-pA-dj1"/>
+                    <connections>
+                        <segue destination="dwy-Lx-i5T" kind="unwind" identifier="UnwindFromChangeArtToARVCSegue" customClass="UnwindFromLeftSegue" customModule="Emblem" customModuleProvider="target" unwindAction="unwindFromChangeArtToARVC:" id="PGk-5S-A5H"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wnm-2M-poP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="dwy-Lx-i5T" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="3685" y="353"/>
+            <point key="canvasLocation" x="4133" y="301"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Vea-zj-0zO">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Izt-Jm-yzx" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="g5c-vq-flz">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="PG5-Cd-BPl" kind="relationship" relationship="rootViewController" id="2m1-6q-vzY"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="f2K-OT-59B" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2357" y="283"/>
         </scene>
     </scenes>
 </document>

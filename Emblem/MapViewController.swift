@@ -13,28 +13,27 @@ import SocketIOClientSwift
 class MapViewController: UIViewController {
     
     
-    var serverUrl:NSURL?
+    var serverUrl:NSURL!
     var user:User?
     let locationManager = CLLocationManager()
     let env = NSProcessInfo.processInfo().environment
     var socket: SocketIOClient!
+    var currLat:CLLocation!
+    var currLong:CLLocation!
     
     @IBOutlet weak var mapView: GMSMapView!
     
     @IBAction func addMarkerPressed(sender: AnyObject) {
+        var lat = ""
+        var long = ""
         if let location = mapView.myLocation {
-            let x = String(location.coordinate.latitude)
-            let y = String(location.coordinate.longitude)
-//            HTTPRequest.post(["lat": x, "long": y], url: serverUrl!, postCompleted: { (succeeded, msg) in
-//                print("Post Complete \(msg)")
-//            })
-            
-            //TODO: Replace with websockets
-//            getMarkers(serverUrl!)
-            
+            lat = String(location.coordinate.latitude)
+            long = String(location.coordinate.longitude)
+
         }
-        let markerData = ["item1": 5]
-        self.performSegueWithIdentifier(ARViewController.getEntrySegueFromMapView() as String, sender: markerData)
+        let markerData = ["lat": lat, "long": long]
+        self.performSegueWithIdentifier(ARViewController.getEntrySegueFromMapView(), sender: markerData)
+//        self.performSegueWithIdentifier("MapToScrollViewSegue", sender: nil)
     }
 
     override func viewDidLoad() {
@@ -49,7 +48,7 @@ class MapViewController: UIViewController {
 
         initLocationServices()
         
-        socket = SocketIOClient(socketURL: self.serverUrl!, options: [.Log(true), .ForcePolling(true)])
+        socket = SocketIOClient(socketURL: self.serverUrl!, options: [.Log(false), .ForcePolling(true)])
         socket.on("connect") {data, ack in
             print("Socket Connected")
         }
@@ -118,12 +117,10 @@ extension MapViewController: CLLocationManagerDelegate {
             
         }
     }
-    func locationManagerDidResumeLocationUpdates(manager: CLLocationManager) {
-        print("resuming location updates")
-    }
+
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.first {
-            mapView.camera = GMSCameraPosition(target: location.coordinate, zoom: 15, bearing: 0, viewingAngle: 0)
+            mapView.camera = GMSCameraPosition(target: location.coordinate, zoom: 15, bearing: 0, viewingAngle: 0) 
             locationManager.stopUpdatingLocation()
 
         }

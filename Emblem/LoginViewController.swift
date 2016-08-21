@@ -27,8 +27,25 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         super.viewDidLoad()
         configureFacebook()
         if FBSDKAccessToken.currentAccessToken() != nil {
-            self.performSegueWithIdentifier(MapViewController.getEntrySegueFromLogin(), sender:nil )
-            //self.performSegueWithIdentifier(SimpleViewController.getEntrySegueFromMapView(), sender:nil )
+
+            if let server = self.env["DEV_SERVER"] as String? {
+                let url = NSURL(string: "\(server)auth/facebook/token?access_token=\(FBSDKAccessToken.currentAccessToken().tokenString)")!
+                HTTPRequest.get(url, getCompleted: { (response, data) in
+                    
+                    if response.statusCode == 200 {
+                        EnvironmentVars.accessToken = NSString(data: data, encoding: NSUTF8StringEncoding) as! String
+                        dispatch_async(dispatch_get_main_queue()) {
+                            self.performSegueWithIdentifier(MapViewController.getEntrySegueFromLogin(), sender: self.user)
+                            
+                        }
+                    } else {
+                        print("FB Authentication Falure: \(response)")
+                    }
+                })
+            } else {
+                print("No Server URL in Login")
+            }
+            
         }
         
     }
@@ -43,12 +60,16 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
             if error != nil {
                 print("FBLogin Error: \(error)")
             } else {
+          
+                print(self.user as User)
+                
                 var url = NSURL()
                 if let server = self.env["DEV_SERVER"] as String? {
                     url = NSURL(string: "\(server)auth/facebook/token?access_token=\(FBSDKAccessToken.currentAccessToken().tokenString)")!
-                } else {
-                    url = NSURL(string: "\(self.deployedServerString)/auth/facebook/token?access_token=\(FBSDKAccessToken.currentAccessToken().tokenString)")!
                 }
+//                else {
+//                    url = NSURL(string: "\(self.deployedServerString)/auth/facebook/token?access_token=\(FBSDKAccessToken.currentAccessToken().tokenString)")!
+//                }
                 
                 HTTPRequest.get(url, getCompleted: { (response, data) in
                     if response.statusCode == 200 {
@@ -59,12 +80,6 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
                 })
                 
             }
-            
-            //Result Object Here
-            
-            //            let strFirstName: String = (result.objectForKey("first_name") as? String)!
-            //            let strLastName: String = (result.objectForKey("last_name") as? String)!
-            //            let strPictureURL: String = (result.objectForKey("picture")?.objectForKey("data")?.objectForKey("url") as? String)!
         }
         
     }

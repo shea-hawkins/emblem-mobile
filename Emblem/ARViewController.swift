@@ -15,9 +15,27 @@ class ARViewController: UIViewController {
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
+    
+    @IBAction func unwindFromLibaryToARVC(segue: UIStoryboardSegue) {
+        print("unwindFromLibraryToARVC")
+    }
+    
+    @IBAction func unwindFromChangeArtToARVC(segue: UIStoryboardSegue) {
+        print("unwindFromChangeArtToARVC")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         NSLog("DidLoad")
+        
+        let swipeleft = UISwipeGestureRecognizer(target: self, action: #selector(self.handleMySwipeLeftGesture))
+        swipeleft.direction = .Left
+        let swiperight = UISwipeGestureRecognizer(target: self, action: #selector(self.handleMySwipeRightGesture))
+        swiperight.direction = .Right
+        self.view.addGestureRecognizer(swipeleft)
+        self.view.addGestureRecognizer(swiperight)
+
+        
         
         let notificationCenter = NSNotificationCenter.defaultCenter()
         notificationCenter.addObserver(self, selector: #selector(didRecieveWillResignActiveNotification),
@@ -59,8 +77,25 @@ class ARViewController: UIViewController {
         pause()
     }
     
-    class func getEntrySegueFromMapView() -> NSString {
+    
+    func handleMySwipeLeftGesture(gestureRecognizer: UISwipeGestureRecognizer) {
+        self.performSegueWithIdentifier("ARToChangeArtViewControllerSegue", sender: nil)
+    }
+    
+    func handleMySwipeRightGesture(gestureRecognizer: UISwipeGestureRecognizer) {
+        self.performSegueWithIdentifier("ARToLibraryViewControllerSegue", sender: nil)
+    }
+    
+    class func getEntrySegueFromMapView() -> String {
         return "MapToSimpleViewControllerSegue";
+    }
+    
+    class func getUnwindSegueFromLibraryView() -> String {
+        return "UnwindToARVCSegue"
+    }
+    
+    class func getUnwindSegueFromChangeArtView() -> String {
+        return "UnwindFromChangeArtToARVCSegue"
     }
     
 }

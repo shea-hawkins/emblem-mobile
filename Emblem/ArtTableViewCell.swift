@@ -16,9 +16,11 @@ class ArtTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        statView.layer.cornerRadius = 10
-        statView.layer.masksToBounds = true
-        statView.layer.opacity = 0.5
+        if let statView = statView {
+            statView.layer.cornerRadius = 10
+            statView.layer.masksToBounds = true
+            statView.layer.opacity = 0.5
+        }
     }
 
     override func setSelected(selected: Bool, animated: Bool) {
