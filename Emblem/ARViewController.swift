@@ -113,6 +113,10 @@ private extension ARViewController {
             self.view = manager.eaglView
             
             let menuView = ARMenuView(frame: self.view.frame);
+            
+            menuView.on("upvote", callback: {() in self.upvoteArt()})
+            menuView.on("downvote", callback: {() in self.downvoteArt()})
+            
             self.view.addSubview(menuView)
             
         }
