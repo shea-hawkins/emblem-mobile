@@ -35,7 +35,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
                     if response.statusCode == 200 {
                         EnvironmentVars.accessToken = NSString(data: data, encoding: NSUTF8StringEncoding) as! String
                         dispatch_async(dispatch_get_main_queue()) {
-                            self.performSegueWithIdentifier(MapViewController.getEntrySegueFromLogin(), sender: self.user)
+                            self.performSegueWithIdentifier(MapViewController.getEntrySegueFromLogin(), sender: nil)
                             
                         }
                     } else {
@@ -61,7 +61,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
                 print("FBLogin Error: \(error)")
             } else {
           
-                print(self.user as User)
+                //print(self.user as User)
                 
                 var url = NSURL()
                 if let server = self.env["DEV_SERVER"] as String? {
