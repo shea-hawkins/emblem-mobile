@@ -25,6 +25,10 @@ class ChangeArtTableViewController: UITableViewController {
     
     var delegate:ChangeArtTableViewControllerDelegate?
     
+    override func viewDidAppear(animated: Bool) {
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         locationManager.delegate = self
@@ -40,7 +44,7 @@ class ChangeArtTableViewController: UITableViewController {
         // Uncomment the following line to preserve selection between presentations
          self.clearsSelectionOnViewWillAppear = false
         
-        if let backImage:UIImage = UIImage(named: "letter-x.png") {
+        if let backImage:UIImage = UIImage(named: "left-arrow.png") {
             let backButton: UIButton = UIButton(type: UIButtonType.Custom)
             backButton.frame = CGRectMake(0, 0, 15, 15)
             backButton.contentMode = UIViewContentMode.ScaleAspectFit
@@ -152,7 +156,7 @@ class ChangeArtTableViewController: UITableViewController {
     }
     
     class func getEntrySegueFromARViewController() -> String {
-        return "ARToAddArtTableViewControllerSegue"
+        return "ARToChangeArtViewControllerSegue"
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {

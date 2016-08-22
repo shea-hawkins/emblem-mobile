@@ -31,8 +31,7 @@ class ARViewController: UIViewController {
         swipeleft.direction = .Left
         let swiperight = UISwipeGestureRecognizer(target: self, action: #selector(self.handleMySwipeRightGesture))
         swiperight.direction = .Right
-        self.view.addGestureRecognizer(swipeleft)
-        self.view.addGestureRecognizer(swiperight)
+
 
         
         
@@ -43,12 +42,15 @@ class ARViewController: UIViewController {
         notificationCenter.addObserver(self, selector: #selector(didRecieveDidBecomeActiveNotification),
                                        name: UIApplicationDidBecomeActiveNotification, object: nil)
         
-        let recognizer: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(ARViewController.swipeLeft));
-        recognizer.direction = .Left
-        
+//        let recognizer: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(ARViewController.swipeLeft));
+//        recognizer.direction = .Left
+//        
         prepare() //functionalize pls
         
-        self.view.addGestureRecognizer(recognizer)
+        self.view.addGestureRecognizer(swipeleft)
+        self.view.addGestureRecognizer(swiperight)
+        
+//        self.view.addGestureRecognizer(recognizer)
     }
     
     func swipeLeft(recognizer : UISwipeGestureRecognizer) {
@@ -79,11 +81,11 @@ class ARViewController: UIViewController {
     
     
     func handleMySwipeLeftGesture(gestureRecognizer: UISwipeGestureRecognizer) {
-        self.performSegueWithIdentifier("ARToChangeArtViewControllerSegue", sender: nil)
+        self.performSegueWithIdentifier(ChangeArtTableViewController.getEntrySegueFromARViewController(), sender: nil)
     }
     
     func handleMySwipeRightGesture(gestureRecognizer: UISwipeGestureRecognizer) {
-        self.performSegueWithIdentifier("ARToLibraryViewControllerSegue", sender: nil)
+        self.performSegueWithIdentifier(LibraryTableViewController.getEntrySegueFromARViewController(), sender: nil)
     }
     
     class func getEntrySegueFromMapView() -> String {

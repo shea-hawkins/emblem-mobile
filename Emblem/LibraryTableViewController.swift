@@ -18,9 +18,21 @@ class LibraryTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         getImageIdsForUser()
+        
         let gesture = UISwipeGestureRecognizer(target: self, action: "handleSwipeLeft:")
         gesture.direction = .Left
         tableView.addGestureRecognizer(gesture)
+        
+        if let addImage:UIImage = UIImage(named: "right-arrow.png") {
+            let backButton: UIButton = UIButton(type: UIButtonType.Custom)
+            backButton.frame = CGRectMake(0, 0, 20, 20)
+            backButton.contentMode = UIViewContentMode.ScaleAspectFit
+            backButton.setImage(addImage, forState: UIControlState.Normal)
+            backButton.addTarget(self, action: Selector("handleSwipeLeft:"), forControlEvents: .TouchUpInside)
+            let rightBarButtonItem: UIBarButtonItem = UIBarButtonItem(customView: backButton)
+            
+            self.navigationItem.setRightBarButtonItem(rightBarButtonItem, animated: false)
+        }
         
         if let addImage:UIImage = UIImage(named: "plus-symbol.png") {
             let addButton: UIButton = UIButton(type: UIButtonType.Custom)
@@ -28,9 +40,9 @@ class LibraryTableViewController: UITableViewController {
             addButton.contentMode = UIViewContentMode.ScaleAspectFit
             addButton.setImage(addImage, forState: UIControlState.Normal)
             addButton.addTarget(self, action: Selector("addArtPressed"), forControlEvents: .TouchUpInside)
-            let rightBarButtonItem: UIBarButtonItem = UIBarButtonItem(customView: addButton)
+            let leftBarButtonItem: UIBarButtonItem = UIBarButtonItem(customView: addButton)
             
-            self.navigationItem.setRightBarButtonItem(rightBarButtonItem, animated: false)
+            self.navigationItem.setLeftBarButtonItem(leftBarButtonItem, animated: false)
         }
 
         // Uncomment the following line to preserve selection between presentations
@@ -65,6 +77,10 @@ class LibraryTableViewController: UITableViewController {
     
     class func getEntrySegueFromARViewController() -> String {
         return "ARToLibraryViewControllerSegue"
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
     func getImageIdsForUser(){
