@@ -178,15 +178,17 @@
             <objects>
                 <viewController id="PG5-Cd-BPl" customClass="ARViewController" customModule="Emblem" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="ili-go-54i"/>
-                        <viewControllerLayoutGuide type="bottom" id="qFw-PG-lWN"/>
+                        <viewControllerLayoutGuide type="top" id="Pfq-eJ-52w"/>
+                        <viewControllerLayoutGuide type="bottom" id="Hr7-99-LcU"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="oHs-FV-LHX">
+                    <view key="view" contentMode="scaleToFill" id="5iB-ts-VTT">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="814-om-Isf"/>
+                    <toolbarItems/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <segue destination="1XH-7d-Zum" kind="show" identifier="ARToChangeArtViewControllerSegue" customClass="SegueFromRight" customModule="Emblem" customModuleProvider="target" id="NAN-rJ-gqA"/>
                         <segue destination="yUG-Ga-vnV" kind="show" identifier="ARToLibraryViewControllerSegue" customClass="SegueFromLeft" customModule="Emblem" customModuleProvider="target" id="t5V-zx-tMR"/>
@@ -194,7 +196,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="u4F-NI-Rqb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3280" y="437"/>
+            <point key="canvasLocation" x="2831" y="371"/>
         </scene>
         <!--Posted Images-->
         <scene sceneID="d4y-Uc-vMq">
@@ -295,6 +297,11 @@
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="f2K-OT-59B" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="BFD-DE-Bik">
+                    <rect key="frame" x="0.0" y="0.0" width="46" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" title="Button"/>
+                </button>
             </objects>
             <point key="canvasLocation" x="2357" y="283"/>
         </scene>

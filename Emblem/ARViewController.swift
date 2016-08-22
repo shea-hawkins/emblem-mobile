@@ -26,7 +26,6 @@ class ARViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        NSLog("DidLoad")
         
         let swipeleft = UISwipeGestureRecognizer(target: self, action: #selector(self.handleMySwipeLeftGesture))
         swipeleft.direction = .Left
@@ -69,6 +68,7 @@ class ARViewController: UIViewController {
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
         resume()
     }
     
@@ -125,18 +125,35 @@ extension ARViewController: ChangeArtTableViewControllerDelegate {
         }
     }
     
+    func upvoteArt() {
+        NSLog("Upvoting!")
+    }
+    
+    func downvoteArt() {
+        NSLog("Downvoting!")
+    }
 }
 
 private extension ARViewController {
     func prepare() {
         vuforiaManager = ARManager(licenseKey: vuforiaLiceseKey, dataSetFile: vuforiaDataSetFile)
         self.sceneSource = ARSceneSource(art: self.art, artType: self.artType)
+        
+        
         if let manager = vuforiaManager {
             manager.delegate = self
-            manager.eaglView.sceneSource = sceneSource
+            manager.eaglView.sceneSource = self.sceneSource
             manager.eaglView.delegate = self
             manager.eaglView.setupRenderer()
             self.view = manager.eaglView
+            
+            let menuView = ARMenuView(frame: self.view.frame);
+            
+            menuView.on("upvote", callback: {() in self.upvoteArt()})
+            menuView.on("downvote", callback: {() in self.downvoteArt()})
+            
+            self.view.addSubview(menuView)
+            
         }
         vuforiaManager?.prepareWithOrientation(.Portrait)
     }
