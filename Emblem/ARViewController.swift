@@ -36,21 +36,17 @@ class ARViewController: UIViewController {
         
         
         let notificationCenter = NSNotificationCenter.defaultCenter()
-        notificationCenter.addObserver(self, selector: #selector(didRecieveWillResignActiveNotification),
+        notificationCenter.addObserver(self, selector: #selector(didRecievePauseNotice),
                                        name: UIApplicationWillResignActiveNotification, object: nil)
         
-        notificationCenter.addObserver(self, selector: #selector(didRecieveDidBecomeActiveNotification),
+        notificationCenter.addObserver(self, selector: #selector(didRecieveResumeNotice),
                                        name: UIApplicationDidBecomeActiveNotification, object: nil)
         
-//        let recognizer: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(ARViewController.swipeLeft));
-//        recognizer.direction = .Left
-//        
+     
         prepare() //functionalize pls
         
         self.view.addGestureRecognizer(swipeleft)
         self.view.addGestureRecognizer(swiperight)
-        
-//        self.view.addGestureRecognizer(recognizer)
     }
     
     func swipeLeft(recognizer : UISwipeGestureRecognizer) {
@@ -71,12 +67,16 @@ class ARViewController: UIViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: true)
-        resume()
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        self.didRecieveResumeNotice()
     }
     
     override func viewWillDisappear(animated: Bool) {
+        self.didRecievePauseNotice();
         super.viewWillDisappear(animated)
-        pause()
     }
     
     
@@ -103,11 +103,11 @@ class ARViewController: UIViewController {
 }
 
 extension ARViewController {
-    func didRecieveWillResignActiveNotification(notification: NSNotification) {
+    func didRecievePauseNotice(notification: NSNotification?=nil) {
         pause()
     }
     
-    func didRecieveDidBecomeActiveNotification(notification: NSNotification) {
+    func didRecieveResumeNotice(notification: NSNotification?=nil) {
         resume()
     }
 }
