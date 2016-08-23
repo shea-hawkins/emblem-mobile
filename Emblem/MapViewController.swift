@@ -31,9 +31,37 @@ class MapViewController: UIViewController {
             long = String(location.coordinate.longitude)
 
         }
-        let markerData = ["lat": lat, "long": long]
-        self.performSegueWithIdentifier(ARViewController.getEntrySegueFromMapView(), sender: markerData)
-//        self.performSegueWithIdentifier("MapToScrollViewSegue", sender: nil)
+
+        let url = "\(EnvironmentVars.serverLocation)place/art/find/\(lat)/\(long)"
+        
+        HTTPRequest.get(NSURL(string: url)!, getCompleted: {(response, data) in
+            if response.statusCode == 200 || response.statusCode == 201 {
+                let json = JSON(data:data)
+                let placeId = json["id"].stringValue
+                self.performSegueWithIdentifier(ARViewController.getEntrySegueFromMapView(), sender: placeId)
+                if (json.array?.count > 0) {
+                    var highestRated = json[0]
+                    for(_, art):(String, JSON) in json {
+                        if (highestRated["votes"].int32Value < art["votes"].int32Value) {
+                            highestRated = art;
+                        }
+                    }
+                    
+                    let url = "\(EnvironmentVars.serverLocation)art/\(highestRated["id"].stringValue)/download"
+                    
+                    NSLog(highestRated["votes"].stringValue)
+                    
+                    HTTPRequest.get(NSURL(string: url)!, getCompleted: { (response, data) in
+                        if response.statusCode == 200 {
+                            let image = UIImage(data: data)!
+                            ARViewController.receiveArt(image)
+                        }
+                    })
+                } else {
+                    // send nil to server
+                }
+            }
+        })
     }
 
     override func viewDidLoad() {
