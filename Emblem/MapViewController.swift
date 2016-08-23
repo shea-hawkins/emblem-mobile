@@ -32,34 +32,15 @@ class MapViewController: UIViewController {
 
         }
 
-        let url = "\(EnvironmentVars.serverLocation)place/art/find/\(lat)/\(long)"
+        let url = "\(EnvironmentVars.serverLocation)place/find/\(lat)/\(long)"
         
         HTTPRequest.get(NSURL(string: url)!, getCompleted: {(response, data) in
             if response.statusCode == 200 || response.statusCode == 201 {
                 let json = JSON(data:data)
-                let placeId = json["id"].stringValue
-                self.performSegueWithIdentifier(ARViewController.getEntrySegueFromMapView(), sender: placeId)
-                if (json.array?.count > 0) {
-                    var highestRated = json[0]
-                    for(_, art):(String, JSON) in json {
-                        if (highestRated["votes"].int32Value < art["votes"].int32Value) {
-                            highestRated = art;
-                        }
-                    }
-                    
-                    let url = "\(EnvironmentVars.serverLocation)art/\(highestRated["id"].stringValue)/download"
-                    
-                    NSLog(highestRated["votes"].stringValue)
-                    
-                    HTTPRequest.get(NSURL(string: url)!, getCompleted: { (response, data) in
-                        if response.statusCode == 200 {
-                            let image = UIImage(data: data)!
-                            ARViewController.receiveArt(image)
-                        }
-                    })
-                } else {
+                print(json)
+                self.performSegueWithIdentifier(ARViewController.getEntrySegueFromMapView(), sender: json["id"].stringValue)
+            } else {
                     // send nil to server
-                }
             }
         })
     }
@@ -113,7 +94,6 @@ class MapViewController: UIViewController {
             print("GetMarkers: \(response.statusCode)")
             if response.statusCode == 200 {
                 let json = JSON(data:data)
-                print(json)
                 for(_, subJSON):(String, JSON) in json {
                     self.createMarker(subJSON["lat"].stringValue, longitude: subJSON["long"].stringValue)
                 }
@@ -132,6 +112,27 @@ class MapViewController: UIViewController {
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        if (segue.identifier == ARViewController.getEntrySegueFromMapView()) {
+            print(sender as! String)
+            let placeId = sender as! String
+            let ARView = segue.destinationViewController as! ARViewController
+            let url = "\(EnvironmentVars.serverLocation)artplace/max/rank/\(placeId)"
+            
+            HTTPRequest.get(NSURL(string: url)!, getCompleted: {(response, data) in
+                let art = JSON(data: data)
+                let url = "\(EnvironmentVars.serverLocation)art/\(art["id"].stringValue)"
+                HTTPRequest.get(NSURL(string: url)!, getCompleted: { (response, data) in
+                    if response.statusCode == 200 {
+                        let image = UIImage(data: data)!
+                        ARView.receiveArt(image, artType: .IMAGE)
+                  }
+                });
+            });
+        }
     }
 }
 
