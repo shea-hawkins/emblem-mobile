@@ -15,6 +15,7 @@ class ARViewController: UIViewController {
     let locationManager = CLLocationManager()
     let FIFTYFEETINDEGREES = 0.000137
     var sector:String!
+    private var artPlaceId: String? = nil
     
     deinit {
         NSNotificationCenter.defaultCenter().removeObserver(self)
@@ -147,7 +148,7 @@ extension ARViewController: ChangeArtTableViewControllerDelegate {
     
     func upvoteArt() {
         NSLog("Upvoting!")
-        let url = NSURL(string: "\(EnvironmentVars.serverLocation)artplace/\(self.artPlaceId)/vote")
+        let url = NSURL(string: "\(Store.serverLocation)artplace/\(self.artPlaceId)/vote")
         
         HTTPRequest.post(["vote": 1], dataType: "application/json", url: url!, postCompleted: {(succeeded, msg) in
             if succeeded {
@@ -157,7 +158,7 @@ extension ARViewController: ChangeArtTableViewControllerDelegate {
     }
     
     func downvoteArt() {
-        let url = NSURL(string: "\(EnvironmentVars.serverLocation)artplace/\(self.artPlaceId)/vote")
+        let url = NSURL(string: "\(Store.serverLocation)artplace/\(self.artPlaceId)/vote")
         
         HTTPRequest.post(["vote": -1], dataType: "application/json", url: url!, postCompleted: {(succeeded, msg) in
             if succeeded {

@@ -67,7 +67,7 @@ class ChangeArtTableViewController: UITableViewController {
     
     func getImageIds(){
         let url = NSURL(string: NSProcessInfo.processInfo().environment["DEV_SERVER"]! + "place/find/artPlace/\(Store.lat)/\(Store.long)")!
-        HTTPRequest.get(url, needsToken: true) { (response, data) in
+        HTTPRequest.get(url) { (response, data) in
             if response.statusCode == 200 || response.statusCode == 304 {
                 let json = JSON(data: data)
                 print(json)
@@ -152,7 +152,7 @@ class ChangeArtTableViewController: UITableViewController {
 //        if let delegate = self.delegate {
 //            delegate.receiveArt(self.art[indexPath.row], artType: .IMAGE)
 //        }
-        self.performSegueWithIdentifier(ARViewController.getUnwindSegueFromChangeArtView(), sender: self.art[indexPath.row])
+        self.performSegueWithIdentifier(ARViewController.getUnwindSegueFromChangeArtView(), sender: indexPath.row)
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
@@ -171,7 +171,7 @@ class ChangeArtTableViewController: UITableViewController {
         } else {
             let urlString = NSProcessInfo.processInfo().environment["DEV_SERVER"]! + "art/\(artData[indexPath.row]["ArtId"] as! Int)/download"
             let url = NSURL(string: urlString)!
-            HTTPRequest.get(url, needsToken: true) { (response, data) in
+            HTTPRequest.get(url) { (response, data) in
                 if response.statusCode == 200 {
                     let image = UIImage(data: data)!
                     dispatch_async(dispatch_get_main_queue(), {() -> Void in
@@ -233,7 +233,8 @@ class ChangeArtTableViewController: UITableViewController {
         if segue.identifier == ARViewController.getUnwindSegueFromChangeArtView() {
             let dest = segue.destinationViewController as! ARViewController
             if sender != nil {
-                dest.receiveArt(sender as! NSObject, artType: .IMAGE)
+                dest.receiveArt(self.art[sender as! Int], artType: .IMAGE, artPlaceId: self.artData[sender as! Int]["id"] as! String)
+                
             }
             
         }

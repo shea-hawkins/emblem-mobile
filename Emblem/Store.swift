@@ -10,6 +10,7 @@ import Foundation
 
 struct Store {
     static var accessToken:String = ""
+    static var serverLocation:String = ""
     static var lat:Double = 0
     static var long:Double = 0
 }

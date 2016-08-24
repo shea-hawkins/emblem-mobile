@@ -33,9 +33,18 @@ class MapViewController: UIViewController {
             long = String(location.coordinate.longitude)
 
         }
-        let markerData = ["lat": lat, "long": long]
-        self.performSegueWithIdentifier(ARViewController.getEntrySegueFromMapView(), sender: markerData)
 
+        let url = "\(Store.serverLocation)place/find/\(lat)/\(long)"
+        
+        HTTPRequest.get(NSURL(string: url)!, getCompleted: {(response, data) in
+            if response.statusCode == 200 || response.statusCode == 201 {
+                let json = JSON(data:data)
+                print(json)
+                self.performSegueWithIdentifier(ARViewController.getEntrySegueFromMapView(), sender: json["id"].stringValue)
+            } else {
+                
+            }
+        })
     }
 
     override func viewDidLoad() {
@@ -82,7 +91,7 @@ class MapViewController: UIViewController {
     
     func getMarkers() {
         let markerUrl = NSURL(string: NSProcessInfo.processInfo().environment["DEV_SERVER"]! + "artPlace/between/\(self.placeLat - MILEINDEGREES)/\(self.placeLat + MILEINDEGREES)/\(self.placeLong - MILEINDEGREES)/\(self.placeLong + MILEINDEGREES)")!
-        HTTPRequest.get(markerUrl, needsToken: true){(response, data) in
+        HTTPRequest.get(markerUrl){(response, data) in
             print("GetMarkers: \(response.statusCode)")
             if response.statusCode == 200 {
                 let json = JSON(data:data)
@@ -119,13 +128,13 @@ class MapViewController: UIViewController {
             
             let nav = segue.destinationViewController as! UINavigationController
             let ARView = nav.topViewController as! ARViewController
-            let url = "\(EnvironmentVars.serverLocation)place/find/maxArtPlace/\(placeId)"
+            let url = "\(Store.serverLocation)place/find/maxArtPlace/\(placeId)"
             
             HTTPRequest.get(NSURL(string: url)!, getCompleted: {(response, data) in
                 let art = JSON(data: data)
                 print(art)
                 if let artid = art[0]["artid"].string {
-                    let url = "\(EnvironmentVars.serverLocation)art/\(artid)/download"
+                    let url = "\(Store.serverLocation)art/\(artid)/download"
                     HTTPRequest.get(NSURL(string: url)!, getCompleted: { (response, data) in
                         if response.statusCode == 200 {
                             let image = UIImage(data: data)!

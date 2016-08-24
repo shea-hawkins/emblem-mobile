@@ -8,11 +8,12 @@
 
 import Foundation
 import FBSDKCoreKit
+import SwiftyJSON
 
 class HTTPRequest {
 
     
-    class func get(url:NSURL, needsToken:Bool, getCompleted: (response: NSHTTPURLResponse, data: NSData) -> ()) {
+    class func get(url:NSURL, getCompleted: (response: NSHTTPURLResponse, data: NSData) -> ()) {
         var url = url
         
         //TODO: enable without internet access
@@ -45,9 +46,9 @@ class HTTPRequest {
         
     }
     
-    class func post(params: Dictionary<String, AnyObject>, dataType:String, needsToken:Bool, url: NSURL, postCompleted: (succeeded: Bool, msg: String) -> ()){
+    class func post(params: Dictionary<String, AnyObject>, dataType:String, url: NSURL, postCompleted: (succeeded: Bool, msg: JSON) -> ()){
         var url = url
-        if (Store.accessToken != "" && needsToken) {
+        if (Store.accessToken != "") {
             if let newUrl = NSURL(string: url.absoluteString + "?access_token=\(Store.accessToken)") {
                 url = newUrl
             }
@@ -96,7 +97,7 @@ class HTTPRequest {
                 let json = try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.AllowFragments)
                 print("POST RESPONSE: \(json)")
                 if data != nil {
-                    postCompleted(succeeded: true, msg: "Post Successful")
+                    postCompleted(succeeded: true, msg: json as! JSON)
                 }
             } catch{
                 print("JSON POST parse error: \(error)")

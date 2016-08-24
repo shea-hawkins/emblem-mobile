@@ -13,8 +13,7 @@ class LibraryTableViewController: UITableViewController {
 
     var artData = [Dictionary<String,AnyObject>]()
     var art = [UIImage?]()
-    
-    var delegate:ChangeArtTableViewControllerDelegate?
+    var artPlaceId:Int!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -86,10 +85,9 @@ class LibraryTableViewController: UITableViewController {
     
     func getImageIdsForUser(){
         let url = NSURL(string: NSProcessInfo.processInfo().environment["DEV_SERVER"]! + "user/art")!
-        HTTPRequest.get(url, needsToken: true) { (response, data) in
+        HTTPRequest.get(url) { (response, data) in
             if response.statusCode == 200 {
                 let json = JSON(data: data)
-                print(json)
                 for (_, obj):(String, JSON) in json {
                     self.artData.append(obj.dictionaryObject!)
                     self.art = Array(count: self.artData.count, repeatedValue: nil)
@@ -117,7 +115,7 @@ class LibraryTableViewController: UITableViewController {
             let urlString = NSProcessInfo.processInfo().environment["DEV_SERVER"]! + "art/\(artID)/download"
 //            let urlString = NSProcessInfo.processInfo().environment["DEV_SERVER"]! + "storage/art/\(id)/\(id)_FULL"
             let url = NSURL(string: urlString)!
-            HTTPRequest.get(url, needsToken: false) { (response, data) in
+            HTTPRequest.get(url) { (response, data) in
                 if response.statusCode == 200 {
                     let image = UIImage(data: data)!
                     dispatch_async(dispatch_get_main_queue(), {
@@ -136,11 +134,11 @@ class LibraryTableViewController: UITableViewController {
         let art = self.art[indexPath.row]
         let artID = self.artData[indexPath.row]["id"] as! Int
         let url = NSURL(string: NSProcessInfo.processInfo().environment["DEV_SERVER"]! + "art/\(artID)/place")!
-        HTTPRequest.post(["lat": Store.lat, "long": Store.long], dataType: "application/json", needsToken: true, url: url) { (succeeded, msg) in
+        HTTPRequest.post(["lat": Store.lat, "long": Store.long], dataType: "application/json", url: url) { (succeeded, msg) in
             if succeeded {
-                print(msg)
+                self.artPlaceId = msg["id"].intValue
                 dispatch_async(dispatch_get_main_queue(), {() -> Void in
-                    self.performSegueWithIdentifier(ARViewController.getUnwindSegueFromLibraryView(), sender: art)
+                    self.performSegueWithIdentifier(ARViewController.getUnwindSegueFromLibraryView(), sender: indexPath.row)
                 })
             }
             
@@ -191,7 +189,8 @@ class LibraryTableViewController: UITableViewController {
         if segue.identifier == ARViewController.getUnwindSegueFromLibraryView() {
             let dest = segue.destinationViewController as! ARViewController
             if sender != nil {
-                dest.receiveArt(sender as! NSObject, artType: .IMAGE)
+                let artPlaceIdStr = String(self.artPlaceId)
+                dest.receiveArt(self.art[sender as! Int], artType: .IMAGE, artPlaceId: artPlaceIdStr)
             }
             
         }
@@ -220,7 +219,7 @@ extension LibraryTableViewController: UIImagePickerControllerDelegate, UINavigat
     func postImage(image: UIImage) {
         let imageData = UIImagePNGRepresentation(image)!
         let url = NSURL(string: NSProcessInfo.processInfo().environment["DEV_SERVER"]! + "art/")!
-        HTTPRequest.post(["image": imageData, "imageLength": imageData.length], dataType: "application/octet-stream", needsToken: true, url: url) { (succeeded, msg) in
+        HTTPRequest.post(["image": imageData, "imageLength": imageData.length], dataType: "application/octet-stream", url: url) { (succeeded, msg) in
             if succeeded {
                 print(msg)
                 self.artData = []
