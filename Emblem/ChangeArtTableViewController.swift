@@ -10,7 +10,7 @@ import UIKit
 import SwiftyJSON
 
 protocol ChangeArtTableViewControllerDelegate {
-    func receiveArt(art: NSObject!, artType: ArtType!);
+    func receiveArt(art: NSObject!, artType: ArtType!, artPlaceId: String!);
 }
 
 class ChangeArtTableViewController: UITableViewController {

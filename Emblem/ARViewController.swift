@@ -8,6 +8,7 @@ class ARViewController: UIViewController {
     
     private var vuforiaManager: ARManager? = nil
     private var sceneSource: ARSceneSource? = nil
+    private var menuView:ARMenuView!
     private var lastSceneName: String? = nil
     private var artType: ArtType? = nil
     private var art: NSObject? = nil
@@ -38,10 +39,10 @@ class ARViewController: UIViewController {
         
         
         let notificationCenter = NSNotificationCenter.defaultCenter()
-        notificationCenter.addObserver(self, selector: #selector(didRecieveWillResignActiveNotification),
+        notificationCenter.addObserver(self, selector: #selector(didRecievePauseNotice),
                                        name: UIApplicationWillResignActiveNotification, object: nil)
         
-        notificationCenter.addObserver(self, selector: #selector(didRecieveDidBecomeActiveNotification),
+        notificationCenter.addObserver(self, selector: #selector(didRecieveResumeNotice),
                                        name: UIApplicationDidBecomeActiveNotification, object: nil)
         
         locationManager.delegate = self
@@ -75,13 +76,17 @@ class ARViewController: UIViewController {
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.setNavigationBarHidden(true, animated: true)
-        resume()
+        //self.navigationController?.setNavigationBarHidden(true, animated: true)
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        self.didRecieveResumeNotice()
     }
     
     override func viewWillDisappear(animated: Bool) {
+        self.didRecievePauseNotice();
         super.viewWillDisappear(animated)
-        pause()
     }
     
     
@@ -114,23 +119,24 @@ class ARViewController: UIViewController {
 }
 
 extension ARViewController {
-    func didRecieveWillResignActiveNotification(notification: NSNotification) {
+    func didRecievePauseNotice(notification: NSNotification?=nil) {
         pause()
     }
     
-    func didRecieveDidBecomeActiveNotification(notification: NSNotification) {
+    func didRecieveResumeNotice(notification: NSNotification?=nil) {
         resume()
     }
 }
 
 extension ARViewController: ChangeArtTableViewControllerDelegate {
-    func receiveArt(art: NSObject!, artType: ArtType!) {
+    func receiveArt(art: NSObject!, artType: ArtType!, artPlaceId: String!) {
         // Can create an observable pattern here  where this notifies
         // sub views (such as AREAGLView) listening for a change in order to 
         // change arts after the view has already been loaded.
         print("receiveArt")
         self.art = art;
         self.artType = artType;
+        self.artPlaceId = artPlaceId;
         if (self.sceneSource != nil) {
             self.sceneSource!.setArt(art);
             let eaglView = self.vuforiaManager?.eaglView;
@@ -141,10 +147,23 @@ extension ARViewController: ChangeArtTableViewControllerDelegate {
     
     func upvoteArt() {
         NSLog("Upvoting!")
+        let url = NSURL(string: "\(EnvironmentVars.serverLocation)artplace/\(self.artPlaceId)/vote")
+        
+        HTTPRequest.post(["vote": 1], dataType: "application/json", url: url!, postCompleted: {(succeeded, msg) in
+            if succeeded {
+                self.menuView.upvoted()
+            }
+        })
     }
     
     func downvoteArt() {
-        NSLog("Downvoting!")
+        let url = NSURL(string: "\(EnvironmentVars.serverLocation)artplace/\(self.artPlaceId)/vote")
+        
+        HTTPRequest.post(["vote": -1], dataType: "application/json", url: url!, postCompleted: {(succeeded, msg) in
+            if succeeded {
+                self.menuView.downvoted()
+            }
+        })
     }
 }
 
@@ -161,12 +180,11 @@ private extension ARViewController {
             manager.eaglView.setupRenderer()
             self.view = manager.eaglView
             
-            let menuView = ARMenuView(frame: self.view.frame);
+            self.menuView = ARMenuView(frame: self.view.frame);
+            self.menuView.on("upvote", callback: {() in self.upvoteArt()})
+            self.menuView.on("downvote", callback: {() in self.downvoteArt()})
             
-            menuView.on("upvote", callback: {() in self.upvoteArt()})
-            menuView.on("downvote", callback: {() in self.downvoteArt()})
-            
-            self.view.addSubview(menuView)
+            self.view.addSubview(menuView!)
             
         }
         vuforiaManager?.prepareWithOrientation(.Portrait)

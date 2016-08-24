@@ -86,7 +86,6 @@ class MapViewController: UIViewController {
             print("GetMarkers: \(response.statusCode)")
             if response.statusCode == 200 {
                 let json = JSON(data:data)
-                print(json)
                 for(_, subJSON):(String, JSON) in json {
                     self.createMarker(subJSON["lat"].stringValue, longitude: subJSON["long"].stringValue)
                 }
@@ -111,6 +110,31 @@ class MapViewController: UIViewController {
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        if (segue.identifier == ARViewController.getEntrySegueFromMapView()) {
+            let placeId = sender as! String
+            
+            let nav = segue.destinationViewController as! UINavigationController
+            let ARView = nav.topViewController as! ARViewController
+            let url = "\(EnvironmentVars.serverLocation)place/find/maxArtPlace/\(placeId)"
+            
+            HTTPRequest.get(NSURL(string: url)!, getCompleted: {(response, data) in
+                let art = JSON(data: data)
+                print(art)
+                if let artid = art[0]["artid"].string {
+                    let url = "\(EnvironmentVars.serverLocation)art/\(artid)/download"
+                    HTTPRequest.get(NSURL(string: url)!, getCompleted: { (response, data) in
+                        if response.statusCode == 200 {
+                            let image = UIImage(data: data)!
+                            ARView.receiveArt(image, artType: .IMAGE, artPlaceId: art["artplaceid"].stringValue)
+                        }
+                    });
+                }
+            });
+        }
     }
 }
 
