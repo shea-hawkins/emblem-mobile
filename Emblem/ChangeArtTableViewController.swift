@@ -233,7 +233,7 @@ class ChangeArtTableViewController: UITableViewController {
         if segue.identifier == ARViewController.getUnwindSegueFromChangeArtView() {
             let dest = segue.destinationViewController as! ARViewController
             if sender != nil {
-                dest.receiveArt(self.art[sender as! Int], artType: .IMAGE, artPlaceId: self.artData[sender as! Int]["id"] as! String)
+                dest.receiveArt(self.art[sender as! Int], artType: .IMAGE, artPlaceId: String(self.artData[sender as! Int]["ArtPlaceId"]))
                 
             }
             

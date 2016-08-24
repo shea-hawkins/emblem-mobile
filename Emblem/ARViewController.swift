@@ -12,7 +12,7 @@ class ARViewController: UIViewController {
     private var lastSceneName: String? = nil
     private var artType: ArtType? = nil
     private var art: NSObject? = nil
-    let locationManager = CLLocationManager()
+    var locationManager:CLLocationManager = CLLocationManager()
     let FIFTYFEETINDEGREES = 0.000137
     var sector:String!
     private var artPlaceId: String? = nil
@@ -46,13 +46,16 @@ class ARViewController: UIViewController {
         notificationCenter.addObserver(self, selector: #selector(didRecieveResumeNotice),
                                        name: UIApplicationDidBecomeActiveNotification, object: nil)
         
-        locationManager.delegate = self
-        locationManager.startUpdatingLocation()
+        self.locationManager.delegate = self
+        self.locationManager.startUpdatingLocation()
+        self.locationManager.requestLocation()
+        
         
         prepare() //functionalize pls
         
         self.view.addGestureRecognizer(swipeLeft)
         self.view.addGestureRecognizer(swipeRight)
+        
     
     }
     
@@ -82,6 +85,7 @@ class ARViewController: UIViewController {
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        locationManager.startUpdatingLocation()
         self.didRecieveResumeNotice()
     }
     
@@ -244,6 +248,10 @@ extension ARViewController: CLLocationManagerDelegate {
 
             }
         }
+    }
+    
+    func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
+        print("Location Manager error: \(error)")
     }
 }
 

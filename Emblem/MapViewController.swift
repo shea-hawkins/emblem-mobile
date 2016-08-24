@@ -20,6 +20,7 @@ class MapViewController: UIViewController {
     var socket: SocketIOClient!
     var placeLat:Double = 0
     var placeLong:Double = 0
+    var didInitializeCamera = false
     var MILEINDEGREES = 0.0144
     
     @IBOutlet weak var artButton: UIButton!
@@ -40,7 +41,9 @@ class MapViewController: UIViewController {
             if response.statusCode == 200 || response.statusCode == 201 {
                 let json = JSON(data:data)
                 print(json)
-                self.performSegueWithIdentifier(ARViewController.getEntrySegueFromMapView(), sender: json["id"].stringValue)
+                dispatch_async(dispatch_get_main_queue(), {() -> Void in
+                    self.performSegueWithIdentifier(ARViewController.getEntrySegueFromMapView(), sender: json["id"].stringValue)
+                })
             } else {
                 
             }
@@ -58,7 +61,7 @@ class MapViewController: UIViewController {
         }
 
         initLocationServices()
-        
+
         socket = SocketIOClient(socketURL: self.serverUrl!, options: [.Log(false), .ForcePolling(true)])
         socket.on("connect") {data, ack in
             print("Socket Connected")
@@ -125,9 +128,9 @@ class MapViewController: UIViewController {
         
         if (segue.identifier == ARViewController.getEntrySegueFromMapView()) {
             let placeId = sender as! String
-            
             let nav = segue.destinationViewController as! UINavigationController
             let ARView = nav.topViewController as! ARViewController
+//            ARView.locationManager = locationManager
             let url = "\(Store.serverLocation)place/find/maxArtPlace/\(placeId)"
             
             HTTPRequest.get(NSURL(string: url)!, getCompleted: {(response, data) in
@@ -160,9 +163,11 @@ extension MapViewController: CLLocationManagerDelegate {
 
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.first {
-            print("location updated")
-            mapView.camera = GMSCameraPosition(target: location.coordinate, zoom: 15, bearing: 0, viewingAngle: 0) 
-            locationManager.stopUpdatingLocation()
+            if !didInitializeCamera {
+                didInitializeCamera = true
+                mapView.camera = GMSCameraPosition(target: location.coordinate, zoom: 15, bearing: 0, viewingAngle: 0)
+
+            }
             let newLat = Double(location.coordinate.latitude)
             let newLong = Double(location.coordinate.longitude)
             let distDiff = pow((pow((newLat - self.placeLat), 2) + pow((newLong - self.placeLong), 2)), 0.5)

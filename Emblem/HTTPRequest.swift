@@ -93,14 +93,10 @@ class HTTPRequest {
                 print("Post Response Body: \(resString)")
             }
             
-            do {
-                let json = try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.AllowFragments)
-                print("POST RESPONSE: \(json)")
-                if data != nil {
-                    postCompleted(succeeded: true, msg: json as! JSON)
-                }
-            } catch{
-                print("JSON POST parse error: \(error)")
+            let json = JSON(data: data!)
+            print("POST RESPONSE: \(json)")
+            if data != nil {
+                postCompleted(succeeded: true, msg: json)
             }
         }
         task.resume()
