@@ -15,13 +15,21 @@ class ARMenuView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-
-        upvote = UIButton(frame: CGRect(x: 200, y: 400, width:75, height: 75))
+        
+        let screenWidth = UIScreen.mainScreen().bounds.width
+        let screenHeight = UIScreen.mainScreen().bounds.height
+        
+        let buttonWidth = screenWidth / 6
+        let buttonHeight = screenHeight / 8
+        
+        
+        
+        upvote = UIButton(frame: CGRect(x: screenWidth / 3, y: screenHeight - buttonHeight, width: buttonWidth, height: buttonHeight))
         upvote.backgroundColor = .greenColor()
         upvote.setTitle("upvote", forState: .Normal)
         upvote.addTarget(self, action: #selector(ARMenuView.emit(_:)), forControlEvents: .TouchDown)
         
-        downvote = UIButton(frame: CGRect(x: 100, y:400, width: 75, height: 75))
+        downvote = UIButton(frame: CGRect(x: screenWidth - (screenWidth / 3), y:screenHeight - buttonHeight, width: buttonWidth, height: buttonHeight))
         downvote.backgroundColor = .redColor()
         downvote.setTitle("downvote", forState: .Normal)
         downvote.addTarget(self, action: #selector(ARMenuView.emit(_:)), forControlEvents: .TouchDown)
