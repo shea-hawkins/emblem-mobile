@@ -19,21 +19,26 @@ class ARMenuView: UIView {
         let screenWidth = UIScreen.mainScreen().bounds.width
         let screenHeight = UIScreen.mainScreen().bounds.height
         
-        let buttonWidth = screenWidth / 6
-        let buttonHeight = screenHeight / 8
+        let buttonWidth = screenWidth / 2 - 10
+        let buttonHeight = screenHeight / 8 - 10
         
-        
-        
-        upvote = UIButton(frame: CGRect(x: screenWidth / 3, y: screenHeight - buttonHeight, width: buttonWidth, height: buttonHeight))
-        upvote.backgroundColor = .greenColor()
-        upvote.setTitle("upvote", forState: .Normal)
-        upvote.addTarget(self, action: #selector(ARMenuView.emit(_:)), forControlEvents: .TouchDown)
-        
-        downvote = UIButton(frame: CGRect(x: screenWidth - (screenWidth / 3), y:screenHeight - buttonHeight, width: buttonWidth, height: buttonHeight))
-        downvote.backgroundColor = .redColor()
-        downvote.setTitle("downvote", forState: .Normal)
+        let downImage:UIImage = UIImage(named: "down-arrow2.png")!
+        downvote = UIButton(frame: CGRect(x: screenWidth / 4 - buttonWidth / 2, y:screenHeight - buttonHeight - 2, width: buttonWidth, height: buttonHeight))
+        downvote.setImage(downImage, forState: UIControlState.Normal)
         downvote.addTarget(self, action: #selector(ARMenuView.emit(_:)), forControlEvents: .TouchDown)
+        downvote.imageView?.contentMode = UIViewContentMode.ScaleAspectFit
+        downvote.layer.backgroundColor = UIColor(red: 17/255, green: 153/255, blue: 158/255, alpha: 1).CGColor
+        downvote.layer.cornerRadius = downvote.bounds.height / 2
+        downvote.tintColor = .whiteColor()
         
+        let upImage:UIImage = UIImage(named: "up-arrow2.png")!
+        upvote = UIButton(frame: CGRect(x: screenWidth - (screenWidth / 4 + buttonWidth / 2), y: screenHeight - buttonHeight - 2, width: buttonWidth, height: buttonHeight))
+        upvote.setImage(upImage, forState: UIControlState.Normal)
+        upvote.addTarget(self, action: #selector(ARMenuView.emit(_:)), forControlEvents: .TouchDown)
+        upvote.imageView?.contentMode = UIViewContentMode.ScaleAspectFit
+        upvote.layer.backgroundColor = UIColor(red: 17/255, green: 153/255, blue: 158/255, alpha: 1).CGColor
+        upvote.layer.cornerRadius = upvote.bounds.height / 2
+        upvote.tintColor = .whiteColor()
         
         self.addSubview(upvote)
         self.addSubview(downvote)
