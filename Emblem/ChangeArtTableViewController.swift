@@ -178,7 +178,7 @@ class ChangeArtTableViewController: UITableViewController {
                         self.art[indexPath.row] = image
                         let updateCell: ArtTableViewCell = tableView.cellForRowAtIndexPath(indexPath) as! ArtTableViewCell
                         updateCell.thumbImageView.image = image
-                        updateCell.upvoteLabel.text = String(self.artData[indexPath.row]["netVotes"])
+                        updateCell.upvoteLabel.text = String(self.artData[indexPath.row]["netVotes"]! as! Int)
                        // updateCell.downvoteLabel.text = self.artData[indexPath.row]["downvote"] as! String
                     })
                 }

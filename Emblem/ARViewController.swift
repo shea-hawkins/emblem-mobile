@@ -80,7 +80,7 @@ class ARViewController: UIViewController {
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        //self.navigationController?.setNavigationBarHidden(true, animated: true)
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
     }
     
     override func viewDidAppear(animated: Bool) {
