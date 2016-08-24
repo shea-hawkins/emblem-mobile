@@ -40,7 +40,7 @@ class MapViewController: UIViewController {
                 print(json)
                 self.performSegueWithIdentifier(ARViewController.getEntrySegueFromMapView(), sender: json["id"].stringValue)
             } else {
-                    // send nil to server
+                
             }
         })
     }
@@ -117,20 +117,24 @@ class MapViewController: UIViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
         if (segue.identifier == ARViewController.getEntrySegueFromMapView()) {
-            print(sender as! String)
             let placeId = sender as! String
-            let ARView = segue.destinationViewController as! ARViewController
-            let url = "\(EnvironmentVars.serverLocation)artplace/max/rank/\(placeId)"
+            
+            let nav = segue.destinationViewController as! UINavigationController
+            let ARView = nav.topViewController as! ARViewController
+            let url = "\(EnvironmentVars.serverLocation)place/find/maxArtPlace/\(placeId)"
             
             HTTPRequest.get(NSURL(string: url)!, getCompleted: {(response, data) in
                 let art = JSON(data: data)
-                let url = "\(EnvironmentVars.serverLocation)art/\(art["id"].stringValue)"
-                HTTPRequest.get(NSURL(string: url)!, getCompleted: { (response, data) in
-                    if response.statusCode == 200 {
-                        let image = UIImage(data: data)!
-                        ARView.receiveArt(image, artType: .IMAGE)
-                  }
-                });
+                print(art)
+                if let artid = art[0]["artid"].string {
+                    let url = "\(EnvironmentVars.serverLocation)art/\(artid)"
+                    HTTPRequest.get(NSURL(string: url)!, getCompleted: { (response, data) in
+                        if response.statusCode == 200 {
+                            let image = UIImage(data: data)!
+                            ARView.receiveArt(image, artType: .IMAGE, artPlaceId: art["artplaceid"].stringValue)
+                        }
+                    });
+                }
             });
         }
     }
