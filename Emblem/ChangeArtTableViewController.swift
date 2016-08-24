@@ -17,11 +17,10 @@ class ChangeArtTableViewController: UITableViewController {
     
     var artData = [Dictionary<String,AnyObject>]()
     var art = [UIImage?]()
-    var sectorId:Int = 0
-    var lat:Double = 0
-    var long: Double = 0
-    var locationManager = CLLocationManager()
-    let MILEINDEGREES = 0.0144
+    var sector:String!
+    var lat:Double!
+    var long:Double!
+
     
     var delegate:ChangeArtTableViewControllerDelegate?
     
@@ -31,15 +30,12 @@ class ChangeArtTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        locationManager.delegate = self
-        locationManager.startUpdatingLocation()
         let gesture = UISwipeGestureRecognizer(target: self, action: "backPressed")
         gesture.direction = .Right
         self.tableView.addGestureRecognizer(gesture)
         
         //TODO: Save image data locally
-        getSectorId()
-//        getImageIds()
+//
         
         // Uncomment the following line to preserve selection between presentations
          self.clearsSelectionOnViewWillAppear = false
@@ -54,6 +50,8 @@ class ChangeArtTableViewController: UITableViewController {
             
             self.navigationItem.setLeftBarButtonItem(leftBarButtonItem, animated: false)
         }
+        
+        getImageIds()
     
 
     }
@@ -67,23 +65,8 @@ class ChangeArtTableViewController: UITableViewController {
         self.performSegueWithIdentifier(ARViewController.getUnwindSegueFromChangeArtView(), sender: nil)
     }
     
-    func getSectorId() {
-        
-//        let url = NSURL(string: NSProcessInfo.processInfo().environment["DEV_SERVER"]! + "place/    find/\(self.lat)/\(self.long)")!
-//        HTTPRequest.get(url) { (response, data) in
-//            if response.statusCode == 200 {
-//                let json = JSON(data: data)
-//                print(json)
-//                //self.region = json["region"] as! Int
-//            }
-//        }
-        
-        //TODO: Remove after testing
-        self.sectorId = 1
-    }
-    
     func getImageIds(){
-        let url = NSURL(string: NSProcessInfo.processInfo().environment["DEV_SERVER"]! + "\(self.sectorId)/art")!
+        let url = NSURL(string: NSProcessInfo.processInfo().environment["DEV_SERVER"]! + "place/find/artPlace/\(Store.lat)/\(Store.long)")!
         HTTPRequest.get(url) { (response, data) in
             if response.statusCode == 200 || response.statusCode == 304 {
                 let json = JSON(data: data)
@@ -92,16 +75,22 @@ class ChangeArtTableViewController: UITableViewController {
                     self.artData.append(obj.dictionaryObject!)
                     self.artData.sortInPlace {
                         item1, item2 in
-                        let upvotes1 = item1["upvotes"] as! Int
-                        let downvotes1 = item1["downvotes"] as! Int
-                        let upvotes2 = item2["upvotes"] as! Int
-                        let downvotes2 = item2["downvotes"] as! Int
+                        let netvotes1 = item1["netVotes"] as! Int
+                        let netvotes2 = item2["netVotes"] as! Int
                         
-                        return (upvotes1 - downvotes1) > (upvotes2 - downvotes2)
+                        return netvotes1 > netvotes2
                     }
                     print("Num IDS: \(self.artData.count)")
                     self.art = Array(count: self.artData.count, repeatedValue: nil)
                     self.tableView.reloadData()
+                }
+                
+                if self.artData.count == 0 {
+                    dispatch_async(dispatch_get_main_queue(), {() -> Void in
+                        let alert = UIAlertController(title: "Well look at that!", message: "No art has been posted to this location!", preferredStyle: UIAlertControllerStyle.Alert)
+                        alert.addAction(UIAlertAction(title: "Ok!", style: UIAlertActionStyle.Default, handler: nil))
+                        self.presentViewController(alert, animated: true, completion: nil)
+                    })
                 }
             }
         }
@@ -160,9 +149,10 @@ class ChangeArtTableViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if let delegate = self.delegate {
-            delegate.receiveArt(self.art[indexPath.row], artType: .IMAGE, artPlaceId: self.artData[indexPath.row]["id"] as! String)
-        }
+//        if let delegate = self.delegate {
+//            delegate.receiveArt(self.art[indexPath.row], artType: .IMAGE)
+//        }
+        self.performSegueWithIdentifier(ARViewController.getUnwindSegueFromChangeArtView(), sender: indexPath.row)
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
@@ -179,7 +169,7 @@ class ChangeArtTableViewController: UITableViewController {
                 updateCell.thumbImageView.image = image
             })
         } else {
-            let urlString = NSProcessInfo.processInfo().environment["DEV_SERVER"]! + "storage/art/\(indexPath.row+1)/\(indexPath.row+1)_FULL"
+            let urlString = NSProcessInfo.processInfo().environment["DEV_SERVER"]! + "art/\(artData[indexPath.row]["ArtId"] as! Int)/download"
             let url = NSURL(string: urlString)!
             HTTPRequest.get(url) { (response, data) in
                 if response.statusCode == 200 {
@@ -188,6 +178,8 @@ class ChangeArtTableViewController: UITableViewController {
                         self.art[indexPath.row] = image
                         let updateCell: ArtTableViewCell = tableView.cellForRowAtIndexPath(indexPath) as! ArtTableViewCell
                         updateCell.thumbImageView.image = image
+                        updateCell.upvoteLabel.text = String(self.artData[indexPath.row]["netVotes"])
+                       // updateCell.downvoteLabel.text = self.artData[indexPath.row]["downvote"] as! String
                     })
                 }
             }
@@ -233,28 +225,20 @@ class ChangeArtTableViewController: UITableViewController {
     }
     */
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
-}
-extension ChangeArtTableViewController: CLLocationManagerDelegate {
-    
-    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        let newLat = Double(locations.first!.coordinate.latitude)
-        let newLong = Double(locations.first!.coordinate.longitude)
-
-        if pow((pow((newLat - self.lat), 2) + pow((newLong - self.long), 2)), 0.5) > MILEINDEGREES {
-            self.lat = newLat
-            self.long = newLong
-            print("updating sector...")
-            getSectorId()
+        if segue.identifier == ARViewController.getUnwindSegueFromChangeArtView() {
+            let dest = segue.destinationViewController as! ARViewController
+            if sender != nil {
+                dest.receiveArt(self.art[sender as! Int], artType: .IMAGE, artPlaceId: String(self.artData[sender as! Int]["ArtPlaceId"]))
+                
+            }
+            
         }
     }
+ 
+
 }

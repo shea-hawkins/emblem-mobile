@@ -24,7 +24,7 @@
 		35DB9D441D66A9A400E8AAF0 /* LeftToRightSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35DB9D431D66A9A400E8AAF0 /* LeftToRightSegue.swift */; };
 		35DB9D461D66B4A900E8AAF0 /* RightToLeftSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35DB9D451D66B4A900E8AAF0 /* RightToLeftSegue.swift */; };
 		35DB9D491D66B52D00E8AAF0 /* UnwindLeftSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35DB9D481D66B52D00E8AAF0 /* UnwindLeftSegue.swift */; };
-		35DB9D4B1D67CE3900E8AAF0 /* EnvironmentVars.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35DB9D4A1D67CE3900E8AAF0 /* EnvironmentVars.swift */; };
+		35DB9D4B1D67CE3900E8AAF0 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35DB9D4A1D67CE3900E8AAF0 /* Store.swift */; };
 		35E22B951D5EBD68004C6201 /* ChangeArtTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35E22B941D5EBD68004C6201 /* ChangeArtTableViewController.swift */; };
 		35E22B9A1D5ECA85004C6201 /* ArtTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35E22B991D5ECA85004C6201 /* ArtTableViewCell.swift */; };
 		55CB9937DFC26F85914C1C66 /* Pods_EmblemTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93A26ACF62EF8EADDFE28128 /* Pods_EmblemTests.framework */; };
@@ -97,13 +97,23 @@
 		35A87E021D52B998004E739E /* EmblemUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmblemUITests.swift; sourceTree = "<group>"; };
 		35A87E041D52B998004E739E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		35A87E101D52BA28004E739E /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		35B8818E1D6CDB3900D07FEA /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Bold.ttf"; sourceTree = "<group>"; };
+		35B8818F1D6CDB3900D07FEA /* OpenSans-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-BoldItalic.ttf"; sourceTree = "<group>"; };
+		35B881901D6CDB3900D07FEA /* OpenSans-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-ExtraBold.ttf"; sourceTree = "<group>"; };
+		35B881911D6CDB3900D07FEA /* OpenSans-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-ExtraBoldItalic.ttf"; sourceTree = "<group>"; };
+		35B881921D6CDB3900D07FEA /* OpenSans-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Italic.ttf"; sourceTree = "<group>"; };
+		35B881931D6CDB3900D07FEA /* OpenSans-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Light.ttf"; sourceTree = "<group>"; };
+		35B881941D6CDB3900D07FEA /* OpenSans-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-LightItalic.ttf"; sourceTree = "<group>"; };
+		35B881951D6CDB3900D07FEA /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Regular.ttf"; sourceTree = "<group>"; };
+		35B881961D6CDB3900D07FEA /* OpenSans-Semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Semibold.ttf"; sourceTree = "<group>"; };
+		35B881971D6CDB3900D07FEA /* OpenSans-SemiboldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-SemiboldItalic.ttf"; sourceTree = "<group>"; };
 		35BD88A11D59536300A409D6 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		35BD88A51D597F3500A409D6 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		35DB9D411D66A8E100E8AAF0 /* UnwindFromRightSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnwindFromRightSegue.swift; sourceTree = "<group>"; };
 		35DB9D431D66A9A400E8AAF0 /* LeftToRightSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeftToRightSegue.swift; sourceTree = "<group>"; };
 		35DB9D451D66B4A900E8AAF0 /* RightToLeftSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RightToLeftSegue.swift; sourceTree = "<group>"; };
 		35DB9D481D66B52D00E8AAF0 /* UnwindLeftSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnwindLeftSegue.swift; sourceTree = "<group>"; };
-		35DB9D4A1D67CE3900E8AAF0 /* EnvironmentVars.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnvironmentVars.swift; sourceTree = "<group>"; };
+		35DB9D4A1D67CE3900E8AAF0 /* Store.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
 		35E22B941D5EBD68004C6201 /* ChangeArtTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangeArtTableViewController.swift; sourceTree = "<group>"; };
 		35E22B991D5ECA85004C6201 /* ArtTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArtTableViewCell.swift; sourceTree = "<group>"; };
 		35FA710C1D542EFF00F54CBC /* Emblem-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Emblem-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -231,7 +241,7 @@
 			children = (
 				718E64121D5E971E0023B860 /* lib */,
 				351F47EB1D5B9FAD0093578B /* HTTPRequest.swift */,
-				35DB9D4A1D67CE3900E8AAF0 /* EnvironmentVars.swift */,
+				35DB9D4A1D67CE3900E8AAF0 /* Store.swift */,
 				35FA710C1D542EFF00F54CBC /* Emblem-Bridging-Header.h */,
 				35A87DE21D52B997004E739E /* AppDelegate.swift */,
 				35A87DE61D52B997004E739E /* Main.storyboard */,
@@ -299,6 +309,16 @@
 		35E22B9B1D5FEA7D004C6201 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				35B8818E1D6CDB3900D07FEA /* OpenSans-Bold.ttf */,
+				35B8818F1D6CDB3900D07FEA /* OpenSans-BoldItalic.ttf */,
+				35B881901D6CDB3900D07FEA /* OpenSans-ExtraBold.ttf */,
+				35B881911D6CDB3900D07FEA /* OpenSans-ExtraBoldItalic.ttf */,
+				35B881921D6CDB3900D07FEA /* OpenSans-Italic.ttf */,
+				35B881931D6CDB3900D07FEA /* OpenSans-Light.ttf */,
+				35B881941D6CDB3900D07FEA /* OpenSans-LightItalic.ttf */,
+				35B881951D6CDB3900D07FEA /* OpenSans-Regular.ttf */,
+				35B881961D6CDB3900D07FEA /* OpenSans-Semibold.ttf */,
+				35B881971D6CDB3900D07FEA /* OpenSans-SemiboldItalic.ttf */,
 				3569BC301D65161E0036F190 /* Neuton-Bold.ttf */,
 				3569BC311D65161E0036F190 /* Neuton-ExtraBold.ttf */,
 				3569BC321D65161E0036F190 /* Neuton-ExtraLight.ttf */,
@@ -625,7 +645,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				35DB9D4B1D67CE3900E8AAF0 /* EnvironmentVars.swift in Sources */,
+				35DB9D4B1D67CE3900E8AAF0 /* Store.swift in Sources */,
 				717FFC9B1D6931D600DABC2A /* ARMenuView.swift in Sources */,
 				35E22B951D5EBD68004C6201 /* ChangeArtTableViewController.swift in Sources */,
 				35DB9D491D66B52D00E8AAF0 /* UnwindLeftSegue.swift in Sources */,
@@ -799,21 +819,6 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer: Dane Jordan (QG42KV7GE7)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Dane Jordan (QG42KV7GE7)";
 				ENABLE_BITCODE = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$PODS_CONFIGURATION_BUILD_DIR/Bolts\"",
-					"\"$PODS_CONFIGURATION_BUILD_DIR/FBSDKCoreKit\"",
-					"\"$PODS_CONFIGURATION_BUILD_DIR/FBSDKLoginKit\"",
-					"\"$PODS_CONFIGURATION_BUILD_DIR/FBSDKShareKit\"",
-					"\"$PODS_CONFIGURATION_BUILD_DIR/FacebookCore\"",
-					"\"$PODS_CONFIGURATION_BUILD_DIR/FacebookLogin\"",
-					"\"$PODS_CONFIGURATION_BUILD_DIR/FacebookShare\"",
-					"\"$PODS_CONFIGURATION_BUILD_DIR/Socket.IO-Client-Swift\"",
-					"\"$PODS_CONFIGURATION_BUILD_DIR/SwiftyJSON\"",
-					"\"${PODS_ROOT}/GoogleMaps/Subspecs/Base/Frameworks\"",
-					"\"${PODS_ROOT}/GoogleMaps/Subspecs/Maps/Frameworks\"",
-					"'/Users/humanity/Documents/Emblem/Pods/GoogleMaps/Subspecs/Maps/Frameworks\"",
-				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"${PODS_ROOT}/Headers/Public\"",
@@ -898,21 +903,6 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer: Dane Jordan (QG42KV7GE7)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Dane Jordan (QG42KV7GE7)";
 				ENABLE_BITCODE = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$PODS_CONFIGURATION_BUILD_DIR/Bolts\"",
-					"\"$PODS_CONFIGURATION_BUILD_DIR/FBSDKCoreKit\"",
-					"\"$PODS_CONFIGURATION_BUILD_DIR/FBSDKLoginKit\"",
-					"\"$PODS_CONFIGURATION_BUILD_DIR/FBSDKShareKit\"",
-					"\"$PODS_CONFIGURATION_BUILD_DIR/FacebookCore\"",
-					"\"$PODS_CONFIGURATION_BUILD_DIR/FacebookLogin\"",
-					"\"$PODS_CONFIGURATION_BUILD_DIR/FacebookShare\"",
-					"\"$PODS_CONFIGURATION_BUILD_DIR/Socket.IO-Client-Swift\"",
-					"\"$PODS_CONFIGURATION_BUILD_DIR/SwiftyJSON\"",
-					"\"${PODS_ROOT}/GoogleMaps/Subspecs/Base/Frameworks\"",
-					"\"${PODS_ROOT}/GoogleMaps/Subspecs/Maps/Frameworks\"",
-					"\"/Users/humanity/Documents/Emblem/Pods/GoogleMaps/Subspecs/Maps/Frameworks\"",
-				);
 				"FRAMEWORK_SEARCH_PATHS[arch=*]" = "$(PROJECT_DIR)";
 				GCC_OPTIMIZATION_LEVEL = s;
 				HEADER_SEARCH_PATHS = (

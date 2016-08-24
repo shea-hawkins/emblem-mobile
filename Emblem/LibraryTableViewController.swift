@@ -11,9 +11,9 @@ import SwiftyJSON
 
 class LibraryTableViewController: UITableViewController {
 
-    var sectorId:Int = 1
     var artData = [Dictionary<String,AnyObject>]()
     var art = [UIImage?]()
+    var artPlaceId:Int!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -88,7 +88,6 @@ class LibraryTableViewController: UITableViewController {
         HTTPRequest.get(url) { (response, data) in
             if response.statusCode == 200 {
                 let json = JSON(data: data)
-                print(json)
                 for (_, obj):(String, JSON) in json {
                     self.artData.append(obj.dictionaryObject!)
                     self.art = Array(count: self.artData.count, repeatedValue: nil)
@@ -107,18 +106,19 @@ class LibraryTableViewController: UITableViewController {
         
         
         if let image = self.art[indexPath.row] {
-            dispatch_async(dispatch_get_main_queue(), {() -> Void in
+            dispatch_async(dispatch_get_main_queue(), {
                 let updateCell: ArtTableViewCell = tableView.cellForRowAtIndexPath(indexPath) as! ArtTableViewCell
                 updateCell.thumbImageView.image = image
             })
         } else {
-            let id = self.artData[indexPath.row]["id"] as! Int
-            let urlString = NSProcessInfo.processInfo().environment["DEV_SERVER"]! + "storage/art/\(id)/\(id)_FULL"
+            let artID = self.artData[indexPath.row]["id"] as! Int
+            let urlString = NSProcessInfo.processInfo().environment["DEV_SERVER"]! + "art/\(artID)/download"
+//            let urlString = NSProcessInfo.processInfo().environment["DEV_SERVER"]! + "storage/art/\(id)/\(id)_FULL"
             let url = NSURL(string: urlString)!
             HTTPRequest.get(url) { (response, data) in
                 if response.statusCode == 200 {
                     let image = UIImage(data: data)!
-                    dispatch_async(dispatch_get_main_queue(), {() -> Void in
+                    dispatch_async(dispatch_get_main_queue(), {
                         self.art[indexPath.row] = image
                         let updateCell: ArtTableViewCell = tableView.cellForRowAtIndexPath(indexPath) as! ArtTableViewCell
                         updateCell.thumbImageView.image = image
@@ -129,6 +129,22 @@ class LibraryTableViewController: UITableViewController {
         
         return cell
     }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let art = self.art[indexPath.row]
+        let artID = self.artData[indexPath.row]["id"] as! Int
+        let url = NSURL(string: NSProcessInfo.processInfo().environment["DEV_SERVER"]! + "art/\(artID)/place")!
+        HTTPRequest.post(["lat": Store.lat, "long": Store.long], dataType: "application/json", url: url) { (succeeded, msg) in
+            if succeeded {
+                self.artPlaceId = msg["id"].intValue
+                dispatch_async(dispatch_get_main_queue(), {() -> Void in
+                    self.performSegueWithIdentifier(ARViewController.getUnwindSegueFromLibraryView(), sender: indexPath.row)
+                })
+            }
+            
+        }
+    }
+
 
 
     /*
@@ -166,15 +182,19 @@ class LibraryTableViewController: UITableViewController {
     }
     */
 
-    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        if segue.identifier == ARViewController.getUnwindSegueFromLibraryView() {
+            let dest = segue.destinationViewController as! ARViewController
+            if sender != nil {
+                let artPlaceIdStr = String(self.artPlaceId)
+                dest.receiveArt(self.art[sender as! Int], artType: .IMAGE, artPlaceId: artPlaceIdStr)
+            }
+            
+        }
     }
-    */
 
 
 }
@@ -198,10 +218,11 @@ extension LibraryTableViewController: UIImagePickerControllerDelegate, UINavigat
     
     func postImage(image: UIImage) {
         let imageData = UIImagePNGRepresentation(image)!
-        let url = NSURL(string: NSProcessInfo.processInfo().environment["DEV_SERVER"]! + "art")!
+        let url = NSURL(string: NSProcessInfo.processInfo().environment["DEV_SERVER"]! + "art/")!
         HTTPRequest.post(["image": imageData, "imageLength": imageData.length], dataType: "application/octet-stream", url: url) { (succeeded, msg) in
             if succeeded {
                 print(msg)
+                self.artData = []
                 self.getImageIdsForUser()
             }
             
