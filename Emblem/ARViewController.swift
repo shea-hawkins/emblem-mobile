@@ -1,4 +1,5 @@
 import UIKit
+import SwiftyJSON
 
 class ARViewController: UIViewController {
     
@@ -11,6 +12,9 @@ class ARViewController: UIViewController {
     private var lastSceneName: String? = nil
     private var artType: ArtType? = nil
     private var art: NSObject? = nil
+    var locationManager:CLLocationManager = CLLocationManager()
+    let FIFTYFEETINDEGREES = 0.000137
+    var sector:String!
     private var artPlaceId: String? = nil
     
     deinit {
@@ -29,12 +33,10 @@ class ARViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let swipeleft = UISwipeGestureRecognizer(target: self, action: #selector(self.handleMySwipeLeftGesture))
-        swipeleft.direction = .Left
-        let swiperight = UISwipeGestureRecognizer(target: self, action: #selector(self.handleMySwipeRightGesture))
-        swiperight.direction = .Right
-
-
+        let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(self.handleMySwipeLeftGesture))
+        swipeLeft.direction = .Left
+        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(self.handleMySwipeRightGesture))
+        swipeRight.direction = .Right
         
         
         let notificationCenter = NSNotificationCenter.defaultCenter()
@@ -44,24 +46,34 @@ class ARViewController: UIViewController {
         notificationCenter.addObserver(self, selector: #selector(didRecieveResumeNotice),
                                        name: UIApplicationDidBecomeActiveNotification, object: nil)
         
-     
+        self.locationManager.delegate = self
+        self.locationManager.startUpdatingLocation()
+        self.locationManager.requestLocation()
+        
+        
         prepare() //functionalize pls
         
-        self.view.addGestureRecognizer(swipeleft)
-        self.view.addGestureRecognizer(swiperight)
+        self.view.addGestureRecognizer(swipeLeft)
+        self.view.addGestureRecognizer(swipeRight)
+        
+    
     }
     
-    func swipeLeft(recognizer : UISwipeGestureRecognizer) {
-        performSegueWithIdentifier(ChangeArtTableViewController.getEntrySegueFromARViewController(), sender: self)
-        
-    }
+//    func getPlaceId() {
+//        
+//        let url = NSURL(string: NSProcessInfo.processInfo().environment["DEV_SERVER"]! + "place/find/\(self.lat)/\(self.long)")!
+//        HTTPRequest.get(url, needsToken: true) { (response, data) in
+//            if response.statusCode == 200 || response.statusCode == 201 {
+//                let json = JSON(data: data)
+//                print(json)
+//                self.sector = json["sector"].stringValue
+//                print("sectorID: \(self.sector)")
+//            }
+//        }
+//        
+//        //TODO: Remove after testing
+//    }
 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if (segue.identifier == ChangeArtTableViewController.getEntrySegueFromARViewController()) {
-            let dest = segue.destinationViewController as! ChangeArtTableViewController
-            dest.delegate = sender as? ChangeArtTableViewControllerDelegate;
-        }
-    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -73,6 +85,7 @@ class ARViewController: UIViewController {
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        locationManager.startUpdatingLocation()
         self.didRecieveResumeNotice()
     }
     
@@ -102,6 +115,12 @@ class ARViewController: UIViewController {
         return "UnwindFromChangeArtToARVCSegue"
     }
     
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == ChangeArtTableViewController.getEntrySegueFromARViewController() {
+            let dest = segue.destinationViewController as! ChangeArtTableViewController
+            dest.delegate = sender as? ChangeArtTableViewControllerDelegate
+        }
+    }
 }
 
 extension ARViewController {
@@ -119,6 +138,7 @@ extension ARViewController: ChangeArtTableViewControllerDelegate {
         // Can create an observable pattern here  where this notifies
         // sub views (such as AREAGLView) listening for a change in order to 
         // change arts after the view has already been loaded.
+        print("receiveArt")
         self.art = art;
         self.artType = artType;
         self.artPlaceId = artPlaceId;
@@ -132,7 +152,7 @@ extension ARViewController: ChangeArtTableViewControllerDelegate {
     
     func upvoteArt() {
         NSLog("Upvoting!")
-        let url = NSURL(string: "\(EnvironmentVars.serverLocation)artplace/\(self.artPlaceId)/vote")
+        let url = NSURL(string: "\(Store.serverLocation)artplace/\(self.artPlaceId)/vote")
         
         HTTPRequest.post(["vote": 1], dataType: "application/json", url: url!, postCompleted: {(succeeded, msg) in
             if succeeded {
@@ -142,7 +162,7 @@ extension ARViewController: ChangeArtTableViewControllerDelegate {
     }
     
     func downvoteArt() {
-        let url = NSURL(string: "\(EnvironmentVars.serverLocation)artplace/\(self.artPlaceId)/vote")
+        let url = NSURL(string: "\(Store.serverLocation)artplace/\(self.artPlaceId)/vote")
         
         HTTPRequest.post(["vote": -1], dataType: "application/json", url: url!, postCompleted: {(succeeded, msg) in
             if succeeded {
@@ -211,6 +231,28 @@ extension ARViewController: ARManagerDelegate {
     }
     
     func vuforiaManager(manager: ARManager!, didUpdateWithState state: VuforiaState!) {}
+}
+
+extension ARViewController: CLLocationManagerDelegate {
+    
+    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let location = locations.first {
+            let newLat = Double(location.coordinate.latitude)
+            let newLong = Double(location.coordinate.longitude)
+            let distDiff = pow((pow((newLat - Store.lat), 2) + pow((newLong - Store.long), 2)), 0.5)
+            
+            if distDiff > FIFTYFEETINDEGREES {
+                Store.lat = newLat
+                Store.long = newLong
+                print("updating lat & long...")
+
+            }
+        }
+    }
+    
+    func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
+        print("Location Manager error: \(error)")
+    }
 }
 
 

@@ -29,31 +29,33 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureFacebook()
-        
         if let devServer = self.env["DEV_SERVER"] as String? {
             server = devServer
-            EnvironmentVars.serverLocation = server;
+            Store.serverLocation = server;
         } else {
             server = deployedServerString
-            EnvironmentVars.serverLocation = server;
+            Store.serverLocation = server;
         }
-        
-        if FBSDKAccessToken.currentAccessToken() != nil {
-
-            let url = NSURL(string: "\(self.server)auth/facebook/token?access_token=\(FBSDKAccessToken.currentAccessToken().tokenString)")!
-            HTTPRequest.get(url, getCompleted: { (response, data) in
-                
-                if response.statusCode == 200 {
-                    EnvironmentVars.accessToken = NSString(data: data, encoding: NSUTF8StringEncoding) as! String
-                    dispatch_async(dispatch_get_main_queue()) {
-                        self.performSegueWithIdentifier(MapViewController.getEntrySegueFromLogin(), sender: nil)
-                        
+        if Store.accessToken == "" && FBSDKAccessToken.currentAccessToken() != nil {
+            
+            
+            //TODO: Implement caching between sessions
+                let url = NSURL(string: "\(server)auth/facebook/token?access_token=\(FBSDKAccessToken.currentAccessToken().tokenString)")!
+                HTTPRequest.get(url, getCompleted: { (response, data) in
+                    
+                    if response.statusCode == 200 {
+                        print("Returned User Token: \(NSString(data: data, encoding: NSUTF8StringEncoding) as! String)")
+                        Store.accessToken = NSString(data: data, encoding: NSUTF8StringEncoding) as! String
+                        dispatch_async(dispatch_get_main_queue()) {
+                            self.performSegueWithIdentifier(MapViewController.getEntrySegueFromLogin(), sender: nil)
+                        }
+                    } else {
+                        print("FB Authentication Falure: \(response)")
                     }
-                } else {
-                    print("FB Authentication Falure: \(response)")
-                }
-            })
-        }
+                
+                })
+            }
+        
     }
 
     
@@ -71,7 +73,11 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
                 
                 HTTPRequest.get(url, getCompleted: { (response, data) in
                     if response.statusCode == 200 {
-                        self.performSegueWithIdentifier(MapViewController.getEntrySegueFromLogin(), sender: nil)
+                        Store.accessToken = NSString(data: data, encoding: NSUTF8StringEncoding) as! String
+                        dispatch_async(dispatch_get_main_queue()) {
+                            self.performSegueWithIdentifier(MapViewController.getEntrySegueFromLogin(), sender: nil)
+                            
+                        }
                     } else {
                         print("FB Authentication Falure: \(response)")
                     }
