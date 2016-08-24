@@ -1,5 +1,5 @@
 //
-//  EnvironmentVars.swift
+//  Store.swift
 //  Emblem
 //
 //  Created by Dane Jordan on 8/19/16.
@@ -8,6 +8,8 @@
 
 import Foundation
 
-struct EnvironmentVars {
-    static var accessToken = ""
+struct Store {
+    static var accessToken:String = ""
+    static var lat:Double = 0
+    static var long:Double = 0
 }

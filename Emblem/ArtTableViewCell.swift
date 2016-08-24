@@ -12,6 +12,8 @@ class ArtTableViewCell: UITableViewCell {
 
     @IBOutlet weak var thumbImageView: UIImageView!
     @IBOutlet weak var statView: UIView!
+    @IBOutlet weak var upvoteLabel: UILabel!
+    @IBOutlet weak var downvoteLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

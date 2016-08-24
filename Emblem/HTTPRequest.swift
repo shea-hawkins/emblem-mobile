@@ -12,12 +12,12 @@ import FBSDKCoreKit
 class HTTPRequest {
 
     
-    class func get(url:NSURL, getCompleted: (response: NSHTTPURLResponse, data: NSData) -> ()) {
+    class func get(url:NSURL, needsToken:Bool, getCompleted: (response: NSHTTPURLResponse, data: NSData) -> ()) {
         var url = url
         
         //TODO: enable without internet access
-        if (EnvironmentVars.accessToken != "") {
-            if let newUrl = NSURL(string: url.absoluteString + "?access_token=\(EnvironmentVars.accessToken)") {
+        if (Store.accessToken != "") {
+            if let newUrl = NSURL(string: url.absoluteString + "?access_token=\(Store.accessToken)") {
                 url = newUrl
             }
         } else {
@@ -38,17 +38,17 @@ class HTTPRequest {
                     getCompleted(response: httpresponse, data: data!)
                 }
             } else {
-                print("No Internet Connection")
+                print("No Server Response")
             }
         } 
         task.resume()
         
     }
     
-    class func post(params: Dictionary<String, AnyObject>, dataType:String, url: NSURL, postCompleted: (succeeded: Bool, msg: String) -> ()){
+    class func post(params: Dictionary<String, AnyObject>, dataType:String, needsToken:Bool, url: NSURL, postCompleted: (succeeded: Bool, msg: String) -> ()){
         var url = url
-        if (EnvironmentVars.accessToken != "") {
-            if let newUrl = NSURL(string: url.absoluteString + "?access_token=\(EnvironmentVars.accessToken)") {
+        if (Store.accessToken != "" && needsToken) {
+            if let newUrl = NSURL(string: url.absoluteString + "?access_token=\(Store.accessToken)") {
                 url = newUrl
             }
         } else {
@@ -87,9 +87,10 @@ class HTTPRequest {
                 print(error)
                 return
             }
-            print("POST URL: \(response?.URL) \r\n POST RESPONSE HEADERS: \((response as! NSHTTPURLResponse).statusCode)")
-            let resString = NSString(data: data!, encoding: NSUTF8StringEncoding)
-            print("Post Response Body: \(resString)")
+            print("POST URL: \(response?.URL) \r\n POST Response Status Code: \((response as! NSHTTPURLResponse).statusCode)")
+            if let resString = NSString(data: data!, encoding: NSUTF8StringEncoding) {
+                print("Post Response Body: \(resString)")
+            }
             
             do {
                 let json = try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.AllowFragments)
