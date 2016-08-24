@@ -15,8 +15,8 @@ import FBSDKShareKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    let googleMapsApiKey = NSProcessInfo.processInfo().environment["GOOGLE_MAPS_API_KEY"]!
-
+    //let googleMapsApiKey = NSProcessInfo.processInfo().environment["GOOGLE_MAPS_API_KEY"]!
+    let googleMapsApiKey = "AIzaSyBi7NLOagsHBOfINbLARaXhHVoOSBw3-_E"
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         

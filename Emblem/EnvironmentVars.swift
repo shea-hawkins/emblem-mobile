@@ -10,4 +10,5 @@ import Foundation
 
 struct EnvironmentVars {
     static var accessToken = ""
+    static var serverLocation = ""
 }

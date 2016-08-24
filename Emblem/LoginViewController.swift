@@ -32,8 +32,10 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         
         if let devServer = self.env["DEV_SERVER"] as String? {
             server = devServer
+            EnvironmentVars.serverLocation = server;
         } else {
             server = deployedServerString
+            EnvironmentVars.serverLocation = server;
         }
         
         if FBSDKAccessToken.currentAccessToken() != nil {

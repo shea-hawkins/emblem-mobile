@@ -9,19 +9,19 @@
 import SpriteKit
 
 class ARMenuView: UIView {
-    var upvoteNode: SKSpriteNode!
-    var downvoteNode: SKSpriteNode!
+    private var upvote: UIButton!
+    private var downvote: UIButton!
     var events: [String: Array<() -> Void>] = [String: Array<() -> Void>]()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
 
-        let upvote = UIButton(frame: CGRect(x: 200, y: 400, width:75, height: 75))
+        upvote = UIButton(frame: CGRect(x: 200, y: 400, width:75, height: 75))
         upvote.backgroundColor = .greenColor()
         upvote.setTitle("upvote", forState: .Normal)
         upvote.addTarget(self, action: #selector(ARMenuView.emit(_:)), forControlEvents: .TouchDown)
         
-        let downvote = UIButton(frame: CGRect(x: 100, y:400, width: 75, height: 75))
+        downvote = UIButton(frame: CGRect(x: 100, y:400, width: 75, height: 75))
         downvote.backgroundColor = .redColor()
         downvote.setTitle("downvote", forState: .Normal)
         downvote.addTarget(self, action: #selector(ARMenuView.emit(_:)), forControlEvents: .TouchDown)
@@ -33,6 +33,16 @@ class ARMenuView: UIView {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func upvoted() {
+        self.upvote.enabled = false
+        self.downvote.enabled = true
+    }
+    
+    func downvoted() {
+        self.upvote.enabled = true
+        self.downvote.enabled = false
     }
     
     func emit(sender: UIButton) {
