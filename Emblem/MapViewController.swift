@@ -127,7 +127,7 @@ class MapViewController: UIViewController {
                 let art = JSON(data: data)
                 print(art)
                 if let artid = art[0]["artid"].string {
-                    let url = "\(EnvironmentVars.serverLocation)art/\(artid)"
+                    let url = "\(EnvironmentVars.serverLocation)art/\(artid)/download"
                     HTTPRequest.get(NSURL(string: url)!, getCompleted: { (response, data) in
                         if response.statusCode == 200 {
                             let image = UIImage(data: data)!
