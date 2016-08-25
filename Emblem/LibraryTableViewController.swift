@@ -12,14 +12,13 @@ import SwiftyJSON
 class LibraryTableViewController: UITableViewController {
 
     var artData = [Dictionary<String,AnyObject>]()
-    var art = [UIImage?]()
     var artPlaceId:Int!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         getImageIdsForUser()
         
-        let gesture = UISwipeGestureRecognizer(target: self, action: "handleSwipeLeft:")
+        let gesture = UISwipeGestureRecognizer(target: self, action: #selector(LibraryTableViewController.handleSwipeLeft(_:)))
         gesture.direction = .Left
         tableView.addGestureRecognizer(gesture)
         
@@ -28,7 +27,7 @@ class LibraryTableViewController: UITableViewController {
             backButton.frame = CGRectMake(0, 0, 20, 20)
             backButton.contentMode = UIViewContentMode.ScaleAspectFit
             backButton.setImage(addImage, forState: UIControlState.Normal)
-            backButton.addTarget(self, action: Selector("handleSwipeLeft:"), forControlEvents: .TouchUpInside)
+            backButton.addTarget(self, action: #selector(LibraryTableViewController.handleSwipeLeft(_:)), forControlEvents: .TouchUpInside)
             let rightBarButtonItem: UIBarButtonItem = UIBarButtonItem(customView: backButton)
             
             self.navigationItem.setRightBarButtonItem(rightBarButtonItem, animated: false)
@@ -39,7 +38,7 @@ class LibraryTableViewController: UITableViewController {
             addButton.frame = CGRectMake(0, 0, 20, 20)
             addButton.contentMode = UIViewContentMode.ScaleAspectFit
             addButton.setImage(addImage, forState: UIControlState.Normal)
-            addButton.addTarget(self, action: Selector("addArtPressed"), forControlEvents: .TouchUpInside)
+            addButton.addTarget(self, action: #selector(LibraryTableViewController.addArtPressed), forControlEvents: .TouchUpInside)
             let leftBarButtonItem: UIBarButtonItem = UIBarButtonItem(customView: addButton)
             
             self.navigationItem.setLeftBarButtonItem(leftBarButtonItem, animated: false)
@@ -72,7 +71,7 @@ class LibraryTableViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return self.art.count
+        return self.artData.count
     }
     
     class func getEntrySegueFromARViewController() -> String {
@@ -90,7 +89,6 @@ class LibraryTableViewController: UITableViewController {
                 let json = JSON(data: data)
                 for (_, obj):(String, JSON) in json {
                     self.artData.append(obj.dictionaryObject!)
-                    self.art = Array(count: self.artData.count, repeatedValue: nil)
                     self.tableView.reloadData()
                 }
             }
@@ -104,11 +102,29 @@ class LibraryTableViewController: UITableViewController {
         
         cell.thumbImageView.image = nil
         
+        let indicatorWidth:CGFloat = 20
+        let indicatorHeight:CGFloat = 20
+        let backgroundLoadingView = UIView(frame: CGRect(x: 0, y: 0, width: cell.bounds.width, height: cell.bounds.height))
+        let indicatorFrame = CGRectMake((cell.bounds.width - indicatorWidth) / 2, cell.bounds.height  / 2 - indicatorHeight, indicatorWidth, indicatorHeight)
+        let loadingIndicator = UIActivityIndicatorView(frame: indicatorFrame)
+        let loadingFrame = CGRectMake(0, indicatorHeight, cell.bounds.width, cell.bounds.height)
+        let loadingLabel = UILabel(frame: loadingFrame)
         
-        if let image = self.art[indexPath.row] {
+        loadingLabel.text = "Spinning up hamster wheels..."
+        loadingLabel.numberOfLines = 0
+        loadingLabel.font = UIFont(name: "Open-Sans", size: 18)
+        loadingLabel.textAlignment = .Center
+        loadingIndicator.color = .blackColor()
+        loadingIndicator.startAnimating()
+        
+        backgroundLoadingView.addSubview(loadingLabel)
+        backgroundLoadingView.addSubview(loadingIndicator)
+        cell.contentView.addSubview(backgroundLoadingView)
+        
+        if let cachedImage = Store.imageCache.objectForKey(artData[indexPath.row]["id"]!) as? UIImage {
             dispatch_async(dispatch_get_main_queue(), {
                 let updateCell: ArtTableViewCell = tableView.cellForRowAtIndexPath(indexPath) as! ArtTableViewCell
-                updateCell.thumbImageView.image = image
+                updateCell.thumbImageView.image = cachedImage
             })
         } else {
             let artID = self.artData[indexPath.row]["id"] as! Int
@@ -119,7 +135,8 @@ class LibraryTableViewController: UITableViewController {
                 if response.statusCode == 200 {
                     let image = UIImage(data: data)!
                     dispatch_async(dispatch_get_main_queue(), {
-                        self.art[indexPath.row] = image
+                        backgroundLoadingView.removeFromSuperview()
+                        Store.imageCache.setObject(image, forKey: self.artData[indexPath.row]["id"] as! Int)
                         let updateCell: ArtTableViewCell = tableView.cellForRowAtIndexPath(indexPath) as! ArtTableViewCell
                         updateCell.thumbImageView.image = image
                     })
@@ -131,7 +148,6 @@ class LibraryTableViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let art = self.art[indexPath.row]
         let artID = self.artData[indexPath.row]["id"] as! Int
         let url = NSURL(string: NSProcessInfo.processInfo().environment["DEV_SERVER"]! + "art/\(artID)/place")!
         HTTPRequest.post(["lat": Store.lat, "long": Store.long], dataType: "application/json", url: url) { (succeeded, msg) in
@@ -190,7 +206,11 @@ class LibraryTableViewController: UITableViewController {
             let dest = segue.destinationViewController as! ARViewController
             if sender != nil {
                 let artPlaceIdStr = String(self.artPlaceId)
-                dest.receiveArt(self.art[sender as! Int], artType: .IMAGE, artPlaceId: artPlaceIdStr)
+                if let cachedImage = Store.imageCache.objectForKey(self.artData[sender as! Int]["id"]!) as? UIImage{
+                    dest.receiveArt(cachedImage, artType: .IMAGE, artPlaceId: artPlaceIdStr)
+                } else {
+                    print("image no longer in cache")
+                }
             }
             
         }
@@ -222,8 +242,10 @@ extension LibraryTableViewController: UIImagePickerControllerDelegate, UINavigat
         HTTPRequest.post(["image": imageData, "imageLength": imageData.length], dataType: "application/octet-stream", url: url) { (succeeded, msg) in
             if succeeded {
                 print(msg)
-                self.artData = []
-                self.getImageIdsForUser()
+                dispatch_async(dispatch_get_main_queue(), {() -> Void in
+                    self.artData = []
+                    self.getImageIdsForUser()
+                })
             }
             
         }

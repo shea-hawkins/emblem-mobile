@@ -16,7 +16,6 @@ protocol ChangeArtTableViewControllerDelegate {
 class ChangeArtTableViewController: UITableViewController {
     
     var artData = [Dictionary<String,AnyObject>]()
-    var art = [UIImage?]()
     var sector:String!
     var lat:Double!
     var long:Double!
@@ -30,7 +29,7 @@ class ChangeArtTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let gesture = UISwipeGestureRecognizer(target: self, action: "backPressed")
+        let gesture = UISwipeGestureRecognizer(target: self, action: #selector(backPressed))
         gesture.direction = .Right
         self.tableView.addGestureRecognizer(gesture)
         
@@ -45,7 +44,7 @@ class ChangeArtTableViewController: UITableViewController {
             backButton.frame = CGRectMake(0, 0, 15, 15)
             backButton.contentMode = UIViewContentMode.ScaleAspectFit
             backButton.setImage(backImage, forState: UIControlState.Normal)
-            backButton.addTarget(self, action: Selector("backPressed"), forControlEvents: .TouchUpInside)
+            backButton.addTarget(self, action: #selector(backPressed), forControlEvents: .TouchUpInside)
             let leftBarButtonItem: UIBarButtonItem = UIBarButtonItem(customView: backButton)
             
             self.navigationItem.setLeftBarButtonItem(leftBarButtonItem, animated: false)
@@ -81,7 +80,6 @@ class ChangeArtTableViewController: UITableViewController {
                         return netvotes1 > netvotes2
                     }
                     print("Num IDS: \(self.artData.count)")
-                    self.art = Array(count: self.artData.count, repeatedValue: nil)
                     self.tableView.reloadData()
                 }
                 
@@ -104,40 +102,7 @@ class ChangeArtTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        var sections = 0
-        if (false) {
-            print("tableViewLoading")
-            let indicatorWidth: CGFloat = 20
-            let indicatorHeight: CGFloat = 20
-            let yOffset: CGFloat = 60
-            let textColor = UIColor.blackColor()
-            
-            let backgroundView = UIView(frame: CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height))
-            let loadingIndicator = UIActivityIndicatorView(frame: CGRectMake((self.view.bounds.size.width - indicatorWidth) / 2, (self.view.bounds.size.height - indicatorHeight - yOffset) / 2, indicatorWidth, indicatorHeight))
-            
-            let loadingLabel = UILabel(frame: CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height))
-            
-            loadingLabel.text = "Loading Photos..."
-            loadingLabel.textColor = textColor
-            loadingLabel.numberOfLines = 0
-            loadingLabel.textAlignment = .Center
-            loadingLabel.font = UIFont(name: "Neuton", size: 17)
-            
-            
-            loadingIndicator.color = UIColor.blackColor()
-            loadingIndicator.startAnimating()
-            
-            backgroundView.addSubview(loadingLabel)
-            backgroundView.addSubview(loadingIndicator)
-            
-            self.tableView.backgroundView = backgroundView
-            self.tableView.separatorStyle = .None
-        } else{
-            self.tableView.backgroundView = nil
-            self.tableView.separatorStyle = .SingleLine
-            sections = 1
-        }
-        return sections
+        return 1
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -161,24 +126,52 @@ class ChangeArtTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! ArtTableViewCell
         
         cell.thumbImageView.image = nil
-
-
-        if let image = self.art[indexPath.row] {
+        
+        if let cachedImage = Store.imageCache.objectForKey(artData[indexPath.row]["ArtId"] as! Int) as? UIImage {
             dispatch_async(dispatch_get_main_queue(), {() -> Void in
                 let updateCell: ArtTableViewCell = tableView.cellForRowAtIndexPath(indexPath) as! ArtTableViewCell
-                updateCell.thumbImageView.image = image
+                updateCell.thumbImageView.image = cachedImage
             })
-        } else {
+        }
+//        else if let image = self.art[indexPath.row] {
+//            dispatch_async(dispatch_get_main_queue(), {() -> Void in
+//                let updateCell: ArtTableViewCell = tableView.cellForRowAtIndexPath(indexPath) as! ArtTableViewCell
+//                updateCell.thumbImageView.image = image
+//            })
+//        }
+        else {
             let urlString = NSProcessInfo.processInfo().environment["DEV_SERVER"]! + "art/\(artData[indexPath.row]["ArtId"] as! Int)/download"
             let url = NSURL(string: urlString)!
+            
+            let indicatorWidth:CGFloat = 20
+            let indicatorHeight:CGFloat = 20
+            let backgroundLoadingView = UIView(frame: CGRect(x: 0, y: 0, width: cell.bounds.width, height: cell.bounds.height))
+            let indicatorFrame = CGRectMake((cell.bounds.width - indicatorWidth) / 2, cell.bounds.height  / 2 - indicatorHeight, indicatorWidth, indicatorHeight)
+            let loadingIndicator = UIActivityIndicatorView(frame: indicatorFrame)
+            let loadingFrame = CGRectMake(0, indicatorHeight, cell.bounds.width, cell.bounds.height)
+            let loadingLabel = UILabel(frame: loadingFrame)
+            
+            loadingLabel.text = "Teleporting Image...."
+            loadingLabel.numberOfLines = 0
+            loadingLabel.textAlignment = .Center
+            loadingLabel.font = UIFont(name: "Open-Sans", size: 18)
+            loadingIndicator.color = .blackColor()
+            loadingIndicator.startAnimating()
+            
+            backgroundLoadingView.addSubview(loadingLabel)
+            backgroundLoadingView.addSubview(loadingIndicator)
+            cell.contentView.addSubview(backgroundLoadingView)
+            
             HTTPRequest.get(url) { (response, data) in
                 if response.statusCode == 200 {
                     let image = UIImage(data: data)!
                     dispatch_async(dispatch_get_main_queue(), {() -> Void in
-                        self.art[indexPath.row] = image
+                        Store.imageCache.setObject(image, forKey: self.artData[indexPath.row]["ArtId"] as! Int)
+                        backgroundLoadingView.removeFromSuperview()
                         let updateCell: ArtTableViewCell = tableView.cellForRowAtIndexPath(indexPath) as! ArtTableViewCell
                         updateCell.thumbImageView.image = image
                         updateCell.upvoteLabel.text = String(self.artData[indexPath.row]["netVotes"]! as! Int)
+                        print("-------------Upvotes \(updateCell.upvoteLabel.text)")
                        // updateCell.downvoteLabel.text = self.artData[indexPath.row]["downvote"] as! String
                     })
                 }
@@ -233,7 +226,11 @@ class ChangeArtTableViewController: UITableViewController {
         if segue.identifier == ARViewController.getUnwindSegueFromChangeArtView() {
             let dest = segue.destinationViewController as! ARViewController
             if sender != nil {
-                dest.receiveArt(self.art[sender as! Int], artType: .IMAGE, artPlaceId: String(self.artData[sender as! Int]["ArtPlaceId"]))
+                if let cachedImage = Store.imageCache.objectForKey(self.artData[sender as! Int]["id"]!) as? UIImage {
+                    dest.receiveArt(cachedImage, artType: .IMAGE, artPlaceId: String(self.artData[sender as! Int]["ArtPlaceId"]))
+                } else {
+                    print("Cached Image no longer available")
+                }
                 
             }
             
