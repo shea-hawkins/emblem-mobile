@@ -22,7 +22,7 @@ class ARMenuView: UIView {
         let buttonWidth = screenWidth / 2 - 10
         let buttonHeight = screenHeight / 8 - 10
         
-        let downImage:UIImage = UIImage(named: "down-arrow2.png")!
+        var downImage:UIImage = UIImage(named: "down-arrow2.png")!
         downvote = UIButton(frame: CGRect(x: screenWidth / 4 - buttonWidth / 2, y:screenHeight - buttonHeight - 2, width: buttonWidth, height: buttonHeight))
         downvote.setImage(downImage, forState: UIControlState.Normal)
         downvote.addTarget(self, action: #selector(ARMenuView.emit(_:)), forControlEvents: .TouchDown)

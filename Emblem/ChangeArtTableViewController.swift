@@ -127,52 +127,36 @@ class ChangeArtTableViewController: UITableViewController {
         
         cell.thumbImageView.image = nil
         
-        if let cachedImage = Store.imageCache.objectForKey(artData[indexPath.row]["ArtId"] as! Int) as? UIImage {
+        let backgroundLoadingView = Utils.genLoadingScreen(cell.bounds.width, height: cell.bounds.height, loadingText: "Teleporting Image....")
+        cell.contentView.addSubview(backgroundLoadingView)
+        
+        if let cachedObj = Store.imageCache.objectForKey(artData[indexPath.row]["ArtId"] as! Int) as? NSDictionary {
             dispatch_async(dispatch_get_main_queue(), {() -> Void in
                 let updateCell: ArtTableViewCell = tableView.cellForRowAtIndexPath(indexPath) as! ArtTableViewCell
-                updateCell.thumbImageView.image = cachedImage
+                updateCell.thumbImageView.image = cachedObj["image"] as? UIImage
+                updateCell.upvoteLabel.text = cachedObj["upvotes"] as? String
+                updateCell.upvoteLabel.text = cachedObj["downvotes"] as? String
+                backgroundLoadingView.removeFromSuperview()
             })
-        }
-//        else if let image = self.art[indexPath.row] {
-//            dispatch_async(dispatch_get_main_queue(), {() -> Void in
-//                let updateCell: ArtTableViewCell = tableView.cellForRowAtIndexPath(indexPath) as! ArtTableViewCell
-//                updateCell.thumbImageView.image = image
-//            })
-//        }
-        else {
+        } else {
             let urlString = NSProcessInfo.processInfo().environment["DEV_SERVER"]! + "art/\(artData[indexPath.row]["ArtId"] as! Int)/download"
             let url = NSURL(string: urlString)!
             
-            let indicatorWidth:CGFloat = 20
-            let indicatorHeight:CGFloat = 20
-            let backgroundLoadingView = UIView(frame: CGRect(x: 0, y: 0, width: cell.bounds.width, height: cell.bounds.height))
-            let indicatorFrame = CGRectMake((cell.bounds.width - indicatorWidth) / 2, cell.bounds.height  / 2 - indicatorHeight, indicatorWidth, indicatorHeight)
-            let loadingIndicator = UIActivityIndicatorView(frame: indicatorFrame)
-            let loadingFrame = CGRectMake(0, indicatorHeight, cell.bounds.width, cell.bounds.height)
-            let loadingLabel = UILabel(frame: loadingFrame)
-            
-            loadingLabel.text = "Teleporting Image...."
-            loadingLabel.numberOfLines = 0
-            loadingLabel.textAlignment = .Center
-            loadingLabel.font = UIFont(name: "Open-Sans", size: 18)
-            loadingIndicator.color = .blackColor()
-            loadingIndicator.startAnimating()
-            
-            backgroundLoadingView.addSubview(loadingLabel)
-            backgroundLoadingView.addSubview(loadingIndicator)
-            cell.contentView.addSubview(backgroundLoadingView)
             
             HTTPRequest.get(url) { (response, data) in
                 if response.statusCode == 200 {
                     let image = UIImage(data: data)!
                     dispatch_async(dispatch_get_main_queue(), {() -> Void in
-                        Store.imageCache.setObject(image, forKey: self.artData[indexPath.row]["ArtId"] as! Int)
+                        let upvotes = String(self.artData[indexPath.row]["upvotes"]! as! Int)
+                        let downvotes = String(self.artData[indexPath.row]["downvotes"]! as! Int)
+                        Store.imageCache.setObject(["image":image, "upvotes":upvotes, "downvotes":downvotes], forKey: self.artData[indexPath.row]["ArtId"] as! Int)
                         backgroundLoadingView.removeFromSuperview()
                         let updateCell: ArtTableViewCell = tableView.cellForRowAtIndexPath(indexPath) as! ArtTableViewCell
                         updateCell.thumbImageView.image = image
-                        updateCell.upvoteLabel.text = String(self.artData[indexPath.row]["netVotes"]! as! Int)
-                        print("-------------Upvotes \(updateCell.upvoteLabel.text)")
-                       // updateCell.downvoteLabel.text = self.artData[indexPath.row]["downvote"] as! String
+                        updateCell.upvoteLabel.text = upvotes
+                        updateCell.downvoteLabel.text = downvotes
+                        print("-------------Upvotes \(upvotes)")
+                        print("-------------Downvotes \(downvotes)")
                     })
                 }
             }

@@ -89,7 +89,9 @@ class LibraryTableViewController: UITableViewController {
                 let json = JSON(data: data)
                 for (_, obj):(String, JSON) in json {
                     self.artData.append(obj.dictionaryObject!)
-                    self.tableView.reloadData()
+                    dispatch_async(dispatch_get_main_queue(), {() -> Void in
+                        self.tableView.reloadData()
+                    })
                 }
             }
         }
@@ -102,34 +104,18 @@ class LibraryTableViewController: UITableViewController {
         
         cell.thumbImageView.image = nil
         
-        let indicatorWidth:CGFloat = 20
-        let indicatorHeight:CGFloat = 20
-        let backgroundLoadingView = UIView(frame: CGRect(x: 0, y: 0, width: cell.bounds.width, height: cell.bounds.height))
-        let indicatorFrame = CGRectMake((cell.bounds.width - indicatorWidth) / 2, cell.bounds.height  / 2 - indicatorHeight, indicatorWidth, indicatorHeight)
-        let loadingIndicator = UIActivityIndicatorView(frame: indicatorFrame)
-        let loadingFrame = CGRectMake(0, indicatorHeight, cell.bounds.width, cell.bounds.height)
-        let loadingLabel = UILabel(frame: loadingFrame)
-        
-        loadingLabel.text = "Spinning up hamster wheels..."
-        loadingLabel.numberOfLines = 0
-        loadingLabel.font = UIFont(name: "Open-Sans", size: 18)
-        loadingLabel.textAlignment = .Center
-        loadingIndicator.color = .blackColor()
-        loadingIndicator.startAnimating()
-        
-        backgroundLoadingView.addSubview(loadingLabel)
-        backgroundLoadingView.addSubview(loadingIndicator)
+        let backgroundLoadingView = Utils.genLoadingScreen(cell.bounds.width, height: cell.bounds.height, loadingText: "Beaming down image ether....")
         cell.contentView.addSubview(backgroundLoadingView)
         
         if let cachedImage = Store.imageCache.objectForKey(artData[indexPath.row]["id"]!) as? UIImage {
             dispatch_async(dispatch_get_main_queue(), {
                 let updateCell: ArtTableViewCell = tableView.cellForRowAtIndexPath(indexPath) as! ArtTableViewCell
                 updateCell.thumbImageView.image = cachedImage
+                backgroundLoadingView.removeFromSuperview()
             })
         } else {
             let artID = self.artData[indexPath.row]["id"] as! Int
             let urlString = NSProcessInfo.processInfo().environment["DEV_SERVER"]! + "art/\(artID)/download"
-//            let urlString = NSProcessInfo.processInfo().environment["DEV_SERVER"]! + "storage/art/\(id)/\(id)_FULL"
             let url = NSURL(string: urlString)!
             HTTPRequest.get(url) { (response, data) in
                 if response.statusCode == 200 {
@@ -239,10 +225,15 @@ extension LibraryTableViewController: UIImagePickerControllerDelegate, UINavigat
     func postImage(image: UIImage) {
         let imageData = UIImagePNGRepresentation(image)!
         let url = NSURL(string: NSProcessInfo.processInfo().environment["DEV_SERVER"]! + "art/")!
+        
+        let loadingScreen = Utils.genLoadingScreen(self.view.bounds.width, height: self.view.bounds.height, loadingText: "Pulsating quasi-data to the cloud....")
+
+        self.view.addSubview(loadingScreen)
         HTTPRequest.post(["image": imageData, "imageLength": imageData.length], dataType: "application/octet-stream", url: url) { (succeeded, msg) in
             if succeeded {
                 print(msg)
                 dispatch_async(dispatch_get_main_queue(), {() -> Void in
+                    loadingScreen.removeFromSuperview()
                     self.artData = []
                     self.getImageIdsForUser()
                 })

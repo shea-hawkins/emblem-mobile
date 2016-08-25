@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="PG5-Cd-BPl">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ZjP-bM-ADm">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -29,6 +29,7 @@
                                 <constraints>
                                     <constraint firstAttribute="width" constant="100" id="byH-gR-DHO"/>
                                 </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
                                 <state key="normal" title="Button"/>
                             </button>
                         </subviews>
@@ -186,12 +187,6 @@
                     <view key="view" contentMode="scaleToFill" id="5iB-ts-VTT">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZSE-gp-ooo">
-                                <rect key="frame" x="20" y="72" width="46" height="30"/>
-                                <state key="normal" title="Button"/>
-                            </button>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <toolbarItems/>
@@ -225,33 +220,56 @@
                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="XMM-eN-vin">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="89"/>
                                         </imageView>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9je-QK-eFw">
+                                        <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9je-QK-eFw">
                                             <rect key="frame" x="8" y="15" width="60" height="60"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="21" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0og-Ts-emT">
-                                                    <rect key="frame" x="30" y="4" width="25" height="25"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0og-Ts-emT">
+                                                    <rect key="frame" x="37" y="4" width="11" height="26"/>
                                                     <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="19"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="5" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eI0-Gu-XVT">
-                                                    <rect key="frame" x="29" y="29" width="25" height="25"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eI0-Gu-XVT">
+                                                    <rect key="frame" x="36" y="29" width="11" height="26"/>
                                                     <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="19"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="up-arrow2" translatesAutoresizingMaskIntoConstraints="NO" id="qjJ-pB-zsB">
-                                                    <rect key="frame" x="6" y="7" width="20" height="20"/>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="up-arrow2" translatesAutoresizingMaskIntoConstraints="NO" id="qjJ-pB-zsB">
+                                                    <rect key="frame" x="10" y="9" width="17" height="17"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="17" id="MWk-4c-hB6"/>
+                                                        <constraint firstAttribute="height" constant="17" id="pmy-wk-cW8"/>
+                                                    </constraints>
                                                 </imageView>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="down-arrow2" translatesAutoresizingMaskIntoConstraints="NO" id="Pul-kh-mri">
-                                                    <rect key="frame" x="6" y="34" width="20" height="20"/>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="down-arrow2" translatesAutoresizingMaskIntoConstraints="NO" id="Pul-kh-mri">
+                                                    <rect key="frame" x="10" y="35" width="17" height="17"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="17" id="Cx2-2r-Y2p"/>
+                                                        <constraint firstAttribute="height" constant="17" id="EbL-Sl-HMh"/>
+                                                    </constraints>
                                                 </imageView>
                                             </subviews>
                                             <color key="backgroundColor" red="0.89411764705882346" green="0.93333333333333335" blue="0.92549019607843142" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
+                                                <constraint firstItem="eI0-Gu-XVT" firstAttribute="top" secondItem="9je-QK-eFw" secondAttribute="top" constant="29" id="4Uf-yW-uU9"/>
+                                                <constraint firstItem="Pul-kh-mri" firstAttribute="leading" secondItem="9je-QK-eFw" secondAttribute="leading" constant="10" id="BXy-vw-fEB"/>
+                                                <constraint firstAttribute="trailing" secondItem="0og-Ts-emT" secondAttribute="trailing" constant="15" id="IGM-Fx-1Mb"/>
+                                                <constraint firstItem="0og-Ts-emT" firstAttribute="top" secondItem="9je-QK-eFw" secondAttribute="top" constant="4" id="KLQ-7j-29O"/>
+                                                <constraint firstAttribute="trailing" secondItem="eI0-Gu-XVT" secondAttribute="trailing" constant="15" id="SMg-Pk-iYc"/>
+                                                <constraint firstItem="qjJ-pB-zsB" firstAttribute="top" secondItem="9je-QK-eFw" secondAttribute="top" constant="9" id="ZHe-r5-oBF"/>
                                                 <constraint firstAttribute="width" constant="60" id="ghG-6W-2nf"/>
                                                 <constraint firstAttribute="height" constant="60" id="jgS-W1-i4G"/>
+                                                <constraint firstItem="qjJ-pB-zsB" firstAttribute="leading" secondItem="9je-QK-eFw" secondAttribute="leading" constant="10" id="jj7-11-5rL"/>
+                                                <constraint firstItem="Pul-kh-mri" firstAttribute="top" secondItem="qjJ-pB-zsB" secondAttribute="bottom" constant="9" id="k3k-Sd-nec"/>
+                                                <constraint firstItem="0og-Ts-emT" firstAttribute="leading" secondItem="qjJ-pB-zsB" secondAttribute="trailing" constant="11" id="t8n-Jy-Cqo"/>
+                                                <constraint firstItem="eI0-Gu-XVT" firstAttribute="leading" secondItem="Pul-kh-mri" secondAttribute="trailing" constant="11" id="ywT-6m-5Q9"/>
                                             </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="ghG-6W-2nf"/>
+                                                </mask>
+                                            </variation>
                                         </view>
                                     </subviews>
                                     <constraints>
