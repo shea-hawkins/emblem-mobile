@@ -25,6 +25,7 @@ class HTTPRequest {
             print("No access token")
         }
         
+        print(url.absoluteString)
         //TODO: Replace with NSURLRequest
         let session = NSURLSession.sharedSession()
 
