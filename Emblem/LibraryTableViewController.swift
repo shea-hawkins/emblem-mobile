@@ -83,7 +83,7 @@ class LibraryTableViewController: UITableViewController {
     }
     
     func getImageIdsForUser(){
-        let url = NSURL(string: NSProcessInfo.processInfo().environment["DEV_SERVER"]! + "user/art")!
+        let url = NSURL(string: "\(Store.serverLocation)user/art")!
         HTTPRequest.get(url) { (response, data) in
             if response.statusCode == 200 {
                 let json = JSON(data: data)
@@ -98,6 +98,11 @@ class LibraryTableViewController: UITableViewController {
 
     }
     
+    func hydrateCellAtIndexPath(indexPath: NSIndexPath, image: UIImage) {
+        let cell: ArtTableViewCell = self.tableView.cellForRowAtIndexPath(indexPath) as! ArtTableViewCell
+        cell.thumbImageView.image = image
+    }
+    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cellIdentifier = "ArtTableViewCell"
         let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! ArtTableViewCell
@@ -107,28 +112,21 @@ class LibraryTableViewController: UITableViewController {
         let backgroundLoadingView = Utils.genLoadingScreen(cell.bounds.width, height: cell.bounds.height, loadingText: "Beaming down image ether....")
         cell.contentView.addSubview(backgroundLoadingView)
         
-        if let cachedImage = Store.imageCache.objectForKey(artData[indexPath.row]["id"]!) as? UIImage {
+        let artId = String(self.artData[indexPath.row]["id"]!)
+        let artType = ResourceHandler.getArtTypeFromExtension(self.artData[indexPath.row]["type"] as! String)
+        
+        let that = self;
+        ResourceHandler.retrieveResource(artId, type: artType, onComplete: {(resource: NSObject) in
             dispatch_async(dispatch_get_main_queue(), {
-                let updateCell: ArtTableViewCell = tableView.cellForRowAtIndexPath(indexPath) as! ArtTableViewCell
-                updateCell.thumbImageView.image = cachedImage
+                if (artType == .IMAGE) {
+                    that.hydrateCellAtIndexPath(indexPath, image: resource as! UIImage)
+                } else {
+                    let image = UIImage(named: "Emblem.jpg")!
+                    that.hydrateCellAtIndexPath(indexPath, image: image)
+                }
                 backgroundLoadingView.removeFromSuperview()
             })
-        } else {
-            let artID = self.artData[indexPath.row]["id"] as! Int
-            let urlString = NSProcessInfo.processInfo().environment["DEV_SERVER"]! + "art/\(artID)/download"
-            let url = NSURL(string: urlString)!
-            HTTPRequest.get(url) { (response, data) in
-                if response.statusCode == 200 {
-                    let image = UIImage(data: data)!
-                    dispatch_async(dispatch_get_main_queue(), {
-                        backgroundLoadingView.removeFromSuperview()
-                        Store.imageCache.setObject(image, forKey: self.artData[indexPath.row]["id"] as! Int)
-                        let updateCell: ArtTableViewCell = tableView.cellForRowAtIndexPath(indexPath) as! ArtTableViewCell
-                        updateCell.thumbImageView.image = image
-                    })
-                }
-            }
-        }
+        })
         
         return cell
     }
@@ -190,15 +188,17 @@ class LibraryTableViewController: UITableViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == ARViewController.getUnwindSegueFromLibraryView() {
             let dest = segue.destinationViewController as! ARViewController
-            if sender != nil {
-                let artPlaceIdStr = String(self.artPlaceId)
-                if let cachedImage = Store.imageCache.objectForKey(self.artData[sender as! Int]["id"]!) as? UIImage{
-                    dest.receiveArt(cachedImage, artType: .IMAGE, artPlaceId: artPlaceIdStr)
-                } else {
-                    print("image no longer in cache")
-                }
+            if let index = sender as? Int {
+                let artId:String = String(self.artData[index]["id"]!)
+                let artPlaceId:String = String(self.artPlaceId)
+                let artType = ResourceHandler.getArtTypeFromExtension(self.artData[index]["type"] as! String)
+                
+                ResourceHandler.retrieveResource(artId, type: artType, onComplete: {(resource: NSObject) in
+                    dispatch_async(dispatch_get_main_queue(), {
+                        dest.receiveArt(resource, artType: artType, artPlaceId: artPlaceId)
+                    })
+                })
             }
-            
         }
     }
 

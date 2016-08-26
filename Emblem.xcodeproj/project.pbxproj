@@ -37,6 +37,7 @@
 		35E22B9A1D5ECA85004C6201 /* ArtTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35E22B991D5ECA85004C6201 /* ArtTableViewCell.swift */; };
 		55CB9937DFC26F85914C1C66 /* Pods_EmblemTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93A26ACF62EF8EADDFE28128 /* Pods_EmblemTests.framework */; };
 		710531941D62914E003EC15B /* SceneKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 710531931D62914E003EC15B /* SceneKit.framework */; };
+		7123FF391D700B88006DC386 /* ResourceHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7123FF381D700B88006DC386 /* ResourceHandler.swift */; };
 		71291CD91D63DE690092C4A9 /* Emblem.dat in Resources */ = {isa = PBXBuildFile; fileRef = 71291CD71D63DE690092C4A9 /* Emblem.dat */; };
 		71291CDA1D63DE690092C4A9 /* Emblem.xml in Resources */ = {isa = PBXBuildFile; fileRef = 71291CD81D63DE690092C4A9 /* Emblem.xml */; };
 		71291CDD1D64D7FD0092C4A9 /* ARViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71291CDC1D64D7FD0092C4A9 /* ARViewController.swift */; };
@@ -124,6 +125,7 @@
 		67770561255CFF1F85E4316B /* Pods-EmblemUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EmblemUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-EmblemUITests/Pods-EmblemUITests.release.xcconfig"; sourceTree = "<group>"; };
 		679B4FD6FEAE7FBD70BF8A6B /* Pods-EmblemTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EmblemTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-EmblemTests/Pods-EmblemTests.release.xcconfig"; sourceTree = "<group>"; };
 		710531931D62914E003EC15B /* SceneKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SceneKit.framework; path = System/Library/Frameworks/SceneKit.framework; sourceTree = SDKROOT; };
+		7123FF381D700B88006DC386 /* ResourceHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResourceHandler.swift; sourceTree = "<group>"; };
 		71291CD71D63DE690092C4A9 /* Emblem.dat */ = {isa = PBXFileReference; lastKnownFileType = file; path = Emblem.dat; sourceTree = "<group>"; };
 		71291CD81D63DE690092C4A9 /* Emblem.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Emblem.xml; sourceTree = "<group>"; };
 		71291CDC1D64D7FD0092C4A9 /* ARViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARViewController.swift; sourceTree = "<group>"; };
@@ -244,6 +246,7 @@
 				718E64121D5E971E0023B860 /* lib */,
 				351F47EB1D5B9FAD0093578B /* HTTPRequest.swift */,
 				35DB9D4A1D67CE3900E8AAF0 /* Store.swift */,
+				7123FF381D700B88006DC386 /* ResourceHandler.swift */,
 				357FAB371D6F7ECD002F74D2 /* Utils.swift */,
 				35FA710C1D542EFF00F54CBC /* Emblem-Bridging-Header.h */,
 				35A87DE21D52B997004E739E /* AppDelegate.swift */,
@@ -651,6 +654,7 @@
 			files = (
 				35DB9D4B1D67CE3900E8AAF0 /* Store.swift in Sources */,
 				717FFC9B1D6931D600DABC2A /* ARMenuView.swift in Sources */,
+				7123FF391D700B88006DC386 /* ResourceHandler.swift in Sources */,
 				35E22B951D5EBD68004C6201 /* ChangeArtTableViewController.swift in Sources */,
 				35DB9D491D66B52D00E8AAF0 /* UnwindLeftSegue.swift in Sources */,
 				35DB9D441D66A9A400E8AAF0 /* LeftToRightSegue.swift in Sources */,

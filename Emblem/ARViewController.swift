@@ -162,7 +162,7 @@ extension ARViewController: ChangeArtTableViewControllerDelegate {
         self.artType = artType;
         self.artPlaceId = artPlaceId;
         if (self.sceneSource != nil) {
-            self.sceneSource!.setArt(art);
+            self.sceneSource!.setArt(art, artType: self.artType!);
             let eaglView = self.vuforiaManager?.eaglView;
             let scene = self.sceneSource!.sceneForEAGLView(eaglView, viewInfo: nil);
             eaglView!.changeScene(scene);
@@ -183,12 +183,12 @@ extension ARViewController: ChangeArtTableViewControllerDelegate {
     }
     
     func downvoteArt() {
-        let url = NSURL(string: "\(Store.serverLocation)artplace/\(self.artPlaceId)/vote")
+        let url = NSURL(string: "\(Store.serverLocation)artplace/\(self.artPlaceId!)/vote")
         
         HTTPRequest.post(["vote": -1], dataType: "application/json", url: url!, postCompleted: {(succeeded, msg) in
             if succeeded {
                 self.menuView.downvoted()
-                print("upvoted")
+                print("downvoted")
             }
         })
     }
@@ -196,6 +196,7 @@ extension ARViewController: ChangeArtTableViewControllerDelegate {
 
 private extension ARViewController {
     func prepare() {
+        let that = self
         vuforiaManager = ARManager(licenseKey: vuforiaLiceseKey, dataSetFile: vuforiaDataSetFile)
         self.sceneSource = ARSceneSource(art: self.art, artType: self.artType)
         
@@ -208,7 +209,6 @@ private extension ARViewController {
             self.view = manager.eaglView
             
             self.menuView = ARMenuView(frame: self.view.frame);
-            let that = self
             self.menuView.on("upvote", callback: {() in that.upvoteArt()})
             self.menuView.on("downvote", callback: {() in that.downvoteArt()})
             
