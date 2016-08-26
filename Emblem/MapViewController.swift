@@ -135,14 +135,13 @@ class MapViewController: UIViewController {
             HTTPRequest.get(NSURL(string: url)!, getCompleted: {(response, data) in
                 let art = JSON(data: data)
                 print(art)
-                if let artid = art[0]["artid"].string {
-                    let url = "\(Store.serverLocation)art/\(artid)/download"
-                    HTTPRequest.get(NSURL(string: url)!, getCompleted: { (response, data) in
-                        if response.statusCode == 200 {
-                            let image = UIImage(data: data)!
-                            ARView.receiveArt(image, artType: .IMAGE, artPlaceId: art["artplaceid"].stringValue)
-                        }
-                    });
+                if let artId = art[0]["ArtId"].string {
+                    let artType = ResourceHandler.getArtTypeFromExtension(art[0]["type"].stringValue)
+                    ResourceHandler.retrieveResource(artId, type: artType, onComplete: {(resource: NSObject) in
+                        dispatch_async(dispatch_get_main_queue(), {
+                            ARView.receiveArt(resource, artType: artType, artPlaceId: art[0]["ArtPlaceId"].stringValue)
+                        })
+                    })
                 }
             });
         }
