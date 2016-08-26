@@ -12,14 +12,13 @@ import SwiftyJSON
 class LibraryTableViewController: UITableViewController {
 
     var artData = [Dictionary<String,AnyObject>]()
-    var art = [UIImage?]()
     var artPlaceId:Int!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         getImageIdsForUser()
         
-        let gesture = UISwipeGestureRecognizer(target: self, action: "handleSwipeLeft:")
+        let gesture = UISwipeGestureRecognizer(target: self, action: #selector(LibraryTableViewController.handleSwipeLeft(_:)))
         gesture.direction = .Left
         tableView.addGestureRecognizer(gesture)
         
@@ -28,7 +27,7 @@ class LibraryTableViewController: UITableViewController {
             backButton.frame = CGRectMake(0, 0, 20, 20)
             backButton.contentMode = UIViewContentMode.ScaleAspectFit
             backButton.setImage(addImage, forState: UIControlState.Normal)
-            backButton.addTarget(self, action: Selector("handleSwipeLeft:"), forControlEvents: .TouchUpInside)
+            backButton.addTarget(self, action: #selector(LibraryTableViewController.handleSwipeLeft(_:)), forControlEvents: .TouchUpInside)
             let rightBarButtonItem: UIBarButtonItem = UIBarButtonItem(customView: backButton)
             
             self.navigationItem.setRightBarButtonItem(rightBarButtonItem, animated: false)
@@ -39,7 +38,7 @@ class LibraryTableViewController: UITableViewController {
             addButton.frame = CGRectMake(0, 0, 20, 20)
             addButton.contentMode = UIViewContentMode.ScaleAspectFit
             addButton.setImage(addImage, forState: UIControlState.Normal)
-            addButton.addTarget(self, action: Selector("addArtPressed"), forControlEvents: .TouchUpInside)
+            addButton.addTarget(self, action: #selector(LibraryTableViewController.addArtPressed), forControlEvents: .TouchUpInside)
             let leftBarButtonItem: UIBarButtonItem = UIBarButtonItem(customView: addButton)
             
             self.navigationItem.setLeftBarButtonItem(leftBarButtonItem, animated: false)
@@ -72,7 +71,7 @@ class LibraryTableViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return self.art.count
+        return self.artData.count
     }
     
     class func getEntrySegueFromARViewController() -> String {
@@ -90,8 +89,9 @@ class LibraryTableViewController: UITableViewController {
                 let json = JSON(data: data)
                 for (_, obj):(String, JSON) in json {
                     self.artData.append(obj.dictionaryObject!)
-                    self.art = Array(count: self.artData.count, repeatedValue: nil)
-                    self.tableView.reloadData()
+                    dispatch_async(dispatch_get_main_queue(), {() -> Void in
+                        self.tableView.reloadData()
+                    })
                 }
             }
         }
@@ -104,11 +104,14 @@ class LibraryTableViewController: UITableViewController {
         
         cell.thumbImageView.image = nil
         
+        let backgroundLoadingView = Utils.genLoadingScreen(cell.bounds.width, height: cell.bounds.height, loadingText: "Beaming down image ether....")
+        cell.contentView.addSubview(backgroundLoadingView)
         
-        if let image = self.art[indexPath.row] {
+        if let cachedImage = Store.imageCache.objectForKey(artData[indexPath.row]["id"]!) as? UIImage {
             dispatch_async(dispatch_get_main_queue(), {
                 let updateCell: ArtTableViewCell = tableView.cellForRowAtIndexPath(indexPath) as! ArtTableViewCell
-                updateCell.thumbImageView.image = image
+                updateCell.thumbImageView.image = cachedImage
+                backgroundLoadingView.removeFromSuperview()
             })
         } else {
             let artID = self.artData[indexPath.row]["id"] as! Int
@@ -118,7 +121,8 @@ class LibraryTableViewController: UITableViewController {
                 if response.statusCode == 200 {
                     let image = UIImage(data: data)!
                     dispatch_async(dispatch_get_main_queue(), {
-                        self.art[indexPath.row] = image
+                        backgroundLoadingView.removeFromSuperview()
+                        Store.imageCache.setObject(image, forKey: self.artData[indexPath.row]["id"] as! Int)
                         let updateCell: ArtTableViewCell = tableView.cellForRowAtIndexPath(indexPath) as! ArtTableViewCell
                         updateCell.thumbImageView.image = image
                     })
@@ -130,7 +134,6 @@ class LibraryTableViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let art = self.art[indexPath.row]
         let artID = self.artData[indexPath.row]["id"] as! Int
         let url = NSURL(string: NSProcessInfo.processInfo().environment["DEV_SERVER"]! + "art/\(artID)/place")!
         HTTPRequest.post(["lat": Store.lat, "long": Store.long], dataType: "application/json", url: url) { (succeeded, msg) in
@@ -189,7 +192,11 @@ class LibraryTableViewController: UITableViewController {
             let dest = segue.destinationViewController as! ARViewController
             if sender != nil {
                 let artPlaceIdStr = String(self.artPlaceId)
-                dest.receiveArt(self.art[sender as! Int], artType: .IMAGE, artPlaceId: artPlaceIdStr)
+                if let cachedImage = Store.imageCache.objectForKey(self.artData[sender as! Int]["id"]!) as? UIImage{
+                    dest.receiveArt(cachedImage, artType: .IMAGE, artPlaceId: artPlaceIdStr)
+                } else {
+                    print("image no longer in cache")
+                }
             }
             
         }
@@ -218,11 +225,18 @@ extension LibraryTableViewController: UIImagePickerControllerDelegate, UINavigat
     func postImage(image: UIImage) {
         let imageData = UIImagePNGRepresentation(image)!
         let url = NSURL(string: NSProcessInfo.processInfo().environment["DEV_SERVER"]! + "art/")!
+        
+        let loadingScreen = Utils.genLoadingScreen(self.view.bounds.width, height: self.view.bounds.height, loadingText: "Pulsating quasi-data to the cloud....")
+
+        self.view.addSubview(loadingScreen)
         HTTPRequest.post(["image": imageData, "imageLength": imageData.length], dataType: "application/octet-stream", url: url) { (succeeded, msg) in
             if succeeded {
                 print(msg)
-                self.artData = []
-                self.getImageIdsForUser()
+                dispatch_async(dispatch_get_main_queue(), {() -> Void in
+                    loadingScreen.removeFromSuperview()
+                    self.artData = []
+                    self.getImageIdsForUser()
+                })
             }
             
         }

@@ -55,32 +55,51 @@ class ARViewController: UIViewController {
         
         self.view.addGestureRecognizer(swipeLeft)
         self.view.addGestureRecognizer(swipeRight)
+      
+        if let leftImage = UIImage(named: "plus-symbol-white.png") {
+            let leftButton = UIButton(type: UIButtonType.Custom)
+            leftButton.frame = CGRectMake(20, 20, 20, 20)
+            leftButton.contentMode = UIViewContentMode.ScaleAspectFit
+            leftButton.setImage(leftImage, forState: .Normal)
+            leftButton.addTarget(self, action: #selector(ARViewController.handleMySwipeRightGesture(_:)), forControlEvents: .TouchUpInside)
+            self.view.addSubview(leftButton)
+        }
         
+        
+        if let rightImage = UIImage(named: "menu.png") {
+            let rightButton = UIButton(type: UIButtonType.Custom)
+            rightButton.frame = CGRectMake(UIScreen.mainScreen().bounds.width - 40, 20, 20, 20)
+            rightButton.contentMode = UIViewContentMode.ScaleAspectFit
+            rightButton.setImage(rightImage, forState: .Normal)
+            rightButton.addTarget(self, action: #selector(ARViewController.handleMySwipeLeftGesture(_:)), forControlEvents: .TouchUpInside)
+            self.view.addSubview(rightButton)
+        }
+        
+        if let downImage = UIImage(named: "down-arrow-white.png") {
+            let downButton = UIButton(type: UIButtonType.Custom)
+            downButton.frame = CGRectMake((UIScreen.mainScreen().bounds.width - 20) / 2, 20, 20, 20)
+            downButton.contentMode = UIViewContentMode.ScaleAspectFit
+            downButton.setImage(downImage, forState: .Normal)
+            downButton.addTarget(self, action: #selector(ARViewController.back), forControlEvents: .TouchUpInside)
+            self.view.addSubview(downButton)
+        }
     
     }
-    
-//    func getPlaceId() {
-//        
-//        let url = NSURL(string: NSProcessInfo.processInfo().environment["DEV_SERVER"]! + "place/find/\(self.lat)/\(self.long)")!
-//        HTTPRequest.get(url, needsToken: true) { (response, data) in
-//            if response.statusCode == 200 || response.statusCode == 201 {
-//                let json = JSON(data: data)
-//                print(json)
-//                self.sector = json["sector"].stringValue
-//                print("sectorID: \(self.sector)")
-//            }
-//        }
-//        
-//        //TODO: Remove after testing
-//    }
+    func back() {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
 
+    override func prefersStatusBarHidden() -> Bool {
+        return true
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        //self.navigationController?.setNavigationBarHidden(true, animated: true)
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -152,11 +171,13 @@ extension ARViewController: ChangeArtTableViewControllerDelegate {
     
     func upvoteArt() {
         NSLog("Upvoting!")
-        let url = NSURL(string: "\(Store.serverLocation)artplace/\(self.artPlaceId)/vote")
         
-        HTTPRequest.post(["vote": 1], dataType: "application/json", url: url!, postCompleted: {(succeeded, msg) in
+        let url = NSURL(string: "\(Store.serverLocation)artplace/\(self.artPlaceId!)/vote")!
+        
+        HTTPRequest.post(["vote": 1], dataType: "application/json", url: url, postCompleted: {(succeeded, msg) in
             if succeeded {
                 self.menuView.upvoted()
+                print("upvoted")
             }
         })
     }
@@ -167,6 +188,7 @@ extension ARViewController: ChangeArtTableViewControllerDelegate {
         HTTPRequest.post(["vote": -1], dataType: "application/json", url: url!, postCompleted: {(succeeded, msg) in
             if succeeded {
                 self.menuView.downvoted()
+                print("upvoted")
             }
         })
     }
@@ -187,8 +209,10 @@ private extension ARViewController {
             self.view = manager.eaglView
             
             self.menuView = ARMenuView(frame: self.view.frame);
-            self.menuView.on("upvote", callback: {() in self.upvoteArt()})
-            self.menuView.on("downvote", callback: {() in self.downvoteArt()})
+            let that = self
+            self.menuView.on("upvote", callback: {() in that.upvoteArt()})
+            self.menuView.on("downvote", callback: {() in that.downvoteArt()})
+            
             
             self.view.addSubview(menuView!)
             
