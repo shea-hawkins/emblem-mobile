@@ -22,10 +22,7 @@ class ARMenuView: UIView {
         super.init(frame: frame)
         
         let screenWidth:CGFloat = UIScreen.mainScreen().bounds.width
-        let screenHeight:CGFloat = UIScreen.mainScreen().bounds.height
-        
-//        let buttonWidth = screenWidth / 2 - 10
-//        let buttonHeight = screenHeight / 8 - 10
+        let screenHeight:CGFloat = UIScreen.mainScreen().bounds.height - 8
         
         let buttonWidth:CGFloat = screenWidth / 2 - 10
         let buttonHeight:CGFloat = 50

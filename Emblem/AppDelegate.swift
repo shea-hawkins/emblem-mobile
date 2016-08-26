@@ -15,24 +15,20 @@ import FBSDKShareKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    //let googleMapsApiKey = NSProcessInfo.processInfo().environment["GOOGLE_MAPS_API_KEY"]!
     let googleMapsApiKey = "AIzaSyBi7NLOagsHBOfINbLARaXhHVoOSBw3-_E"
+    let deployedServerString:String = "http://138.68.23.39:3000"
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
-        for family: String in UIFont.familyNames()
-        {
-            print("\(family)")
-            for names: String in UIFont.fontNamesForFamilyName(family)
-            {
-                print("== \(names)")
-            }
+        
+        
+        if let devServer = NSProcessInfo.processInfo().environment["DEV_SERVER"] as String? {
+            Store.serverLocation = devServer
+        } else {
+            Store.serverLocation = deployedServerString
         }
         
-        // Temp until we can retrieve vals from cache
-        NSURLCache.setSharedURLCache(NSURLCache(memoryCapacity: 0, diskCapacity: 0, diskPath: nil))
-
-
+        
         // Override point for customization after application launch.
         GMSServices.provideAPIKey(googleMapsApiKey)
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
