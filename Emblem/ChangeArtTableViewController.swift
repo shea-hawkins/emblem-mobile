@@ -143,7 +143,7 @@ class ChangeArtTableViewController: UITableViewController {
                 if (artType == .IMAGE) {
                     that.hydrateCellAtIndexPath(indexPath, image: resource as! UIImage)
                 } else {
-                    let image = UIImage(contentsOfFile: "Emblem.jpg")!
+                    let image = UIImage(named: "Emblem.jpg")!
                     that.hydrateCellAtIndexPath(indexPath, image: image)
                 }
                 backgroundLoadingView.removeFromSuperview()
