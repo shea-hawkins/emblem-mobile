@@ -19,6 +19,16 @@ class ARViewController: UIViewController {
     
     deinit {
         NSNotificationCenter.defaultCenter().removeObserver(self)
+        do {
+            try self.vuforiaManager!.stop()
+        } catch {
+            print("error stopping")
+        }
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        self.prepareArManager()
     }
     
     
@@ -52,8 +62,16 @@ class ARViewController: UIViewController {
         self.locationManager.startUpdatingLocation()
         self.locationManager.requestLocation()
         
+        self.view = vuforiaManager!.eaglView
         
-        prepare() //functionalize pls
+        weak var that = self
+        
+        self.menuView = ARMenuView(frame: self.view.frame);
+        self.menuView.on("upvote", callback: {() in that!.upvoteArt()})
+        self.menuView.on("downvote", callback: {() in that!.downvoteArt()})
+        
+        
+        self.view.addSubview(menuView!)
         
         self.view.addGestureRecognizer(swipeLeft)
         self.view.addGestureRecognizer(swipeRight)
@@ -198,7 +216,7 @@ extension ARViewController: ChangeArtTableViewControllerDelegate {
 }
 
 private extension ARViewController {
-    func prepare() {
+    func prepareArManager() {
         let that = self
         vuforiaManager = ARManager(licenseKey: vuforiaLiceseKey, dataSetFile: vuforiaDataSetFile)
         self.sceneSource = ARSceneSource(art: self.art, artType: self.artType)
@@ -209,15 +227,6 @@ private extension ARViewController {
             manager.eaglView.sceneSource = self.sceneSource
             manager.eaglView.delegate = self
             manager.eaglView.setupRenderer()
-            self.view = manager.eaglView
-            
-            self.menuView = ARMenuView(frame: self.view.frame);
-            self.menuView.on("upvote", callback: {() in that.upvoteArt()})
-            self.menuView.on("downvote", callback: {() in that.downvoteArt()})
-            
-            
-            self.view.addSubview(menuView!)
-            
         }
         vuforiaManager?.prepareWithOrientation(.Portrait)
     }
