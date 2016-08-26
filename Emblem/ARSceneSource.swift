@@ -5,7 +5,8 @@
 //  Created by Humanity on 8/17/16.
 //  Copyright © 2016 Hadashco. All rights reserved.
 //
-
+import SceneKit.ModelIO
+import SSZipArchive
 
 enum ArtType {
     case IMAGE
@@ -35,7 +36,8 @@ class ARSceneSource: NSObject, ARSceneSourceProtocol {
     }
     
     func sceneForEAGLView(view: AREAGLView!, viewInfo: [String : AnyObject]?) -> SCNScene! {
-        return create2DScene(with: view);
+        //return create2DScene(with: view);
+        return create3DScene(with: view);
     }
     
     private func create2DScene(with view: AREAGLView) -> SCNScene {
@@ -53,30 +55,62 @@ class ARSceneSource: NSObject, ARSceneSourceProtocol {
         return scene
     }
     
+    
+    private func unzip() {
+        SSZipArchive.unzipFileAtPath("", toDestination: "")
+    }
+
+
+    
     private func create3DScene(with view: AREAGLView) -> SCNScene {
-        let scene = SCNScene()
         
         
-        let boxMaterial = SCNMaterial()
+        let urlString = "http://10.8.24.31:3000/storage/2.zip"
+        let id = "2";
+        let url = NSURL(string: urlString)!
+        let zipPath = NSTemporaryDirectory() as String;
+        print(urlString)
         
-        boxMaterial.diffuse.contents = UIColor.lightGrayColor()
+        self.scene = SCNScene()
         
-        let planeNode = SCNNode()
-        planeNode.name = "plane"
-        planeNode.geometry = SCNPlane(width: 247.0/view.objectScale, height: 173.0/view.objectScale)
-        planeNode.position = SCNVector3Make(0, 0, -1)
-        let planeMaterial = SCNMaterial()
-        planeMaterial.diffuse.contents = UIColor.redColor()
-        planeMaterial.transparency = 0.6
-        planeNode.geometry?.firstMaterial = planeMaterial
-        scene.rootNode.addChildNode(planeNode)
+        HTTPRequest.get(url) { (response, data) in
+            if response.statusCode == 200 {
+                
+                do{
+                    try data.writeToFile("\(zipPath)\(id).zip", options: NSDataWritingOptions.DataWritingAtomic)
+                }
+                catch let error as NSError {
+                    print(error.localizedDescription)
+                }
+                let success = SSZipArchive.unzipFileAtPath("\(zipPath)\(id).zip", toDestination: zipPath)
+                let localUrl = NSURL(fileURLWithPath: "\(zipPath)\(id)/\(id).obj")
+                
+                print(success)
+                
+                let filemanager:NSFileManager = NSFileManager()
+                let files = filemanager.enumeratorAtPath(NSTemporaryDirectory())
+                while let file = files?.nextObject() {
+                    print(file)
+                }
+                
+                let asset = MDLAsset(URL: localUrl)
+                let node = SCNNode(MDLObject: asset.objectAtIndex(0))
+                print(asset.count)
+                var center = SCNVector3Make(1, 1 ,1)
+                var radius = CGFloat()
+                
+                node.getBoundingSphereCenter(&center, radius: &radius)
+                
+                let scalefactor = 5 / Float(radius);
+                
+                node.position = SCNVector3Make(0, 0, -1)
+                node.scale = SCNVector3Make(scalefactor, scalefactor, scalefactor)
+                
+                self.scene!.rootNode.addChildNode(node);
+            }
+        }
+
         
-        let boxNode = SCNNode()
-        boxNode.name = "box"
-        boxNode.geometry = SCNBox(width:1, height:1, length:1, chamferRadius:0.0)
-        boxNode.geometry?.firstMaterial = boxMaterial
-        scene.rootNode.addChildNode(boxNode)
-        
-        return scene
+        return self.scene!
     }
 }

@@ -113,7 +113,6 @@ class LibraryTableViewController: UITableViewController {
         } else {
             let artID = self.artData[indexPath.row]["id"] as! Int
             let urlString = NSProcessInfo.processInfo().environment["DEV_SERVER"]! + "art/\(artID)/download"
-//            let urlString = NSProcessInfo.processInfo().environment["DEV_SERVER"]! + "storage/art/\(id)/\(id)_FULL"
             let url = NSURL(string: urlString)!
             HTTPRequest.get(url) { (response, data) in
                 if response.statusCode == 200 {

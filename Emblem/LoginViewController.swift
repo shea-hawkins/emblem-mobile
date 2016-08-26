@@ -17,7 +17,6 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     
     var user:User!
     let deployedServerString:String = "http://138.68.23.39:3000"
-    //let deployedServerString:String = "http://10.8.26.242:3000/"
     
     var server:String = ""
     
