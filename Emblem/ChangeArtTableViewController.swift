@@ -63,7 +63,7 @@ class ChangeArtTableViewController: UITableViewController {
     }
     
     func getImageIds(){
-        let url = NSURL(string: NSProcessInfo.processInfo().environment["DEV_SERVER"]! + "place/find/artPlace/\(Store.lat)/\(Store.long)")!
+        let url = NSURL(string: "\(Store.serverLocation)place/find/artPlace/\(Store.lat)/\(Store.long)")!
         HTTPRequest.get(url) { (response, data) in
             if response.statusCode == 200 || response.statusCode == 304 {
                 let json = JSON(data: data)
@@ -134,11 +134,18 @@ class ChangeArtTableViewController: UITableViewController {
         cell.contentView.addSubview(backgroundLoadingView)
         
         let artId = String(self.artData[indexPath.row]["ArtId"]!)
+
+        let artType = ResourceHandler.getArtTypeFromExtension(self.artData[indexPath.row]["type"] as! String)
         
         let that = self;
-        ResourceHandler.retrieveResource(artId, type: .IMAGE, onComplete: {(resource: NSObject) in
+        ResourceHandler.retrieveResource(artId, type: artType, onComplete: {(resource: NSObject) in
             dispatch_async(dispatch_get_main_queue(), {
-                that.hydrateCellAtIndexPath(indexPath, image: resource as! UIImage)
+                if (artType == .IMAGE) {
+                    that.hydrateCellAtIndexPath(indexPath, image: resource as! UIImage)
+                } else {
+                    let image = UIImage(contentsOfFile: "Emblem.jpg")!
+                    that.hydrateCellAtIndexPath(indexPath, image: image)
+                }
                 backgroundLoadingView.removeFromSuperview()
             })
         })
@@ -161,9 +168,11 @@ class ChangeArtTableViewController: UITableViewController {
             if let index = sender as? Int {
                 let artId:String = String(self.artData[index]["ArtId"]!)
                 let artPlaceId:String = String(self.artData[index]["ArtPlaceId"]!)
-                ResourceHandler.retrieveResource(artId, type: .IMAGE, onComplete: {(resource: NSObject) in
+                let artType = ResourceHandler.getArtTypeFromExtension(self.artData[index]["type"] as! String)
+                
+                ResourceHandler.retrieveResource(artId, type: artType, onComplete: {(resource: NSObject) in
                     dispatch_async(dispatch_get_main_queue(), {
-                        dest.receiveArt(resource, artType: .IMAGE, artPlaceId: artPlaceId)
+                        dest.receiveArt(resource, artType: artType, artPlaceId: artPlaceId)
                     })
                 })
             }

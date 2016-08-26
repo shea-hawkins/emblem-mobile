@@ -60,4 +60,12 @@ class ResourceHandler {
         }
     }
     
+    static func getArtTypeFromExtension(ext: String) -> ArtType {
+        var artType = ArtType.IMAGE
+        if (ext == "obj") {
+            artType = ArtType.MODEL
+        }
+        return artType
+    }
+    
 }

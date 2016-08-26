@@ -83,7 +83,7 @@ class LibraryTableViewController: UITableViewController {
     }
     
     func getImageIdsForUser(){
-        let url = NSURL(string: NSProcessInfo.processInfo().environment["DEV_SERVER"]! + "user/art")!
+        let url = NSURL(string: "\(Store.serverLocation)user/art")!
         HTTPRequest.get(url) { (response, data) in
             if response.statusCode == 200 {
                 let json = JSON(data: data)
@@ -113,11 +113,17 @@ class LibraryTableViewController: UITableViewController {
         cell.contentView.addSubview(backgroundLoadingView)
         
         let artId = String(self.artData[indexPath.row]["id"]!)
+        let artType = ResourceHandler.getArtTypeFromExtension(self.artData[indexPath.row]["type"] as! String)
         
         let that = self;
-        ResourceHandler.retrieveResource(artId, type: .IMAGE, onComplete: {(resource: NSObject) in
+        ResourceHandler.retrieveResource(artId, type: artType, onComplete: {(resource: NSObject) in
             dispatch_async(dispatch_get_main_queue(), {
-                that.hydrateCellAtIndexPath(indexPath, image: resource as! UIImage)
+                if (artType == .IMAGE) {
+                    that.hydrateCellAtIndexPath(indexPath, image: resource as! UIImage)
+                } else {
+                    let image = UIImage(contentsOfFile: "Emblem.jpg")!
+                    that.hydrateCellAtIndexPath(indexPath, image: image)
+                }
                 backgroundLoadingView.removeFromSuperview()
             })
         })
@@ -185,9 +191,11 @@ class LibraryTableViewController: UITableViewController {
             if let index = sender as? Int {
                 let artId:String = String(self.artData[index]["id"]!)
                 let artPlaceId:String = String(self.artPlaceId)
-                ResourceHandler.retrieveResource(artId, type: .IMAGE, onComplete: {(resource: NSObject) in
+                let artType = ResourceHandler.getArtTypeFromExtension(self.artData[index]["type"] as! String)
+                
+                ResourceHandler.retrieveResource(artId, type: artType, onComplete: {(resource: NSObject) in
                     dispatch_async(dispatch_get_main_queue(), {
-                        dest.receiveArt(resource, artType: .IMAGE, artPlaceId: artPlaceId)
+                        dest.receiveArt(resource, artType: artType, artPlaceId: artPlaceId)
                     })
                 })
             }

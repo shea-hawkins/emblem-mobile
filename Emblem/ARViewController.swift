@@ -183,12 +183,12 @@ extension ARViewController: ChangeArtTableViewControllerDelegate {
     }
     
     func downvoteArt() {
-        let url = NSURL(string: "\(Store.serverLocation)artplace/\(self.artPlaceId)/vote")
+        let url = NSURL(string: "\(Store.serverLocation)artplace/\(self.artPlaceId!)/vote")
         
         HTTPRequest.post(["vote": -1], dataType: "application/json", url: url!, postCompleted: {(succeeded, msg) in
             if succeeded {
                 self.menuView.downvoted()
-                print("upvoted")
+                print("downvoted")
             }
         })
     }
@@ -217,9 +217,6 @@ private extension ARViewController {
             
         }
         vuforiaManager?.prepareWithOrientation(.Portrait)
-        ResourceHandler.download3DAsset("2", onComplete: {(asset: MDLAsset) in
-            that.receiveArt(asset, artType: .MODEL, artPlaceId: "2")
-        })
     }
     
     func pause() {
