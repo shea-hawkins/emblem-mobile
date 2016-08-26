@@ -14,7 +14,6 @@ class MapViewController: UIViewController {
     
     
     var serverUrl:NSURL!
-    var user:User?
     let locationManager = CLLocationManager()
     let env = NSProcessInfo.processInfo().environment
     var socket: SocketIOClient!

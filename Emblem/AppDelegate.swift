@@ -20,6 +20,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
+        for family: String in UIFont.familyNames()
+        {
+            print("\(family)")
+            for names: String in UIFont.fontNamesForFamilyName(family)
+            {
+                print("== \(names)")
+            }
+        }
+        
         // Temp until we can retrieve vals from cache
         NSURLCache.setSharedURLCache(NSURLCache(memoryCapacity: 0, diskCapacity: 0, diskPath: nil))
 
@@ -27,9 +36,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         GMSServices.provideAPIKey(googleMapsApiKey)
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
-        if let font = UIFont(name: "Neuton", size: 19) {
+        if let font = UIFont(name: "OpenSans", size: 17) {
             UINavigationBar.appearance().titleTextAttributes = [NSFontAttributeName: font, NSForegroundColorAttributeName: UIColor.blackColor()]
             UIBarButtonItem.appearance().setTitleTextAttributes([NSFontAttributeName: font], forState: .Normal)
+            print("OpenSans BoldEnabled")
             
         }
         return true

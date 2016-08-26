@@ -15,7 +15,7 @@ import SwiftyJSON
 
 class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     
-    var user:User!
+
     let deployedServerString:String = "http://138.68.23.39:3000"
     //let deployedServerString:String = "http://10.8.26.242:3000/"
     
@@ -104,10 +104,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == MapViewController.getEntrySegueFromLogin() {
             let dest = segue.destinationViewController as! MapViewController
-            if let user = sender as? User {
-                dest.user = user
-            }
+    
         }
-
     }
 }
