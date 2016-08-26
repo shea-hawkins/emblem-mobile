@@ -7,11 +7,6 @@
 //
 import SceneKit.ModelIO
 
-enum ArtType {
-    case IMAGE
-    case MODEL
-}
-
 class ARSceneSource: NSObject, ARSceneSourceProtocol {
     
     private var art: NSObject? = nil

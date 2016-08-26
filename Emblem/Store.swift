@@ -13,5 +13,6 @@ struct Store {
     static var serverLocation:String = ""
     static var lat:Double = 0
     static var long:Double = 0
+    static var imageCache:NSCache = NSCache()
     static var dataCache:NSCache = NSCache()
 }

@@ -25,6 +25,11 @@ class ChangeArtTableViewController: UITableViewController {
     
     override func viewDidAppear(animated: Bool) {
         self.navigationController?.setNavigationBarHidden(false, animated: true)
+        getImageIds()
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
     }
     
     override func viewDidLoad() {
@@ -32,12 +37,7 @@ class ChangeArtTableViewController: UITableViewController {
         let gesture = UISwipeGestureRecognizer(target: self, action: #selector(backPressed))
         gesture.direction = .Right
         self.tableView.addGestureRecognizer(gesture)
-        
-        //TODO: Save image data locally
-//
-        
-        // Uncomment the following line to preserve selection between presentations
-         self.clearsSelectionOnViewWillAppear = false
+        self.clearsSelectionOnViewWillAppear = false
         
         if let backImage:UIImage = UIImage(named: "left-arrow.png") {
             let backButton: UIButton = UIButton(type: UIButtonType.Custom)
@@ -51,7 +51,6 @@ class ChangeArtTableViewController: UITableViewController {
         }
         
         getImageIds()
-    
 
     }
     
@@ -96,10 +95,7 @@ class ChangeArtTableViewController: UITableViewController {
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
-    
-    // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
@@ -114,22 +110,17 @@ class ChangeArtTableViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-//        if let delegate = self.delegate {
-//            delegate.receiveArt(self.art[indexPath.row], artType: .IMAGE)
-//        }
         self.performSegueWithIdentifier(ARViewController.getUnwindSegueFromChangeArtView(), sender: indexPath.row)
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
     func hydrateCellAtIndexPath(indexPath: NSIndexPath, image: UIImage) {
-        dispatch_async(dispatch_get_main_queue(), {
-            let cell: ArtTableViewCell = self.tableView.cellForRowAtIndexPath(indexPath) as! ArtTableViewCell
-            let upvotes = String(self.artData[indexPath.row]["upvotes"]! as! Int)
-            let downvotes = String(self.artData[indexPath.row]["downvotes"]! as! Int)
-            cell.thumbImageView.image = image
-            cell.upvoteLabel.text = upvotes
-            cell.downvoteLabel.text = downvotes
-        })
+        let cell: ArtTableViewCell = self.tableView.cellForRowAtIndexPath(indexPath) as! ArtTableViewCell
+        let upvotes = String(self.artData[indexPath.row]["upvotes"]! as! Int)
+        let downvotes = String(self.artData[indexPath.row]["downvotes"]! as! Int)
+        cell.thumbImageView.image = image
+        cell.upvoteLabel.text = upvotes
+        cell.downvoteLabel.text = downvotes
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -141,26 +132,19 @@ class ChangeArtTableViewController: UITableViewController {
         let backgroundLoadingView = Utils.genLoadingScreen(cell.bounds.width, height: cell.bounds.height, loadingText: "Teleporting Image....")
         cell.contentView.addSubview(backgroundLoadingView)
         
+        let artId = String(self.artData[indexPath.row]["ArtId"]!)
+        
         let that = self;
-        ResourceHandler.retrieveResource(String(indexPath.row), type: .IMAGE, onComplete: {(resource: NSObject) in
-            that.hydrateCellAtIndexPath(indexPath, image: resource as! UIImage)
+        ResourceHandler.retrieveResource(artId, type: .IMAGE, onComplete: {(resource: NSObject) in
+            dispatch_async(dispatch_get_main_queue(), {
+                that.hydrateCellAtIndexPath(indexPath, image: resource as! UIImage)
+                backgroundLoadingView.removeFromSuperview()
+            })
         })
         
         return cell
     }
-    
 
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    
-    // Override to support editing the table view.
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
             // Delete the row from the data source
@@ -169,40 +153,18 @@ class ChangeArtTableViewController: UITableViewController {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }    
     }
- 
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
     
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == ARViewController.getUnwindSegueFromChangeArtView() {
             let dest = segue.destinationViewController as! ARViewController
-            if sender != nil {
-                if let cachedObject = Store.imageCache.objectForKey(self.artData[sender as! Int]["ArtId"]!) as? NSDictionary {
-                    let cachedImage = cachedObject["image"] as? UIImage
-                    dest.receiveArt(cachedImage, artType: .IMAGE, artPlaceId: String(self.artData[sender as! Int]["ArtPlaceId"] as! Int))
-                } else {
-                    print("Cached Image no longer available")
-                }
+            if let index = sender as? Int {
+                let artId:String = String(self.artData[index]["ArtId"]!)
+                let artPlaceId:String = String(self.artData[index]["ArtPlaceId"]!)
                 
+                ResourceHandler.retrieveResource(artId, type: .IMAGE, onComplete: {(resource: NSObject) in
+                    dest.receiveArt(resource, artType: .IMAGE, artPlaceId: artPlaceId)
+                })
             }
-            
         }
     }
  
