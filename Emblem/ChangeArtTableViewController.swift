@@ -121,6 +121,17 @@ class ChangeArtTableViewController: UITableViewController {
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
+    func hydrateCellAtIndexPath(indexPath: NSIndexPath, image: UIImage) {
+        dispatch_async(dispatch_get_main_queue(), {
+            let cell: ArtTableViewCell = self.tableView.cellForRowAtIndexPath(indexPath) as! ArtTableViewCell
+            let upvotes = String(self.artData[indexPath.row]["upvotes"]! as! Int)
+            let downvotes = String(self.artData[indexPath.row]["downvotes"]! as! Int)
+            cell.thumbImageView.image = image
+            cell.upvoteLabel.text = upvotes
+            cell.downvoteLabel.text = downvotes
+        })
+    }
+    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cellIdentifier = "ArtTableViewCell"
         let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! ArtTableViewCell
@@ -130,56 +141,11 @@ class ChangeArtTableViewController: UITableViewController {
         let backgroundLoadingView = Utils.genLoadingScreen(cell.bounds.width, height: cell.bounds.height, loadingText: "Teleporting Image....")
         cell.contentView.addSubview(backgroundLoadingView)
         
-        if let cachedObj = Store.imageCache.objectForKey(artData[indexPath.row]["ArtId"] as! Int) as? NSDictionary {
-            dispatch_async(dispatch_get_main_queue(), {() -> Void in
-                let updateCell: ArtTableViewCell = tableView.cellForRowAtIndexPath(indexPath) as! ArtTableViewCell
-                updateCell.thumbImageView.image = cachedObj["image"] as? UIImage
-                
-//                let artId = String(self.artData[indexPath.row]["ArtId"] as! Int)
-//                let newUpvotes = String(self.artData[indexPath.row]["upvotes"]! as! Int)
-//                let newDownvotes = String(self.artData[indexPath.row]["down"]! as! Int)
-//                let image = cachedObj["image"] as? UIImage
-                
-//                 TODO:// Update Votes
-//                if  newUpvotes != cachedObj["upvotes"] as! String {
-//                    updateCell.upvoteLabel.text = newUpvotes
-//                    let obj = ["image": image, "downvotes":newDownvotes, "upvotes":newUpvotes] as! AnyObject
-//                    
-//                    Store.imageCache.setObject(obj, forKey: artId)
-//                    
-//
-//                } else if newDownvotes != cachedObj["downvotes"] as! String {
-//                    updateCell.upvoteLabel.text = newDownvotes
-//                    Store.imageCache.removeObjectForKey(artId)
-//                    Store.imageCache.setObject(["image": image, "upvotes":newUpvotes, "downvotes":newDownvotes], forKey: artId)
-//        
-//                }
-                backgroundLoadingView.removeFromSuperview()
-            })
-        } else {
-            let urlString = NSProcessInfo.processInfo().environment["DEV_SERVER"]! + "art/\(artData[indexPath.row]["ArtId"] as! Int)/download"
-            let url = NSURL(string: urlString)!
-            
-            
-            HTTPRequest.get(url) { (response, data) in
-                if response.statusCode == 200 {
-                    let image = UIImage(data: data)!
-                    dispatch_async(dispatch_get_main_queue(), {() -> Void in
-                        let upvotes = String(self.artData[indexPath.row]["upvotes"]! as! Int)
-                        let downvotes = String(self.artData[indexPath.row]["downvotes"]! as! Int)
-                        Store.imageCache.setObject(["image":image, "upvotes":upvotes, "downvotes":downvotes], forKey: self.artData[indexPath.row]["ArtId"] as! Int)
-                        backgroundLoadingView.removeFromSuperview()
-                        let updateCell: ArtTableViewCell = tableView.cellForRowAtIndexPath(indexPath) as! ArtTableViewCell
-                        updateCell.thumbImageView.image = image
-                        updateCell.upvoteLabel.text = upvotes
-                        updateCell.downvoteLabel.text = downvotes
-                        print("-------------Upvotes \(upvotes)")
-                        print("-------------Downvotes \(downvotes)")
-                    })
-                }
-            }
-        }
-
+        let that = self;
+        ResourceHandler.retrieveResource(String(indexPath.row), type: .IMAGE, onComplete: {(resource: NSObject) in
+            that.hydrateCellAtIndexPath(indexPath, image: resource as! UIImage)
+        })
+        
         return cell
     }
     
