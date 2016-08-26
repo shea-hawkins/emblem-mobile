@@ -99,8 +99,9 @@ class LibraryTableViewController: UITableViewController {
     }
     
     func hydrateCellAtIndexPath(indexPath: NSIndexPath, image: UIImage) {
-        let cell: ArtTableViewCell = self.tableView.cellForRowAtIndexPath(indexPath) as! ArtTableViewCell
-        cell.thumbImageView.image = image
+        if let cell: ArtTableViewCell = self.tableView.cellForRowAtIndexPath(indexPath) as? ArtTableViewCell {
+            cell.thumbImageView.image = image
+        }
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {

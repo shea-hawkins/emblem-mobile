@@ -32,6 +32,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Temp until we can retrieve vals from cache
         NSURLCache.setSharedURLCache(NSURLCache(memoryCapacity: 0, diskCapacity: 0, diskPath: nil))
 
+        print("Clearing Temp!")
+        ResourceHandler.clearTempFolder()
 
         // Override point for customization after application launch.
         GMSServices.provideAPIKey(googleMapsApiKey)
@@ -70,6 +72,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+
     }
 
 
