@@ -143,7 +143,7 @@ extension ARViewController: ChangeArtTableViewControllerDelegate {
         self.artType = artType;
         self.artPlaceId = artPlaceId;
         if (self.sceneSource != nil) {
-            self.sceneSource!.setArt(art);
+            self.sceneSource!.setArt(art, artType: self.artType!);
             let eaglView = self.vuforiaManager?.eaglView;
             let scene = self.sceneSource!.sceneForEAGLView(eaglView, viewInfo: nil);
             eaglView!.changeScene(scene);
@@ -175,6 +175,7 @@ extension ARViewController: ChangeArtTableViewControllerDelegate {
 private extension ARViewController {
     func prepare() {
         vuforiaManager = ARManager(licenseKey: vuforiaLiceseKey, dataSetFile: vuforiaDataSetFile)
+        self.artType = .MODEL;
         self.sceneSource = ARSceneSource(art: self.art, artType: self.artType)
         
         

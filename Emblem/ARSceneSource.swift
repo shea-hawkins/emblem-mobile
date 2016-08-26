@@ -31,13 +31,19 @@ class ARSceneSource: NSObject, ARSceneSourceProtocol {
         }
     }
     
-    func setArt(art: NSObject!) {
+    func setArt(art: NSObject!, artType: ArtType?) {
         self.art = art;
+        self.artType = artType;
     }
     
     func sceneForEAGLView(view: AREAGLView!, viewInfo: [String : AnyObject]?) -> SCNScene! {
-        //return create2DScene(with: view);
-        return create3DScene(with: view);
+        var scene:SCNScene;
+        if (self.artType == .IMAGE) {
+            scene = self.create2DScene(with: view)
+        } else {
+            scene = self.create3DScene(with: view)
+        }
+        return scene
     }
     
     private func create2DScene(with view: AREAGLView) -> SCNScene {
@@ -51,7 +57,6 @@ class ARSceneSource: NSObject, ARSceneSourceProtocol {
         planeMaterial.transparency = 0.95
         planeNode.geometry?.firstMaterial = planeMaterial
         scene.rootNode.addChildNode(planeNode)
-        
         return scene
     }
     
@@ -63,13 +68,7 @@ class ARSceneSource: NSObject, ARSceneSourceProtocol {
 
     
     private func create3DScene(with view: AREAGLView) -> SCNScene {
-        
-        
-
-        
         self.scene = SCNScene()
-
-        
         func download3DAsset(id: String, onComplete: (asset: MDLAsset) -> Void) {
             let urlString = "http://10.8.24.31:3000/storage/\(id).zip"
             let url = NSURL(string: urlString)!
@@ -89,7 +88,6 @@ class ARSceneSource: NSObject, ARSceneSourceProtocol {
                 }
             }
         }
-        
         download3DAsset("2", onComplete: {(asset: MDLAsset) in
             let node = SCNNode(MDLObject: asset.objectAtIndex(0))
             var center = SCNVector3Make(1, 1 ,1)
