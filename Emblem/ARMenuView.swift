@@ -8,6 +8,9 @@
 //import UIKit
 import SpriteKit
 
+class EventedButton: UIButton {
+    var eventName:String? = nil
+}
 
 
 class ARMenuView: UIView {
@@ -24,9 +27,8 @@ class ARMenuView: UIView {
 //        let buttonWidth = screenWidth / 2 - 10
 //        let buttonHeight = screenHeight / 8 - 10
         
-        let buttonWidth = screenWidth / 2 - 10
-        let buttonHeight = screenHeight / 8 - 10
-
+        let buttonWidth:CGFloat = screenWidth / 2 - 10
+        let buttonHeight:CGFloat = 50
         
 
         let downImage:UIImage = UIImage(named: "down-arrow3.png")!

@@ -196,8 +196,8 @@ extension ARViewController: ChangeArtTableViewControllerDelegate {
 
 private extension ARViewController {
     func prepare() {
+        let that = self
         vuforiaManager = ARManager(licenseKey: vuforiaLiceseKey, dataSetFile: vuforiaDataSetFile)
-        self.artType = .MODEL;
         self.sceneSource = ARSceneSource(art: self.art, artType: self.artType)
         
         
@@ -209,7 +209,6 @@ private extension ARViewController {
             self.view = manager.eaglView
             
             self.menuView = ARMenuView(frame: self.view.frame);
-            let that = self
             self.menuView.on("upvote", callback: {() in that.upvoteArt()})
             self.menuView.on("downvote", callback: {() in that.downvoteArt()})
             
@@ -218,6 +217,9 @@ private extension ARViewController {
             
         }
         vuforiaManager?.prepareWithOrientation(.Portrait)
+        ResourceHandler.download3DAsset("2", onComplete: {(asset: MDLAsset) in
+            that.receiveArt(asset, artType: .MODEL, artPlaceId: "2")
+        })
     }
     
     func pause() {

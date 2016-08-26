@@ -171,7 +171,10 @@ class ChangeArtTableViewController: UITableViewController {
                         backgroundLoadingView.removeFromSuperview()
                         let updateCell: ArtTableViewCell = tableView.cellForRowAtIndexPath(indexPath) as! ArtTableViewCell
                         updateCell.thumbImageView.image = image
-                        updateCell.upvoteLabel.text = String(self.artData[indexPath.row]["netVotes"])
+                        updateCell.upvoteLabel.text = upvotes
+                        updateCell.downvoteLabel.text = downvotes
+                        print("-------------Upvotes \(upvotes)")
+                        print("-------------Downvotes \(downvotes)")
                     })
                 }
             }
