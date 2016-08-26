@@ -13,7 +13,15 @@ import FBSDKShareKit
 import SwiftyJSON
     
 
-class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
+class LoginViewController: UIViewController, FBSDKLoginButtonDelegate, MapViewControllerDelegate {
+    
+    @IBOutlet weak var logoImage: UIImageView!
+    @IBOutlet weak var logoTitle: UILabel!
+    @IBOutlet weak var logoSubTitle: UILabel!
+    
+    var blurEffect: UIBlurEffect!
+    var blurEffectView1:UIVisualEffectView!
+    var blurEffectView2:UIVisualEffectView!
     
 
     let deployedServerString:String = "http://138.68.23.39:3000"
@@ -23,11 +31,40 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     let env = NSProcessInfo.processInfo().environment
     
     @IBOutlet weak var fbLoginButton: FBSDKLoginButton!
-    
+    @IBOutlet weak var firstFadeView: UIView!
 
+    
+    override func viewWillAppear(animated: Bool) {
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
+        UIView.animateWithDuration(1, delay: 0, options: UIViewAnimationOptions.CurveEaseIn, animations: {
+            self.blurEffectView1.effect = nil
+            }) { (true) in
+               
+                
+            UIView.animateWithDuration(1, delay: 0.5, options: UIViewAnimationOptions.CurveEaseIn, animations: {
+                    self.fbLoginButton.alpha = 1
+                }, completion: {(true) -> Void in
+                    self.blurEffectView1.removeFromSuperview()
+                })
+        }
+        
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if !UIAccessibilityIsReduceTransparencyEnabled() {
+            blurEffect = UIBlurEffect(style: UIBlurEffectStyle.ExtraLight)
+            blurEffectView1 = UIVisualEffectView(effect: blurEffect)
+            blurEffectView1.frame = self.firstFadeView.bounds
+            blurEffectView1.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+            self.firstFadeView.addSubview(blurEffectView1)
+            
+        }
+        
+        fbLoginButton.alpha = 0
+        
         configureFacebook()
+
         if let devServer = self.env["DEV_SERVER"] as String? {
             server = devServer
             Store.serverLocation = server;
@@ -35,6 +72,8 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
             server = deployedServerString
             Store.serverLocation = server;
         }
+        
+        
         if Store.accessToken == "" && FBSDKAccessToken.currentAccessToken() != nil {
             
             
@@ -87,6 +126,10 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         
     }
     
+    func logout() {
+        self.loginButtonDidLogOut(self.fbLoginButton)
+    }
+    
     func configureFacebook(){
         fbLoginButton.readPermissions = ["public_profile", "email", "user_friends"]
         fbLoginButton.delegate = self
@@ -96,6 +139,10 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         loginManager.logOut()
     }
     
+    override func prefersStatusBarHidden() -> Bool {
+        return true
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -103,7 +150,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == MapViewController.getEntrySegueFromLogin() {
             let dest = segue.destinationViewController as! MapViewController
-    
+            dest.delegate = self
         }
     }
 }

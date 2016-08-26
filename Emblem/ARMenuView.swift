@@ -31,7 +31,7 @@ class ARMenuView: UIView {
         let buttonHeight:CGFloat = 50
         
 
-        let downImage:UIImage = UIImage(named: "down-arrow3.png")!
+        let downImage:UIImage = UIImage(named: "thumb-down.png")!
 
         downvote = EventedButton(frame: CGRect(x: screenWidth / 4 - buttonWidth / 2, y:(screenHeight - buttonHeight - 2), width: buttonWidth, height: buttonHeight))
         downvote.setImage(downImage, forState: UIControlState.Normal)
@@ -44,7 +44,7 @@ class ARMenuView: UIView {
         downvote.setTitle("Upvote", forState: .Normal)
         
         
-        let upImage:UIImage = UIImage(named: "up-arrow3.png")!
+        let upImage:UIImage = UIImage(named: "thumbs-up.png")!
         upvote = EventedButton(frame: CGRect(x: screenWidth - (screenWidth / 4 + buttonWidth / 2), y: screenHeight - buttonHeight - 2, width: buttonWidth, height: buttonHeight))
         upvote.setImage(upImage, forState: UIControlState.Normal)
         upvote.addTarget(self, action: #selector(ARMenuView.emit(_:)), forControlEvents: .TouchUpInside)
