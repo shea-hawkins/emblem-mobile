@@ -15,6 +15,7 @@
         <mutableArray key="OpenSans-Regular.ttf">
             <string>OpenSans</string>
             <string>OpenSans</string>
+            <string>OpenSans</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -137,11 +138,12 @@
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ELD-Qc-jQs">
-                                <rect key="frame" x="235" y="545" width="130" height="45"/>
+                                <rect key="frame" x="225" y="540" width="150" height="50"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="45" id="BiV-Sc-FoJ"/>
-                                    <constraint firstAttribute="width" constant="130" id="mzt-MQ-HIi"/>
+                                    <constraint firstAttribute="height" constant="50" id="BiV-Sc-FoJ"/>
+                                    <constraint firstAttribute="width" constant="150" id="mzt-MQ-HIi"/>
                                 </constraints>
+                                <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
                                 <state key="normal" title="See Art"/>
                                 <connections>
                                     <action selector="addMarkerPressed:" destination="rq9-EC-Xsf" eventType="touchUpInside" id="daG-Wk-UAM"/>
