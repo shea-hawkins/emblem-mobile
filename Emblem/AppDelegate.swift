@@ -16,7 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     let googleMapsApiKey = "AIzaSyBi7NLOagsHBOfINbLARaXhHVoOSBw3-_E"
-    let deployedServerString:String = "http://138.68.23.39:3000"
+    let deployedServerString:String = "http://138.68.23.39:3000/"
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
@@ -28,7 +28,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             Store.serverLocation = deployedServerString
         }
         
-        
+        // Temp until we can retrieve vals from cache
+        NSURLCache.setSharedURLCache(NSURLCache(memoryCapacity: 0, diskCapacity: 0, diskPath: nil))
+
+        print("Clearing Temp!")
+        ResourceHandler.clearTempFolder()
+
         // Override point for customization after application launch.
         GMSServices.provideAPIKey(googleMapsApiKey)
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
@@ -66,6 +71,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+
     }
 
 
