@@ -115,12 +115,13 @@ class ChangeArtTableViewController: UITableViewController {
     }
     
     func hydrateCellAtIndexPath(indexPath: NSIndexPath, image: UIImage) {
-        let cell: ArtTableViewCell = self.tableView.cellForRowAtIndexPath(indexPath) as! ArtTableViewCell
-        let upvotes = String(self.artData[indexPath.row]["upvotes"]! as! Int)
-        let downvotes = String(self.artData[indexPath.row]["downvotes"]! as! Int)
-        cell.thumbImageView.image = image
-        cell.upvoteLabel.text = upvotes
-        cell.downvoteLabel.text = downvotes
+        if let cell: ArtTableViewCell = self.tableView.cellForRowAtIndexPath(indexPath) as? ArtTableViewCell {
+            let upvotes = String(self.artData[indexPath.row]["upvotes"]! as! Int)
+            let downvotes = String(self.artData[indexPath.row]["downvotes"]! as! Int)
+            cell.thumbImageView.image = image
+            cell.upvoteLabel.text = upvotes
+            cell.downvoteLabel.text = downvotes
+        }
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
