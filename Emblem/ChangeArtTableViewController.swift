@@ -38,7 +38,6 @@ class ChangeArtTableViewController: UITableViewController {
         gesture.direction = .Right
         self.tableView.addGestureRecognizer(gesture)
         self.clearsSelectionOnViewWillAppear = false
-        
         if let backImage:UIImage = UIImage(named: "left-arrow.png") {
             let backButton: UIButton = UIButton(type: UIButtonType.Custom)
             backButton.frame = CGRectMake(0, 0, 15, 15)
@@ -69,6 +68,7 @@ class ChangeArtTableViewController: UITableViewController {
             if response.statusCode == 200 || response.statusCode == 304 {
                 let json = JSON(data: data)
                 print(json)
+                self.artData = [Dictionary<String,AnyObject>]()
                 for (_, obj):(String, JSON) in json {
                     self.artData.append(obj.dictionaryObject!)
                     self.artData.sortInPlace {
@@ -160,9 +160,10 @@ class ChangeArtTableViewController: UITableViewController {
             if let index = sender as? Int {
                 let artId:String = String(self.artData[index]["ArtId"]!)
                 let artPlaceId:String = String(self.artData[index]["ArtPlaceId"]!)
-                
                 ResourceHandler.retrieveResource(artId, type: .IMAGE, onComplete: {(resource: NSObject) in
-                    dest.receiveArt(resource, artType: .IMAGE, artPlaceId: artPlaceId)
+                    dispatch_async(dispatch_get_main_queue(), {
+                        dest.receiveArt(resource, artType: .IMAGE, artPlaceId: artPlaceId)
+                    })
                 })
             }
         }
