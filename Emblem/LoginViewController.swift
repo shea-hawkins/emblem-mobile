@@ -23,13 +23,6 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate, MapViewCo
     var blurEffectView1:UIVisualEffectView!
     var blurEffectView2:UIVisualEffectView!
     
-
-    let deployedServerString:String = "http://138.68.23.39:3000"
-    
-    var server:String = ""
-    
-    let env = NSProcessInfo.processInfo().environment
-    
     @IBOutlet weak var fbLoginButton: FBSDKLoginButton!
     @IBOutlet weak var firstFadeView: UIView!
 
@@ -64,21 +57,13 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate, MapViewCo
         fbLoginButton.alpha = 0
         
         configureFacebook()
-
-        if let devServer = self.env["DEV_SERVER"] as String? {
-            server = devServer
-            Store.serverLocation = server;
-        } else {
-            server = deployedServerString
-            Store.serverLocation = server;
-        }
-        
         
         if Store.accessToken == "" && FBSDKAccessToken.currentAccessToken() != nil {
             
             
-            //TODO: Implement caching between sessions
-                let url = NSURL(string: "\(server)auth/facebook/token?access_token=\(FBSDKAccessToken.currentAccessToken().tokenString)")!
+            
+                let url = NSURL(string: "\(Store.serverLocation)auth/facebook/token?access_token=\(FBSDKAccessToken.currentAccessToken().tokenString)")!
+            
                 HTTPRequest.get(url, getCompleted: { (response, data) in
                     
                     if response.statusCode == 200 {
@@ -107,19 +92,23 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate, MapViewCo
                 print("FBLogin Error: \(error)")
             } else {
                 
-                let url = NSURL(string: "\(self.server)auth/facebook/token?access_token=\(FBSDKAccessToken.currentAccessToken().tokenString)")!
-                
-                HTTPRequest.get(url, getCompleted: { (response, data) in
-                    if response.statusCode == 200 {
-                        Store.accessToken = NSString(data: data, encoding: NSUTF8StringEncoding) as! String
-                        dispatch_async(dispatch_get_main_queue()) {
-                            self.performSegueWithIdentifier(MapViewController.getEntrySegueFromLogin(), sender: nil)
-                            
+                if Store.accessToken == "" {
+                    let url = NSURL(string: "\(Store.serverLocation)auth/facebook/token?access_token=\(FBSDKAccessToken.currentAccessToken().tokenString)")!
+                    
+                    HTTPRequest.get(url, getCompleted: { (response, data) in
+                        if response.statusCode == 200 {
+                            Store.accessToken = NSString(data: data, encoding: NSUTF8StringEncoding) as! String
+                            dispatch_async(dispatch_get_main_queue()) {
+                                self.performSegueWithIdentifier(MapViewController.getEntrySegueFromLogin(), sender: nil)
+                                
+                            }
+                        } else {
+                            print("FB Authentication Falure: \(response)")
                         }
-                    } else {
-                        print("FB Authentication Falure: \(response)")
-                    }
-                })
+                    })
+                } else {
+                      self.performSegueWithIdentifier(MapViewController.getEntrySegueFromLogin(), sender: nil)
+                }
                 
             }
         }

@@ -37,6 +37,8 @@ class ARViewController: UIViewController {
         swipeLeft.direction = .Left
         let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(self.handleMySwipeRightGesture))
         swipeRight.direction = .Right
+        let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(self.back))
+        swipeRight.direction = .Down
         
         
         let notificationCenter = NSNotificationCenter.defaultCenter()
@@ -55,6 +57,7 @@ class ARViewController: UIViewController {
         
         self.view.addGestureRecognizer(swipeLeft)
         self.view.addGestureRecognizer(swipeRight)
+        self.view.addGestureRecognizer(swipeDown)
       
         if let leftImage = UIImage(named: "plus-symbol-white.png") {
             let leftButton = UIButton(type: UIButtonType.Custom)

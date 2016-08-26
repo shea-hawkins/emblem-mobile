@@ -19,7 +19,6 @@ class MapViewController: UIViewController {
     
     var serverUrl:NSURL!
     let locationManager = CLLocationManager()
-    let env = NSProcessInfo.processInfo().environment
     var socket: SocketIOClient!
     var placeLat:Double = 0
     var placeLong:Double = 0
@@ -54,20 +53,17 @@ class MapViewController: UIViewController {
             }
         })
     }
+    
+    override func viewWillAppear(animated: Bool) {
+        self.navigationController?.setNavigationBarHidden(false, animated: false)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.setNavigationBarHidden(false, animated: false)
-        if let server = env["DEV_SERVER"]! + "place" as String? {
-            self.serverUrl = NSURL(string: server)!
-            
-        } else {
-            self.serverUrl = NSURL(string: "http://138.68.23.39:3000/place")!
-        }
-
+        
         initLocationServices()
 
-        socket = SocketIOClient(socketURL: self.serverUrl!, options: [.Log(false), .ForcePolling(true)])
+        socket = SocketIOClient(socketURL: NSURL(string: Store.serverLocation)!, options: [.Log(false), .ForcePolling(true)])
         socket.on("connect") {data, ack in
             print("Socket Connected")
         }
@@ -98,7 +94,7 @@ class MapViewController: UIViewController {
     }
     
     func getMarkers() {
-        let markerUrl = NSURL(string: NSProcessInfo.processInfo().environment["DEV_SERVER"]! + "artPlace/between/\(self.placeLat - MILEINDEGREES)/\(self.placeLat + MILEINDEGREES)/\(self.placeLong - MILEINDEGREES)/\(self.placeLong + MILEINDEGREES)")!
+        let markerUrl = NSURL(string: Store.serverLocation + "artPlace/between/\(self.placeLat - MILEINDEGREES)/\(self.placeLat + MILEINDEGREES)/\(self.placeLong - MILEINDEGREES)/\(self.placeLong + MILEINDEGREES)")!
         HTTPRequest.get(markerUrl){(response, data) in
             print("GetMarkers: \(response.statusCode)")
             if response.statusCode == 200 {

@@ -133,7 +133,7 @@ class LibraryTableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let artID = self.artData[indexPath.row]["id"] as! Int
-        let url = NSURL(string: NSProcessInfo.processInfo().environment["DEV_SERVER"]! + "art/\(artID)/place")!
+        let url = NSURL(string: Store.serverLocation + "art/\(artID)/place")!
         HTTPRequest.post(["lat": Store.lat, "long": Store.long], dataType: "application/json", url: url) { (succeeded, msg) in
             if succeeded {
                 self.artPlaceId = msg["id"].intValue
@@ -224,7 +224,7 @@ extension LibraryTableViewController: UIImagePickerControllerDelegate, UINavigat
     
     func postImage(image: UIImage) {
         let imageData = UIImagePNGRepresentation(image)!
-        let url = NSURL(string: NSProcessInfo.processInfo().environment["DEV_SERVER"]! + "art/")!
+        let url = NSURL(string: Store.serverLocation + "art/")!
         
         let loadingScreen = Utils.genLoadingScreen(self.view.bounds.width, height: self.view.bounds.height, loadingText: "Pulsating quasi-data to the cloud....")
 
