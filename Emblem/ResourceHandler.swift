@@ -14,6 +14,20 @@ enum ArtType {
 }
 
 class ResourceHandler {
+    static func clearTempFolder() {
+        let fileManager = NSFileManager.defaultManager()
+        let tempFolderPath = NSTemporaryDirectory()
+        do {
+            let filePaths = try fileManager.contentsOfDirectoryAtPath(tempFolderPath)
+            for filePath in filePaths {
+                print("deleting \(filePath)")
+                try fileManager.removeItemAtPath(NSTemporaryDirectory() + filePath)
+            }
+        } catch {
+            print("Could not clear temp folder: \(error)")
+        }
+    }
+    
     static func download2DAsset(id: String, onComplete: (asset: UIImage) -> Void) {
         let urlString = "\(Store.serverLocation)art/\(id)/download"
         let url = NSURL(string: urlString)!
@@ -27,12 +41,14 @@ class ResourceHandler {
     }
     
     static func download3DAsset(id: String, onComplete: (asset: MDLAsset) -> Void) {
-        let urlString = "\(Store.serverLocation)storage/\(id).zip"
+        let urlString = "\(Store.serverLocation)art/\(id)/download"
         let url = NSURL(string: urlString)!
-        let zipPath = NSTemporaryDirectory() as String;
+        let tmpPath = NSTemporaryDirectory() as String;
+        let zipPath = "\(tmpPath)\(id)/"
         HTTPRequest.get(url) { (response, data) in
             if response.statusCode == 200 {
                 do{
+                    try NSFileManager.defaultManager().createDirectoryAtPath(zipPath, withIntermediateDirectories: false, attributes: nil)
                     try data.writeToFile("\(zipPath)\(id).zip", options: NSDataWritingOptions.DataWritingAtomic)
                 }
                 catch let error as NSError {
@@ -40,7 +56,18 @@ class ResourceHandler {
                 }
                 SSZipArchive.unzipFileAtPath("\(zipPath)\(id).zip", toDestination: zipPath)
                 
-                let localUrl = NSURL(fileURLWithPath: "\(zipPath)\(id)/\(id).obj")
+                
+                do {
+                    let items = try NSFileManager.defaultManager().contentsOfDirectoryAtPath(zipPath)
+                    for item in items {
+                        print("Found \(item)")
+                    }
+                } catch {
+                    // failed to read directory – bad permissions, perhaps?
+                }
+                
+                
+                let localUrl = NSURL(fileURLWithPath: "\(zipPath)main/main.obj")
                 let asset = MDLAsset(URL: localUrl)
                 Store.dataCache.setObject(asset, forKey: id)
                 onComplete(asset: asset)
@@ -60,9 +87,11 @@ class ResourceHandler {
         }
     }
     
-    static func getArtTypeFromExtension(ext: String) -> ArtType {
+    static func getArtTypeFromExtension(type: String) -> ArtType {
+        let fileArr = type.componentsSeparatedByString("/")
+        let ext = fileArr[fileArr.count - 1]
         var artType = ArtType.IMAGE
-        if (ext == "obj") {
+        if (ext == "zip") {
             artType = ArtType.MODEL
         }
         return artType
