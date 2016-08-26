@@ -10,6 +10,10 @@ import UIKit
 import SwiftyJSON
 import SocketIOClientSwift
 
+protocol MapViewControllerDelegate {
+    func logout()
+}
+
 class MapViewController: UIViewController {
     
     
@@ -21,6 +25,8 @@ class MapViewController: UIViewController {
     var placeLong:Double = 0
     var didInitializeCamera = false
     var MILEINDEGREES = 0.0144
+    
+    var delegate:MapViewControllerDelegate?
     
     @IBOutlet weak var artButton: UIButton!
     @IBOutlet weak var mapView: GMSMapView!
@@ -51,7 +57,7 @@ class MapViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.navigationController?.setNavigationBarHidden(false, animated: false)
         if let server = env["DEV_SERVER"]! + "place" as String? {
             self.serverUrl = NSURL(string: server)!
             
@@ -116,6 +122,12 @@ class MapViewController: UIViewController {
             marker.position = CLLocationCoordinate2DMake(lat, long)
             marker.appearAnimation = kGMSMarkerAnimationPop
             marker.map = self.mapView
+        }
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        if let delegate = self.delegate {
+            delegate.logout()
         }
     }
     
