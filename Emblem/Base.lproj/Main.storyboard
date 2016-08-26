@@ -187,7 +187,17 @@
                     <view key="view" contentMode="scaleToFill" id="5iB-ts-VTT">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="krn-gE-ttH">
+                                <rect key="frame" x="277" y="285" width="46" height="30"/>
+                                <state key="normal" title="Button"/>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="krn-gE-ttH" firstAttribute="top" secondItem="Pfq-eJ-52w" secondAttribute="bottom" constant="221" id="pVK-sB-L33"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="krn-gE-ttH" secondAttribute="trailing" constant="257" id="yOZ-dB-wyP"/>
+                        </constraints>
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="814-om-Isf"/>

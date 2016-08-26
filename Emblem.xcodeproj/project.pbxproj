@@ -27,7 +27,6 @@
 		35A87DF81D52B998004E739E /* EmblemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35A87DF71D52B998004E739E /* EmblemTests.swift */; };
 		35A87E031D52B998004E739E /* EmblemUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35A87E021D52B998004E739E /* EmblemUITests.swift */; };
 		35A87E111D52BA28004E739E /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35A87E101D52BA28004E739E /* LoginViewController.swift */; };
-		35BD88A21D59536300A409D6 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35BD88A11D59536300A409D6 /* User.swift */; };
 		35BD88A61D597F3500A409D6 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35BD88A51D597F3500A409D6 /* MapViewController.swift */; };
 		35DB9D421D66A8E100E8AAF0 /* UnwindFromRightSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35DB9D411D66A8E100E8AAF0 /* UnwindFromRightSegue.swift */; };
 		35DB9D441D66A9A400E8AAF0 /* LeftToRightSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35DB9D431D66A9A400E8AAF0 /* LeftToRightSegue.swift */; };
@@ -111,7 +110,6 @@
 		35A87E021D52B998004E739E /* EmblemUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmblemUITests.swift; sourceTree = "<group>"; };
 		35A87E041D52B998004E739E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		35A87E101D52BA28004E739E /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
-		35BD88A11D59536300A409D6 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		35BD88A51D597F3500A409D6 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		35DB9D411D66A8E100E8AAF0 /* UnwindFromRightSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnwindFromRightSegue.swift; sourceTree = "<group>"; };
 		35DB9D431D66A9A400E8AAF0 /* LeftToRightSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeftToRightSegue.swift; sourceTree = "<group>"; };
@@ -282,7 +280,6 @@
 		35BD889E1D5952FE00A409D6 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				35BD88A11D59536300A409D6 /* User.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -657,7 +654,6 @@
 				35E22B951D5EBD68004C6201 /* ChangeArtTableViewController.swift in Sources */,
 				35DB9D491D66B52D00E8AAF0 /* UnwindLeftSegue.swift in Sources */,
 				35DB9D441D66A9A400E8AAF0 /* LeftToRightSegue.swift in Sources */,
-				35BD88A21D59536300A409D6 /* User.swift in Sources */,
 				35E22B9A1D5ECA85004C6201 /* ArtTableViewCell.swift in Sources */,
 				3569BC491D6630990036F190 /* LibraryTableViewController.swift in Sources */,
 				35DB9D461D66B4A900E8AAF0 /* RightToLeftSegue.swift in Sources */,

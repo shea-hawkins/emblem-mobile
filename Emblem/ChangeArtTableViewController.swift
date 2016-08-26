@@ -134,8 +134,26 @@ class ChangeArtTableViewController: UITableViewController {
             dispatch_async(dispatch_get_main_queue(), {() -> Void in
                 let updateCell: ArtTableViewCell = tableView.cellForRowAtIndexPath(indexPath) as! ArtTableViewCell
                 updateCell.thumbImageView.image = cachedObj["image"] as? UIImage
-                updateCell.upvoteLabel.text = cachedObj["upvotes"] as? String
-                updateCell.upvoteLabel.text = cachedObj["downvotes"] as? String
+                
+//                let artId = String(self.artData[indexPath.row]["ArtId"] as! Int)
+//                let newUpvotes = String(self.artData[indexPath.row]["upvotes"]! as! Int)
+//                let newDownvotes = String(self.artData[indexPath.row]["down"]! as! Int)
+//                let image = cachedObj["image"] as? UIImage
+                
+//                 TODO:// Update Votes
+//                if  newUpvotes != cachedObj["upvotes"] as! String {
+//                    updateCell.upvoteLabel.text = newUpvotes
+//                    let obj = ["image": image, "downvotes":newDownvotes, "upvotes":newUpvotes] as! AnyObject
+//                    
+//                    Store.imageCache.setObject(obj, forKey: artId)
+//                    
+//
+//                } else if newDownvotes != cachedObj["downvotes"] as! String {
+//                    updateCell.upvoteLabel.text = newDownvotes
+//                    Store.imageCache.removeObjectForKey(artId)
+//                    Store.imageCache.setObject(["image": image, "upvotes":newUpvotes, "downvotes":newDownvotes], forKey: artId)
+//        
+//                }
                 backgroundLoadingView.removeFromSuperview()
             })
         } else {
@@ -210,8 +228,9 @@ class ChangeArtTableViewController: UITableViewController {
         if segue.identifier == ARViewController.getUnwindSegueFromChangeArtView() {
             let dest = segue.destinationViewController as! ARViewController
             if sender != nil {
-                if let cachedImage = Store.imageCache.objectForKey(self.artData[sender as! Int]["id"]!) as? UIImage {
-                    dest.receiveArt(cachedImage, artType: .IMAGE, artPlaceId: String(self.artData[sender as! Int]["ArtPlaceId"]))
+                if let cachedObject = Store.imageCache.objectForKey(self.artData[sender as! Int]["ArtId"]!) as? NSDictionary {
+                    let cachedImage = cachedObject["image"] as? UIImage
+                    dest.receiveArt(cachedImage, artType: .IMAGE, artPlaceId: String(self.artData[sender as! Int]["ArtPlaceId"] as! Int))
                 } else {
                     print("Cached Image no longer available")
                 }
