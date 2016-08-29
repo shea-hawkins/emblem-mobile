@@ -33,9 +33,12 @@ class ResourceHandler {
         let url = NSURL(string: urlString)!
         HTTPRequest.get(url) { (response, data) in
             if response.statusCode == 200 {
-                let image = UIImage(data: data)!
-                Store.dataCache.setObject(image, forKey: id)
-                onComplete(asset: image)
+                if let image = UIImage(data: data) {
+                    Store.dataCache.setObject(image, forKey: id)
+                    onComplete(asset: image)
+                } else {
+                    print("2D Downloaded Image Data Corrupt")
+                }
             }
         }
     }

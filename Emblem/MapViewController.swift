@@ -69,7 +69,7 @@ class MapViewController: UIViewController {
             if let dataDict = data[0] as? NSDictionary {
                 let lat = String(dataDict["lat"]!)
                 let long = String(dataDict["long"]!)
-                let color = String(dataDict["markerColor"]!)
+                let color = "#fe7569"
                 self.createMarker(lat, longitude: long, color: color)
             }
         }

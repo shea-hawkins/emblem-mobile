@@ -16,7 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     let googleMapsApiKey = "AIzaSyBi7NLOagsHBOfINbLARaXhHVoOSBw3-_E"
-    let deployedServerString:String = "http://138.68.23.39:3000/"
+    let deployedServerString:String = "http://www.emblemar.com/"
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
@@ -40,7 +40,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let font = UIFont(name: "OpenSans", size: 17) {
             UINavigationBar.appearance().titleTextAttributes = [NSFontAttributeName: font, NSForegroundColorAttributeName: UIColor.blackColor()]
             UIBarButtonItem.appearance().setTitleTextAttributes([NSFontAttributeName: font], forState: .Normal)
-            print("OpenSans BoldEnabled")
+            
             
         }
         return true
