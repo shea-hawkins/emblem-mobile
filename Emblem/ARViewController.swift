@@ -45,10 +45,12 @@ class ARViewController: UIViewController {
         
         let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(self.handleMySwipeLeftGesture))
         swipeLeft.direction = .Left
+        
         let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(self.handleMySwipeRightGesture))
         swipeRight.direction = .Right
+        
         let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(self.back))
-        swipeRight.direction = .Down
+        swipeDown.direction = .Down
         
         
         let notificationCenter = NSNotificationCenter.defaultCenter()
@@ -79,7 +81,7 @@ class ARViewController: UIViewController {
       
         if let leftImage = UIImage(named: "plus-symbol-white.png") {
             let leftButton = UIButton(type: UIButtonType.Custom)
-            leftButton.frame = CGRectMake(20, 20, 20, 20)
+            leftButton.frame = CGRectMake(25, 25, 25, 25)
             leftButton.contentMode = UIViewContentMode.ScaleAspectFit
             leftButton.setImage(leftImage, forState: .Normal)
             leftButton.addTarget(self, action: #selector(ARViewController.handleMySwipeRightGesture(_:)), forControlEvents: .TouchUpInside)
@@ -89,7 +91,7 @@ class ARViewController: UIViewController {
         
         if let rightImage = UIImage(named: "menu.png") {
             let rightButton = UIButton(type: UIButtonType.Custom)
-            rightButton.frame = CGRectMake(UIScreen.mainScreen().bounds.width - 40, 20, 20, 20)
+            rightButton.frame = CGRectMake(UIScreen.mainScreen().bounds.width - 50, 25, 25, 25)
             rightButton.contentMode = UIViewContentMode.ScaleAspectFit
             rightButton.setImage(rightImage, forState: .Normal)
             rightButton.addTarget(self, action: #selector(ARViewController.handleMySwipeLeftGesture(_:)), forControlEvents: .TouchUpInside)
@@ -98,7 +100,7 @@ class ARViewController: UIViewController {
         
         if let downImage = UIImage(named: "down-arrow-white.png") {
             let downButton = UIButton(type: UIButtonType.Custom)
-            downButton.frame = CGRectMake((UIScreen.mainScreen().bounds.width - 20) / 2, 20, 20, 20)
+            downButton.frame = CGRectMake((UIScreen.mainScreen().bounds.width - 25) / 2, 25, 25, 25)
             downButton.contentMode = UIViewContentMode.ScaleAspectFit
             downButton.setImage(downImage, forState: .Normal)
             downButton.addTarget(self, action: #selector(ARViewController.back), forControlEvents: .TouchUpInside)

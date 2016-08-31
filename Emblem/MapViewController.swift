@@ -16,8 +16,6 @@ protocol MapViewControllerDelegate {
 
 class MapViewController: UIViewController {
     
-    
-    var serverUrl:NSURL!
     let locationManager = CLLocationManager()
     var socket: SocketIOClient!
     var placeLat:Double = 0
@@ -71,7 +69,8 @@ class MapViewController: UIViewController {
             if let dataDict = data[0] as? NSDictionary {
                 let lat = String(dataDict["lat"]!)
                 let long = String(dataDict["long"]!)
-                self.createMarker(lat, longitude: long)
+                let color = "#fe7569"
+                self.createMarker(lat, longitude: long, color: color)
             }
         }
         socket.connect()
@@ -100,14 +99,15 @@ class MapViewController: UIViewController {
             if response.statusCode == 200 {
                 let json = JSON(data:data)
                 for(_, subJSON):(String, JSON) in json {
-                    self.createMarker(subJSON["lat"].stringValue, longitude: subJSON["long"].stringValue)
+                    self.createMarker(subJSON["lat"].stringValue, longitude: subJSON["long"].stringValue, color: subJSON["markerColor"].stringValue)
                 }
             }
         }
     }
     
-    func createMarker(latitude: String, longitude: String) {
+    func createMarker(latitude: String, longitude: String, color: String) {
         dispatch_async(dispatch_get_main_queue()) {
+            let markerColor = UIColor().HexToColor(color)
             let marker = GMSMarker()
             guard let lat = CLLocationDegrees(latitude) else {
                 return
@@ -117,6 +117,7 @@ class MapViewController: UIViewController {
             }
             marker.position = CLLocationCoordinate2DMake(lat, long)
             marker.appearAnimation = kGMSMarkerAnimationPop
+            marker.icon = GMSMarker.markerImageWithColor(markerColor)
             marker.map = self.mapView
         }
     }
@@ -185,5 +186,30 @@ extension MapViewController: CLLocationManagerDelegate {
                 getMarkers()
             }
         }
+    }
+}
+
+extension UIColor{
+    func HexToColor(hexString: String, alpha:CGFloat? = 1.0) -> UIColor {
+        // Convert hex string to an integer
+        let hexint = Int(self.intFromHexString(hexString))
+        let red = CGFloat((hexint & 0xff0000) >> 16) / 255.0
+        let green = CGFloat((hexint & 0xff00) >> 8) / 255.0
+        let blue = CGFloat((hexint & 0xff) >> 0) / 255.0
+        let alpha = alpha!
+        // Create color object, specifying alpha as well
+        let color = UIColor(red: red, green: green, blue: blue, alpha: alpha)
+        return color
+    }
+    
+    func intFromHexString(hexStr: String) -> UInt32 {
+        var hexInt: UInt32 = 0
+        // Create scanner
+        let scanner: NSScanner = NSScanner(string: hexStr)
+        // Tell scanner to skip the # character
+        scanner.charactersToBeSkipped = NSCharacterSet(charactersInString: "#")
+        // Scan hex value
+        scanner.scanHexInt(&hexInt)
+        return hexInt
     }
 }

@@ -133,22 +133,24 @@ class ChangeArtTableViewController: UITableViewController {
         let backgroundLoadingView = Utils.genLoadingScreen(cell.bounds.width, height: cell.bounds.height, loadingText: "Teleporting Image....")
         cell.contentView.addSubview(backgroundLoadingView)
         
-        let artId = String(self.artData[indexPath.row]["ArtId"]!)
-
-        let artType = ResourceHandler.getArtTypeFromExtension(self.artData[indexPath.row]["type"] as! String)
-        
-        let that = self;
-        ResourceHandler.retrieveResource(artId, type: artType, onComplete: {(resource: NSObject) in
-            dispatch_async(dispatch_get_main_queue(), {
-                if (artType == .IMAGE) {
-                    that.hydrateCellAtIndexPath(indexPath, image: resource as! UIImage)
-                } else {
-                    let image = UIImage(named: "Emblem.jpg")!
-                    that.hydrateCellAtIndexPath(indexPath, image: image)
-                }
-                backgroundLoadingView.removeFromSuperview()
+        if let artId = self.artData[indexPath.row]["ArtId"] as? Int{
+            let stringArtId = String(artId)
+            let artType = ResourceHandler.getArtTypeFromExtension(self.artData[indexPath.row]["type"] as! String)
+            
+            let that = self;
+            ResourceHandler.retrieveResource(stringArtId, type: artType, onComplete: {(resource: NSObject) in
+                dispatch_async(dispatch_get_main_queue(), {
+                    if (artType == .IMAGE) {
+                        that.hydrateCellAtIndexPath(indexPath, image: resource as! UIImage)
+                    } else {
+                        let image = UIImage(named: "Emblem.jpg")!
+                        that.hydrateCellAtIndexPath(indexPath, image: image)
+                    }
+                    backgroundLoadingView.removeFromSuperview()
+                })
             })
-        })
+        }
+
         
         return cell
     }
