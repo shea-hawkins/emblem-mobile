@@ -24,7 +24,7 @@ Vuforia's C++ library with Swift using Objective-C.
 
 Authors
 --------------------------
-Check out the [server and web client repository](https://github.com/Hadashco/emblem-web) for complete details on this application and its stack!
+Check out the [server and web client repository and README](https://github.com/Hadashco/emblem-web) for complete details on this application and its stack!
 * [Conor Carey](https://www.linkedin.com/in/conor-carey-b2b34097) ([ccarey221](https://github.com/ccarey221))
 * [Dane Jordan](https://www.linkedin.com/in/daneelijordan) ([Dane456](https://github.com/Dane456))
 * [Hannah Henderson](https://www.linkedin.com/in/hahenderson) ([hannahhenderson](https://github.com/hannahhenderson))
