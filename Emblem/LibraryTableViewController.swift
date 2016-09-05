@@ -133,17 +133,24 @@ class LibraryTableViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let artID = self.artData[indexPath.row]["id"] as! Int
-        let url = NSURL(string: Store.serverLocation + "art/\(artID)/place")!
-        HTTPRequest.post(["lat": Store.lat, "long": Store.long], dataType: "application/json", url: url) { (succeeded, msg) in
-            if succeeded {
-                self.artPlaceId = msg["id"].intValue
-                dispatch_async(dispatch_get_main_queue(), {() -> Void in
-                    self.performSegueWithIdentifier(ARViewController.getUnwindSegueFromLibraryView(), sender: indexPath.row)
-                })
+        let alert = UIAlertController(title: "Post image to location?", message: "Would you like to post this image to your current location?", preferredStyle: .Alert)
+        alert.addAction(UIAlertAction(title: "Lets do it!", style: .Default, handler: {(action) -> Void in
+            let artID = self.artData[indexPath.row]["id"] as! Int
+            let url = NSURL(string: Store.serverLocation + "art/\(artID)/place")!
+            HTTPRequest.post(["lat": Store.lat, "long": Store.long], dataType: "application/json", url: url) { (succeeded, msg) in
+                if succeeded {
+                    self.artPlaceId = msg["id"].intValue
+                    dispatch_async(dispatch_get_main_queue(), {() -> Void in
+                        self.performSegueWithIdentifier(ARViewController.getUnwindSegueFromLibraryView(), sender: indexPath.row)
+                    })
+                }
+                
             }
-            
-        }
+        }))
+        alert.addAction(UIAlertAction(title: "Nevermind", style: .Cancel, handler: nil))
+        self.presentViewController(alert, animated: true, completion: nil)
+        
+
     }
 
 

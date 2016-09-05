@@ -40,7 +40,7 @@ class ChangeArtTableViewController: UITableViewController {
         self.clearsSelectionOnViewWillAppear = false
         if let backImage:UIImage = UIImage(named: "left-arrow.png") {
             let backButton: UIButton = UIButton(type: UIButtonType.Custom)
-            backButton.frame = CGRectMake(0, 0, 15, 15)
+            backButton.frame = CGRectMake(0, 0, 20, 20)
             backButton.contentMode = UIViewContentMode.ScaleAspectFit
             backButton.setImage(backImage, forState: UIControlState.Normal)
             backButton.addTarget(self, action: #selector(backPressed), forControlEvents: .TouchUpInside)
@@ -84,7 +84,7 @@ class ChangeArtTableViewController: UITableViewController {
                 
                 if self.artData.count == 0 {
                     dispatch_async(dispatch_get_main_queue(), {() -> Void in
-                        let alert = UIAlertController(title: "Well look at that!", message: "No art has been posted to this location!", preferredStyle: UIAlertControllerStyle.Alert)
+                        let alert = UIAlertController(title: "No art found!", message: "Post art to this location to see it live!", preferredStyle: UIAlertControllerStyle.Alert)
                         alert.addAction(UIAlertAction(title: "Ok!", style: UIAlertActionStyle.Default, handler: nil))
                         self.presentViewController(alert, animated: true, completion: nil)
                     })

@@ -14,8 +14,8 @@ class EventedButton: UIButton {
 
 
 class ARMenuView: UIView {
-    private var upvote: EventedButton!
-    private var downvote: EventedButton!
+    var upvote: EventedButton!
+    var downvote: EventedButton!
     var events: [String: Array<() -> Void>] = [String: Array<() -> Void>]()
     
     override init(frame: CGRect) {
@@ -38,7 +38,6 @@ class ARMenuView: UIView {
         downvote.layer.backgroundColor = UIColor(red: 17/255, green: 153/255, blue: 158/255, alpha: 1).CGColor
         downvote.layer.cornerRadius = downvote.bounds.height / 2
         downvote.tintColor = .whiteColor()
-        downvote.adjustsImageWhenHighlighted = true
         downvote.setTitle("Upvote", forState: .Normal)
         
         
@@ -51,7 +50,6 @@ class ARMenuView: UIView {
         upvote.layer.backgroundColor = UIColor(red: 17/255, green: 153/255, blue: 158/255, alpha: 1).CGColor
         upvote.layer.cornerRadius = upvote.bounds.height / 2
         upvote.tintColor = .whiteColor()
-        upvote.adjustsImageWhenHighlighted = true
         upvote.setTitle("Downvote", forState: .Normal)
         
         self.addSubview(upvote)

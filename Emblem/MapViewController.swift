@@ -141,15 +141,21 @@ class MapViewController: UIViewController {
 //            ARView.locationManager = locationManager
             let url = "\(Store.serverLocation)place/find/maxArtPlace/\(placeId)"
             
+            UIApplication.sharedApplication().networkActivityIndicatorVisible = true
             HTTPRequest.get(NSURL(string: url)!, getCompleted: {(response, data) in
                 let art = JSON(data: data)
                 print(art)
-                if let artId = art[0]["ArtId"].string {
+                let artId:String = art[0]["ArtId"].stringValue
+                if artId != "" {
                     let artType = ResourceHandler.getArtTypeFromExtension(art[0]["type"].stringValue)
                     ResourceHandler.retrieveResource(artId, type: artType, onComplete: {(resource: NSObject) in
                         dispatch_async(dispatch_get_main_queue(), {
                             ARView.receiveArt(resource, artType: artType, artPlaceId: art[0]["ArtPlaceId"].stringValue)
                         })
+                    })
+                } else {
+                    dispatch_async(dispatch_get_main_queue(), {
+                        ARView.receiveArt(nil, artType: nil, artPlaceId: nil)
                     })
                 }
             });
