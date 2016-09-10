@@ -134,7 +134,7 @@ class LibraryTableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let alert = UIAlertController(title: "Post image to location?", message: "Would you like to post this image to your current location?", preferredStyle: .Alert)
-        alert.addAction(UIAlertAction(title: "Lets do it!", style: .Default, handler: {(action) -> Void in
+        alert.addAction(UIAlertAction(title: "Let's do it!", style: .Default, handler: {(action) -> Void in
             let artID = self.artData[indexPath.row]["id"] as! Int
             let url = NSURL(string: Store.serverLocation + "art/\(artID)/place")!
             HTTPRequest.post(["lat": Store.lat, "long": Store.long], dataType: "application/json", url: url) { (succeeded, msg) in

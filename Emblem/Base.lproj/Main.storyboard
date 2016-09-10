@@ -41,11 +41,10 @@
                                             <constraint firstAttribute="width" constant="240" id="X1d-Mz-f9T"/>
                                         </constraints>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Emblem" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="25I-5p-GBG">
-                                        <rect key="frame" x="240" y="278" width="121" height="44"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="EmblemAR" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="25I-5p-GBG">
+                                        <rect key="frame" x="220" y="278" width="161" height="44"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="44" id="AVt-K7-Bfh"/>
-                                            <constraint firstAttribute="width" constant="121" id="jf9-6O-tmo"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="OpenSans-Extrabold" family="Open Sans" pointSize="29"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
