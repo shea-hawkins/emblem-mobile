@@ -34,11 +34,11 @@ class ARViewController: UIViewController {
     
     
     @IBAction func unwindFromLibaryToARVC(segue: UIStoryboardSegue) {
-        print("unwindFromLibraryToARVC")
+
     }
     
     @IBAction func unwindFromChangeArtToARVC(segue: UIStoryboardSegue) {
-        print("unwindFromChangeArtToARVC")
+
     }
     
     override func viewDidLoad() {
@@ -182,7 +182,7 @@ extension ARViewController: ChangeArtTableViewControllerDelegate {
         // sub views (such as AREAGLView) listening for a change in order to 
         // change arts after the view has already been loaded.
         UIApplication.sharedApplication().networkActivityIndicatorVisible = false
-        print("receiveArt")
+    
         if art != nil {
             self.art = art
             self.artType = artType
@@ -211,7 +211,6 @@ extension ARViewController: ChangeArtTableViewControllerDelegate {
             if succeeded {
                 self.menuView.upvoted()
                 self.menuView.upvote.highlighted = true
-                print("upvoted")
             }
         })
         let alert = UIAlertController(title: "Upvoted!", message: "", preferredStyle: .Alert)
@@ -226,7 +225,6 @@ extension ARViewController: ChangeArtTableViewControllerDelegate {
             if succeeded {
                 self.menuView.downvoted()
                 self.menuView.downvote.highlighted = true
-                print("downvoted")
             }
         })
         let alert = UIAlertController(title: "Downvoted!", message: "", preferredStyle: .Alert)

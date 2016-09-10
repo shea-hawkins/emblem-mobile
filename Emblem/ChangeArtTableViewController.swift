@@ -58,7 +58,6 @@ class ChangeArtTableViewController: UITableViewController {
     }
     
     func backPressed() {
-        print("backpressed")
         self.performSegueWithIdentifier(ARViewController.getUnwindSegueFromChangeArtView(), sender: nil)
     }
     
@@ -78,7 +77,6 @@ class ChangeArtTableViewController: UITableViewController {
                         
                         return netvotes1 > netvotes2
                     }
-                    print("Num IDS: \(self.artData.count)")
                     self.tableView.reloadData()
                 }
                 

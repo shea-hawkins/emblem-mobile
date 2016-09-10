@@ -95,7 +95,6 @@ class MapViewController: UIViewController {
     func getMarkers() {
         let markerUrl = NSURL(string: Store.serverLocation + "artPlace/between/\(self.placeLat - MILEINDEGREES)/\(self.placeLat + MILEINDEGREES)/\(self.placeLong - MILEINDEGREES)/\(self.placeLong + MILEINDEGREES)")!
         HTTPRequest.get(markerUrl){(response, data) in
-            print("GetMarkers: \(response.statusCode)")
             if response.statusCode == 200 {
                 let json = JSON(data:data)
                 for(_, subJSON):(String, JSON) in json {

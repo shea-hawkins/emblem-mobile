@@ -52,7 +52,6 @@ class LibraryTableViewController: UITableViewController {
     }
     
     func handleSwipeLeft(recognizer: UISwipeGestureRecognizer) {
-        print("swipeLeft")
         self.performSegueWithIdentifier(ARViewController.getUnwindSegueFromLibraryView(), sender: nil)
 
     }
