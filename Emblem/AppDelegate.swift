@@ -16,7 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     let googleMapsApiKey = "AIzaSyBi7NLOagsHBOfINbLARaXhHVoOSBw3-_E"
-    let deployedServerString:String = "http://www.emblemar.com/"
+    let deployedServerString:String = "http://www.emblemar.com:3000/"
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
