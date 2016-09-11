@@ -20,7 +20,7 @@ class Utils {
         
         loadingLabel.text = loadingText
         loadingLabel.numberOfLines = 0
-        loadingLabel.font = UIFont(name: "OpenSansLight-Italic", size: 16)
+        loadingLabel.font = UIFont(name: "OpenSansLight-Italic", size: 14)
         loadingLabel.textAlignment = .Center
         loadingIndicator.color = .blackColor()
         loadingIndicator.startAnimating()

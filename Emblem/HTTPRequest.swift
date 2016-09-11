@@ -33,16 +33,18 @@ class HTTPRequest {
             
             if let httpresponse = response as? NSHTTPURLResponse {
                 if error != nil {
-                    print("GET Request Error: \(error!)")
+                    print("GET Request Error: \(error!.localizedDescription)")
                 } else {
                     print("GET Server Response: \(httpresponse.statusCode)")
                     print("GET Server URL: \(httpresponse.URL!.absoluteString)")
                     getCompleted(response: httpresponse, data: data!)
                 }
+            } else if let error = error {
+                print("GET Request error: \(error.localizedDescription)")
             } else {
                 print("No Server Response")
             }
-        } 
+        }
         task.resume()
         
     }
