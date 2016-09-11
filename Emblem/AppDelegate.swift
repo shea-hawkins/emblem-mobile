@@ -16,18 +16,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     let googleMapsApiKey = "AIzaSyBi7NLOagsHBOfINbLARaXhHVoOSBw3-_E"
-    let deployedServerString:String = "http://www.emblemar.com/"
+    let deployedServerString:String = "http://www.emblemar.com:3000/"
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        
-        
-        
+
+
+
         if let devServer = NSProcessInfo.processInfo().environment["DEV_SERVER"] as String? {
             Store.serverLocation = devServer
         } else {
             Store.serverLocation = deployedServerString
         }
-        
+
         // Temp until we can retrieve vals from cache
         NSURLCache.setSharedURLCache(NSURLCache(memoryCapacity: 0, diskCapacity: 0, diskPath: nil))
 
@@ -40,12 +40,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let font = UIFont(name: "OpenSans", size: 17) {
             UINavigationBar.appearance().titleTextAttributes = [NSFontAttributeName: font, NSForegroundColorAttributeName: UIColor.blackColor()]
             UIBarButtonItem.appearance().setTitleTextAttributes([NSFontAttributeName: font], forState: .Normal)
-            
-            
+
+
         }
         return true
     }
-    
+
     func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
         return FBSDKApplicationDelegate.sharedInstance().application(application, openURL: url, sourceApplication: sourceApplication, annotation: annotation)
         // Add any custom logic here.
@@ -76,4 +76,3 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
 }
-
