@@ -48,7 +48,6 @@
 		71291CED1D64EB240092C4A9 /* Noblesse.png in Resources */ = {isa = PBXBuildFile; fileRef = 71291CEC1D64EB240092C4A9 /* Noblesse.png */; };
 		71291CF61D651F620092C4A9 /* ARSceneSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71291CF51D651F620092C4A9 /* ARSceneSource.swift */; };
 		717FFC9B1D6931D600DABC2A /* ARMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 717FFC9A1D6931D600DABC2A /* ARMenuView.swift */; };
-		718E64131D5E971E0023B860 /* lib in Resources */ = {isa = PBXBuildFile; fileRef = 718E64121D5E971E0023B860 /* lib */; };
 		718E643A1D6012E20023B860 /* libVuforia.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 718E64391D6012E20023B860 /* libVuforia.a */; };
 		718E643D1D60157F0023B860 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 718E643C1D60157F0023B860 /* AudioToolbox.framework */; };
 		718E643F1D6015880023B860 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 718E643E1D6015880023B860 /* AVFoundation.framework */; };
@@ -498,7 +497,6 @@
 				357FAB271D6F784D002F74D2 /* OpenSans-BoldItalic.ttf in Resources */,
 				357FAB351D6F7853002F74D2 /* OpenSans-Semibold.ttf in Resources */,
 				357FAB321D6F7853002F74D2 /* OpenSans-Light.ttf in Resources */,
-				718E64131D5E971E0023B860 /* lib in Resources */,
 				71291CDA1D63DE690092C4A9 /* Emblem.xml in Resources */,
 				35A87DE81D52B997004E739E /* Main.storyboard in Resources */,
 				357FAB361D6F7853002F74D2 /* OpenSans-SemiboldItalic.ttf in Resources */,
@@ -744,6 +742,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -770,6 +769,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_MODULE_NAME = Emblem;
 				SDKROOT = iphoneos;
+				SWIFT_OBJC_BRIDGING_HEADER = "Emblem/Emblem-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "armv7 armv7s arm64";
@@ -794,7 +794,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
@@ -813,6 +813,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_MODULE_NAME = Emblem;
 				SDKROOT = iphoneos;
+				SWIFT_OBJC_BRIDGING_HEADER = "Emblem/Emblem-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VALID_ARCHS = "armv7 armv7s arm64";
@@ -825,7 +826,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
 				HEADER_SEARCH_PATHS = (
@@ -910,8 +911,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				ENABLE_BITCODE = NO;
 				"FRAMEWORK_SEARCH_PATHS[arch=*]" = "$(PROJECT_DIR)";
 				GCC_OPTIMIZATION_LEVEL = s;

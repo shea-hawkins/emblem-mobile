@@ -34,22 +34,25 @@ class MapViewController: UIViewController {
         if let location = mapView.myLocation {
             lat = String(location.coordinate.latitude)
             long = String(location.coordinate.longitude)
-
+            let url = "\(Store.serverLocation)place/find/\(lat)/\(long)"
+            
+            HTTPRequest.get(NSURL(string: url)!, getCompleted: {(response, data) in
+                if response.statusCode == 200 || response.statusCode == 201 {
+                    let json = JSON(data:data)
+                    print(json)
+                    dispatch_async(dispatch_get_main_queue(), {() -> Void in
+                        self.performSegueWithIdentifier(ARViewController.getEntrySegueFromMapView(), sender: json["id"].stringValue)
+                    })
+                } else {
+                    
+                }
+            })
+        } else {
+            let alert = UIAlertController(title: "Gee wilikers", message: "GPS is mid-convo with your device, try again shortly", preferredStyle: .Alert)
+            alert.addAction(UIAlertAction(title: "Got it.", style: .Default, handler: nil))
+            self.presentViewController(alert, animated: true, completion: nil)
         }
 
-        let url = "\(Store.serverLocation)place/find/\(lat)/\(long)"
-        
-        HTTPRequest.get(NSURL(string: url)!, getCompleted: {(response, data) in
-            if response.statusCode == 200 || response.statusCode == 201 {
-                let json = JSON(data:data)
-                print(json)
-                dispatch_async(dispatch_get_main_queue(), {() -> Void in
-                    self.performSegueWithIdentifier(ARViewController.getEntrySegueFromMapView(), sender: json["id"].stringValue)
-                })
-            } else {
-                
-            }
-        })
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -95,7 +98,6 @@ class MapViewController: UIViewController {
     func getMarkers() {
         let markerUrl = NSURL(string: Store.serverLocation + "artPlace/between/\(self.placeLat - MILEINDEGREES)/\(self.placeLat + MILEINDEGREES)/\(self.placeLong - MILEINDEGREES)/\(self.placeLong + MILEINDEGREES)")!
         HTTPRequest.get(markerUrl){(response, data) in
-            print("GetMarkers: \(response.statusCode)")
             if response.statusCode == 200 {
                 let json = JSON(data:data)
                 for(_, subJSON):(String, JSON) in json {
@@ -138,18 +140,23 @@ class MapViewController: UIViewController {
             let placeId = sender as! String
             let nav = segue.destinationViewController as! UINavigationController
             let ARView = nav.topViewController as! ARViewController
-//            ARView.locationManager = locationManager
             let url = "\(Store.serverLocation)place/find/maxArtPlace/\(placeId)"
             
+            UIApplication.sharedApplication().networkActivityIndicatorVisible = true
             HTTPRequest.get(NSURL(string: url)!, getCompleted: {(response, data) in
                 let art = JSON(data: data)
                 print(art)
-                if let artId = art[0]["ArtId"].string {
+                let artId:String = art[0]["ArtId"].stringValue
+                if artId != "" {
                     let artType = ResourceHandler.getArtTypeFromExtension(art[0]["type"].stringValue)
                     ResourceHandler.retrieveResource(artId, type: artType, onComplete: {(resource: NSObject) in
                         dispatch_async(dispatch_get_main_queue(), {
                             ARView.receiveArt(resource, artType: artType, artPlaceId: art[0]["ArtPlaceId"].stringValue)
                         })
+                    })
+                } else {
+                    dispatch_async(dispatch_get_main_queue(), {
+                        ARView.receiveArt(nil, artType: nil, artPlaceId: nil)
                     })
                 }
             });

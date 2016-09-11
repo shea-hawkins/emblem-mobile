@@ -17,6 +17,7 @@ class ARViewController: UIViewController {
     var sector:String!
     private var artPlaceId: String? = nil
     
+    
     deinit {
         NSNotificationCenter.defaultCenter().removeObserver(self)
         do {
@@ -33,11 +34,11 @@ class ARViewController: UIViewController {
     
     
     @IBAction func unwindFromLibaryToARVC(segue: UIStoryboardSegue) {
-        print("unwindFromLibraryToARVC")
+
     }
     
     @IBAction func unwindFromChangeArtToARVC(segue: UIStoryboardSegue) {
-        print("unwindFromChangeArtToARVC")
+
     }
     
     override func viewDidLoad() {
@@ -98,9 +99,9 @@ class ARViewController: UIViewController {
             self.view.addSubview(rightButton)
         }
         
-        if let downImage = UIImage(named: "down-arrow-white.png") {
+        if let downImage = UIImage(named: "letter-x-white.png") {
             let downButton = UIButton(type: UIButtonType.Custom)
-            downButton.frame = CGRectMake((UIScreen.mainScreen().bounds.width - 25) / 2, 25, 25, 25)
+            downButton.frame = CGRectMake((UIScreen.mainScreen().bounds.width - 22) / 2, 25, 22, 22)
             downButton.contentMode = UIViewContentMode.ScaleAspectFit
             downButton.setImage(downImage, forState: .Normal)
             downButton.addTarget(self, action: #selector(ARViewController.back), forControlEvents: .TouchUpInside)
@@ -132,7 +133,7 @@ class ARViewController: UIViewController {
     }
     
     override func viewWillDisappear(animated: Bool) {
-        self.didRecievePauseNotice();
+        self.didRecievePauseNotice()
         super.viewWillDisappear(animated)
     }
     
@@ -180,29 +181,41 @@ extension ARViewController: ChangeArtTableViewControllerDelegate {
         // Can create an observable pattern here  where this notifies
         // sub views (such as AREAGLView) listening for a change in order to 
         // change arts after the view has already been loaded.
-        print("receiveArt")
-        self.art = art;
-        self.artType = artType;
-        self.artPlaceId = artPlaceId;
-        if (self.sceneSource != nil) {
-            self.sceneSource!.setArt(art, artType: self.artType!);
-            let eaglView = self.vuforiaManager?.eaglView;
-            let scene = self.sceneSource!.sceneForEAGLView(eaglView, viewInfo: nil);
-            eaglView!.changeScene(scene);
+        UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+    
+        if art != nil {
+            self.art = art
+            self.artType = artType
+            self.artPlaceId = artPlaceId
+            if (self.sceneSource != nil) {
+                self.sceneSource!.setArt(art, artType: self.artType!)
+                let eaglView = self.vuforiaManager?.eaglView
+                let scene = self.sceneSource!.sceneForEAGLView(eaglView, viewInfo: nil)
+                eaglView!.changeScene(scene)
+            }
+            self.menuView.upvote.enabled = true
+            self.menuView.downvote.enabled = true
+        } else {
+            let alert = UIAlertController(title: "Look at that!", message: "No art has been posted here yet! Looks like you beat everyone to the chase. Add art to this location to see it live!", preferredStyle: .Alert)
+            alert.addAction(UIAlertAction(title: "Sweet!", style: UIAlertActionStyle.Default, handler: nil))
+            self.presentViewController(alert, animated: true, completion: nil)
+            self.menuView.upvote.enabled = false
+            self.menuView.downvote.enabled = false
         }
     }
     
     func upvoteArt() {
-        NSLog("Upvoting!")
-        
         let url = NSURL(string: "\(Store.serverLocation)artplace/\(self.artPlaceId!)/vote")!
         
         HTTPRequest.post(["vote": 1], dataType: "application/json", url: url, postCompleted: {(succeeded, msg) in
             if succeeded {
                 self.menuView.upvoted()
-                print("upvoted")
+                self.menuView.upvote.highlighted = true
             }
         })
+        let alert = UIAlertController(title: "Upvoted!", message: "", preferredStyle: .Alert)
+        alert.addAction(UIAlertAction(title: "Sweet!", style: UIAlertActionStyle.Default, handler: nil))
+        self.presentViewController(alert, animated: true, completion: nil)
     }
     
     func downvoteArt() {
@@ -211,9 +224,12 @@ extension ARViewController: ChangeArtTableViewControllerDelegate {
         HTTPRequest.post(["vote": -1], dataType: "application/json", url: url!, postCompleted: {(succeeded, msg) in
             if succeeded {
                 self.menuView.downvoted()
-                print("downvoted")
+                self.menuView.downvote.highlighted = true
             }
         })
+        let alert = UIAlertController(title: "Downvoted!", message: "", preferredStyle: .Alert)
+        alert.addAction(UIAlertAction(title: "Sweet!", style: UIAlertActionStyle.Default, handler: nil))
+        self.presentViewController(alert, animated: true, completion: nil)
     }
 }
 

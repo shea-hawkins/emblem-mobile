@@ -13,6 +13,7 @@ class LibraryTableViewController: UITableViewController {
 
     var artData = [Dictionary<String,AnyObject>]()
     var artPlaceId:Int!
+    var hasFinishedLoading = [Bool]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,7 +53,6 @@ class LibraryTableViewController: UITableViewController {
     }
     
     func handleSwipeLeft(recognizer: UISwipeGestureRecognizer) {
-        print("swipeLeft")
         self.performSegueWithIdentifier(ARViewController.getUnwindSegueFromLibraryView(), sender: nil)
 
     }
@@ -93,6 +93,14 @@ class LibraryTableViewController: UITableViewController {
                         self.tableView.reloadData()
                     })
                 }
+                if self.artData.count == 0 {
+                    let alert = UIAlertController(title: "Your Library is empty!", message: "Add art to your library on the web portal (emblemar.com) or here from your photos!", preferredStyle: .Alert)
+                    alert.addAction(UIAlertAction(title: "Got it!", style: .Default, handler: nil))
+                    dispatch_async(dispatch_get_main_queue(), {() in
+                        self.presentViewController(alert, animated: true, completion: nil)
+                    })
+                }
+                self.hasFinishedLoading = Array(count: self.artData.count, repeatedValue: false)
             }
         }
 
@@ -126,6 +134,7 @@ class LibraryTableViewController: UITableViewController {
                     that.hydrateCellAtIndexPath(indexPath, image: image)
                 }
                 backgroundLoadingView.removeFromSuperview()
+                self.hasFinishedLoading[indexPath.row] = true
             })
         })
         
@@ -133,17 +142,32 @@ class LibraryTableViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let artID = self.artData[indexPath.row]["id"] as! Int
-        let url = NSURL(string: Store.serverLocation + "art/\(artID)/place")!
-        HTTPRequest.post(["lat": Store.lat, "long": Store.long], dataType: "application/json", url: url) { (succeeded, msg) in
-            if succeeded {
-                self.artPlaceId = msg["id"].intValue
-                dispatch_async(dispatch_get_main_queue(), {() -> Void in
-                    self.performSegueWithIdentifier(ARViewController.getUnwindSegueFromLibraryView(), sender: indexPath.row)
-                })
-            }
+        
+        if !self.hasFinishedLoading[indexPath.row] {
+            let alert = UIAlertController(title: "Hold on there sparky", message: "The image hasn't quite finished loading", preferredStyle: .Alert)
+            alert.addAction(UIAlertAction(title: "10-4 *cshh*", style: .Default, handler: nil))
+            self.presentViewController(alert, animated: true, completion: nil)
+        } else {
+            let alert = UIAlertController(title: "Post image to location?", message: "Would you like to post this image to your current location?", preferredStyle: .Alert)
+            alert.addAction(UIAlertAction(title: "Let's do it!", style: .Default, handler: {(action) -> Void in
+                let artID = self.artData[indexPath.row]["id"] as! Int
+                let url = NSURL(string: Store.serverLocation + "art/\(artID)/place")!
+                HTTPRequest.post(["lat": Store.lat, "long": Store.long], dataType: "application/json", url: url) { (succeeded, msg) in
+                    if succeeded {
+                        self.artPlaceId = msg["id"].intValue
+                        dispatch_async(dispatch_get_main_queue(), {() -> Void in
+                            self.performSegueWithIdentifier(ARViewController.getUnwindSegueFromLibraryView(), sender: indexPath.row)
+                        })
+                    }
+                    
+                }
+            }))
+            alert.addAction(UIAlertAction(title: "Nevermind", style: .Cancel, handler: nil))
+            self.presentViewController(alert, animated: true, completion: nil)
             
         }
+        
+
     }
 
 
